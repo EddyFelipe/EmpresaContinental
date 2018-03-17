@@ -8,6 +8,7 @@ package Forms;
 import Animacion.Animacion;
 import Clases.Conexion;
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 /**
  *
@@ -21,7 +22,11 @@ public class General extends javax.swing.JFrame {
     Conexion con;
     public General() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        
+     
+      // this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+      this.setLocationRelativeTo(null);
        // con.ConectarBaseDatos();
     }
 
@@ -60,8 +65,9 @@ public class General extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(1500, 860));
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 41, 46));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -98,12 +104,10 @@ public class General extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1360, 0, 70, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 50));
-
         jPanel2.setBackground(new java.awt.Color(36, 41, 46));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(255, 204, 51));
+        jPanel4.setBackground(new java.awt.Color(0, 136, 204));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/menu.png"))); // NOI18N
@@ -131,6 +135,11 @@ public class General extends javax.swing.JFrame {
         jButton4.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Productos3.png"))); // NOI18N
         jButton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/productos1.png"))); // NOI18N
         jButton4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButton4MouseMoved(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -204,7 +213,20 @@ public class General extends javax.swing.JFrame {
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 1420, 800));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 1500, 810));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1500, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -234,6 +256,7 @@ public class General extends javax.swing.JFrame {
         jPanel5.revalidate();
         jPanel5.repaint();
        
+       
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -257,6 +280,21 @@ public class General extends javax.swing.JFrame {
         jPanel5.repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseMoved
+        // TODO add your handling code here:
+ 
+    }//GEN-LAST:event_jButton4MouseMoved
+
+    public int ancho(){
+        int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
+      
+       return ancho;
+    }
+    
+    public int alto(){
+         int alto = java.awt.Toolkit.getDefaultToolkit().getScreenSize().height;
+         return alto;
+    }
     /**
      * @param args the command line arguments
      */

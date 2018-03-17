@@ -7,6 +7,9 @@ package Clases;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,41 +17,28 @@ import java.sql.PreparedStatement;
  */
 public class Insertar_producto {
 
-     String sql= "INSERT INTO productos () values()";
-    
-    public void Insertar_tela(String tipo, int cantidad,String color,double precio_venya){
+        String sql= "INSERT INTO producto(tipo,cantidad,yardaje,color,marca,tamaño,numero,medida,precio_venta,producto_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
         
-        PreparedStatement insertar;
+    public void insertar_producto(String tipo, int cantidad,int yardaje,String color,String marca,int tamaño,int numero,double medida,double precio_venta,int id_producto){
         
-    }
-    
-    public void Insertar_etiqueta(String tamaño, int cantidad,String marca,double precio_venta){
-        
-        PreparedStatement insertar;
-        
-    }
-    
-    public void insertar_carrito(int cantidad,String tamaño,String color,int numero,double preci_venta){
-        
-    }
-    
-    public void insertar_metales(String tipo,int cantidad,int medida,double precio_venta){
-        
-    }
-    
-    public void insertar_correa(int cantidad,String color,int numero,double precio_venta){
-        
-    }
-    
-    public void insertar_zipper(int numero,int cantidad,String color,int tamaño,double precio_venta){
-        
-    }
-    
-    public void insertar_hilo(int cantidad,String marca,String color,double precio_venta){
-        
-    }
-    
-    public void insertar_plastico(String tipo,int cantidad,int medida,double precio_venta){
-        
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+            try {
+            PreparedStatement pps = cn.prepareStatement(sql);
+            pps.setString(1,tipo);
+            pps.setInt(2,cantidad);
+            pps.setInt(3,yardaje);
+            pps.setString(4,color);
+            pps.setString(5,marca);
+            pps.setInt(6,tamaño);
+            pps.setInt(7,numero);
+            pps.setDouble(8,medida);
+            pps.setDouble(9,precio_venta);
+             pps.setInt(10,id_producto);
+            pps.executeUpdate();
+            
+            } catch (SQLException ex) {
+                Logger.getLogger(Insertar_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 }
