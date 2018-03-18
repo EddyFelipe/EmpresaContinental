@@ -47,11 +47,11 @@ public class General extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnVentas = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        pnlContenedor = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -66,7 +66,6 @@ public class General extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(1500, 860));
         setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(36, 41, 46));
@@ -147,21 +146,21 @@ public class General extends javax.swing.JFrame {
         });
         jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 110, 50, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/venta.png"))); // NOI18N
-        jButton5.setBorder(null);
-        jButton5.setBorderPainted(false);
-        jButton5.setContentAreaFilled(false);
-        jButton5.setFocusPainted(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Venta2.png"))); // NOI18N
-        jButton5.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Venta1.png"))); // NOI18N
-        jButton5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/venta.png"))); // NOI18N
+        btnVentas.setBorder(null);
+        btnVentas.setBorderPainted(false);
+        btnVentas.setContentAreaFilled(false);
+        btnVentas.setFocusPainted(false);
+        btnVentas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVentas.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Venta2.png"))); // NOI18N
+        btnVentas.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Venta1.png"))); // NOI18N
+        btnVentas.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnVentasActionPerformed(evt);
             }
         });
-        jPanel4.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 200, -1, -1));
+        jPanel4.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 200, -1, -1));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cliente.png"))); // NOI18N
         jButton6.setBorder(null);
@@ -198,20 +197,20 @@ public class General extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-170, 0, 230, 810));
 
-        jPanel5.setBackground(new java.awt.Color(36, 41, 46));
+        pnlContenedor.setBackground(new java.awt.Color(36, 41, 46));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlContenedorLayout = new javax.swing.GroupLayout(pnlContenedor);
+        pnlContenedor.setLayout(pnlContenedorLayout);
+        pnlContenedorLayout.setHorizontalGroup(
+            pnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1420, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlContenedorLayout.setVerticalGroup(
+            pnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 800, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 1420, 800));
+        jPanel2.add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 1420, 800));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,10 +250,10 @@ public class General extends javax.swing.JFrame {
         Productos salir = new Productos();
         salir.setSize(1420,810);
         salir.setLocation(0,0);
-        jPanel5.removeAll();
-        jPanel5.add(salir,BorderLayout.CENTER);
-        jPanel5.revalidate();
-        jPanel5.repaint();
+        pnlContenedor.removeAll();
+        pnlContenedor.add(salir,BorderLayout.CENTER);
+        pnlContenedor.revalidate();
+        pnlContenedor.repaint();
        
        
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -274,11 +273,16 @@ public class General extends javax.swing.JFrame {
         this.setState(General.ICONIFIED);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         // TODO add your handling code here:
-        jPanel5.removeAll();
-        jPanel5.repaint();
-    }//GEN-LAST:event_jButton5ActionPerformed
+        Ventas venta =  new Ventas();
+        venta.setSize(1420,810);
+        venta.setLocation(0,0);
+        pnlContenedor.removeAll();
+        pnlContenedor.add(venta,BorderLayout.CENTER);
+        pnlContenedor.revalidate();
+        pnlContenedor.repaint();
+    }//GEN-LAST:event_btnVentasActionPerformed
 
     private void jButton4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseMoved
         // TODO add your handling code here:
@@ -331,11 +335,11 @@ public class General extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVentas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
@@ -343,6 +347,6 @@ public class General extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    public static javax.swing.JPanel jPanel5;
+    public static javax.swing.JPanel pnlContenedor;
     // End of variables declaration//GEN-END:variables
 }

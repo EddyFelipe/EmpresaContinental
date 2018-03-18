@@ -73,7 +73,7 @@ public class Productos extends javax.swing.JPanel {
         tablaproducto = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
 
         jTextField1.setText("jTextField1");
 
@@ -289,14 +289,14 @@ public class Productos extends javax.swing.JPanel {
         add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, 140, -1));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Telas", "Etiquetas", "Carrito", "Metales", "Correas", "Zippers", "Hilo", "Plastico" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Telas", "Etiquetas", "Carrito", "Metales", "Correas", "Zippers", "Hilo", "Plastico" }));
         add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 60, 170, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-      General.jPanel5.removeAll();
-      General.jPanel5.repaint();
+      General.pnlContenedor.removeAll();
+      General.pnlContenedor.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
