@@ -22,7 +22,7 @@ public class Insertar_producto {
     public void insertar_producto(String tipo, int cantidad,int yardaje,String color,String marca,int tamaño,int numero,double medida,double precio_venta,int id_producto){
         
         Conexion con = new Conexion();
-        Connection cn=con.ConectarBaseDatos();
+        Connection cn= con.ConectarBaseDatos();
             try {
             PreparedStatement pps = cn.prepareStatement(sql);
             pps.setString(1,tipo);

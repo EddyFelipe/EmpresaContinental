@@ -5,7 +5,10 @@
  */
 package Forms;
 
+import Clases.Conexion;
 import java.awt.BorderLayout;
+import java.sql.Connection;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,9 +19,31 @@ public class Ventas extends javax.swing.JPanel {
     /**
      * Creates new form Ventas
      */
+    private String ColumnaVentas[] = {"Producto","Cantidad","Descripcion","Q. Unitario","Total"};
+    private DefaultTableModel ModeloVentas,ModeloProductos;
+    private Connection ConexionBaseDatos;
     public Ventas() {
         initComponents();
-        pnlProducto.setVisible(false);
+       Grupo1.add(RbYarda);
+       Grupo1.add(RbRollos);
+       Grupo1.add(RbMillar);
+       Grupo1.add(RbCientos);
+       
+       ModeloProductos = new DefaultTableModel();
+       ModeloVentas = new DefaultTableModel();
+       ModeloVentas.setColumnIdentifiers(ColumnaVentas);        
+       TableVentas.setModel(ModeloVentas);
+        
+       //Conexion a la base de datos
+       Clases.Conexion con = new Conexion();
+       ConexionBaseDatos = con.ConectarBaseDatos();
+    //   ConexionBaseDatos = Clases.Conexion.getConnection();
+       
+       TablaVentas();
+    }
+    private void TablaVentas(){
+       ModeloProductos.addColumn("Nombre Producto"); ModeloProductos.addColumn("Existencia");
+       TablaProductos.setModel(Clases.Ventas.MostrarProducto(ModeloProductos, ConexionBaseDatos));
     }
 
     /**
@@ -30,8 +55,9 @@ public class Ventas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnVentas = new javax.swing.JButton();
-        btnConsultas = new javax.swing.JButton();
+        Grupo1 = new javax.swing.ButtonGroup();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        pnlVentas = new javax.swing.JPanel();
         pnlContenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -42,26 +68,33 @@ public class Ventas extends javax.swing.JPanel {
         txtNombreClient = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
         txtDireccionClient = new javax.swing.JTextField();
-        pnlProducto = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        btnProductos = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnDespachar = new javax.swing.JButton();
-        pnlTabla = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaProductos = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaProductos = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TableVentas = new javax.swing.JTable();
+        RbYarda = new javax.swing.JRadioButton();
+        RbCientos = new javax.swing.JRadioButton();
+        RbMillar = new javax.swing.JRadioButton();
+        RbRollos = new javax.swing.JRadioButton();
+        txtCantidad = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        pnlConsultas = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(36, 41, 46));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnVentas.setText("Venta");
-        add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 6, 130, 46));
+        jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
 
-        btnConsultas.setText("Consultas");
-        add(btnConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 6, 130, 46));
+        pnlVentas.setBackground(new java.awt.Color(36, 41, 46));
 
         pnlContenedor.setBackground(new java.awt.Color(36, 41, 46));
         pnlContenedor.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -103,7 +136,8 @@ public class Ventas extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nit:");
         pnlContenedor.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, -1, -1));
-        pnlContenedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 310, 10));
+        pnlContenedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 190, 10));
+        pnlContenedor.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 310, 10));
 
         txtDireccionClient.setBackground(new java.awt.Color(36, 41, 46));
         txtDireccionClient.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -113,31 +147,10 @@ public class Ventas extends javax.swing.JPanel {
         txtDireccionClient.setBorder(null);
         pnlContenedor.add(txtDireccionClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 310, 40));
 
-        javax.swing.GroupLayout pnlProductoLayout = new javax.swing.GroupLayout(pnlProducto);
-        pnlProducto.setLayout(pnlProductoLayout);
-        pnlProductoLayout.setHorizontalGroup(
-            pnlProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
-        );
-        pnlProductoLayout.setVerticalGroup(
-            pnlProductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
-
-        pnlContenedor.add(pnlProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 960, 600));
-
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Listado de Productos:");
         pnlContenedor.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
-
-        btnProductos.setText("Ingresar Productos");
-        btnProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProductosActionPerformed(evt);
-            }
-        });
-        pnlContenedor.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 150, 46));
 
         jButton1.setText("Descuento");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -150,59 +163,110 @@ public class Ventas extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Descuento:");
-        pnlContenedor.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 370, -1, -1));
+        pnlContenedor.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 670, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Total a pagar:");
-        pnlContenedor.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 400, -1, -1));
+        pnlContenedor.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 670, -1, -1));
 
         btnDespachar.setText("Despachar");
         pnlContenedor.add(btnDespachar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, -1, 46));
 
-        pnlTabla.setBackground(new java.awt.Color(36, 41, 46));
-
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(tablaProductos);
+        jScrollPane2.setViewportView(TablaProductos);
 
-        javax.swing.GroupLayout pnlTablaLayout = new javax.swing.GroupLayout(pnlTabla);
-        pnlTabla.setLayout(pnlTablaLayout);
-        pnlTablaLayout.setHorizontalGroup(
-            pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 940, Short.MAX_VALUE)
+        pnlContenedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 340, 470));
+
+        TableVentas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(TableVentas);
+
+        pnlContenedor.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 630, 440));
+
+        RbYarda.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        RbYarda.setForeground(new java.awt.Color(255, 255, 255));
+        RbYarda.setText("Yarda");
+        pnlContenedor.add(RbYarda, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, -1, -1));
+
+        RbCientos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        RbCientos.setForeground(new java.awt.Color(255, 255, 255));
+        RbCientos.setText("Cientos");
+        pnlContenedor.add(RbCientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, -1, -1));
+
+        RbMillar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        RbMillar.setForeground(new java.awt.Color(255, 255, 255));
+        RbMillar.setText("Millar");
+        pnlContenedor.add(RbMillar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, -1, -1));
+
+        RbRollos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        RbRollos.setForeground(new java.awt.Color(255, 255, 255));
+        RbRollos.setText("Rollos");
+        pnlContenedor.add(RbRollos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, -1, -1));
+
+        txtCantidad.setBackground(new java.awt.Color(36, 41, 46));
+        txtCantidad.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtCantidad.setForeground(new java.awt.Color(255, 255, 255));
+        txtCantidad.setAlignmentX(1.0F);
+        txtCantidad.setAlignmentY(1.0F);
+        txtCantidad.setBorder(null);
+        pnlContenedor.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 180, 30));
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Cantidad:");
+        pnlContenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, -1, -1));
+
+        jButton2.setText("Aceptar");
+        pnlContenedor.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, -1, 46));
+
+        javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
+        pnlVentas.setLayout(pnlVentasLayout);
+        pnlVentasLayout.setHorizontalGroup(
+            pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1418, Short.MAX_VALUE)
+            .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 1418, Short.MAX_VALUE))
         );
-        pnlTablaLayout.setVerticalGroup(
-            pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+        pnlVentasLayout.setVerticalGroup(
+            pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 758, Short.MAX_VALUE)
+            .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE))
         );
 
-        pnlContenedor.add(pnlTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 940, 500));
+        jTabbedPane1.addTab("Ventas", pnlVentas);
 
-        add(pnlContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 1420, 740));
+        pnlConsultas.setBackground(new java.awt.Color(36, 41, 46));
+
+        javax.swing.GroupLayout pnlConsultasLayout = new javax.swing.GroupLayout(pnlConsultas);
+        pnlConsultas.setLayout(pnlConsultasLayout);
+        pnlConsultasLayout.setHorizontalGroup(
+            pnlConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1418, Short.MAX_VALUE)
+        );
+        pnlConsultasLayout.setVerticalGroup(
+            pnlConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 758, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Consultas", pnlConsultas);
+
+        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1420, 800));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        pnlTabla.setVisible(false);
-        pnlProducto.setVisible(true);
-        Productos_panels.ListarProducto Listar = new Productos_panels.ListarProducto();
-        Listar.setSize(9600,600);
-        Listar.setLocation(0,0);
-        pnlProducto.removeAll();
-        pnlProducto.add(Listar,BorderLayout.CENTER);
-        pnlProducto.revalidate();
-        pnlProducto.repaint();
-      
-    }//GEN-LAST:event_btnProductosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -211,26 +275,35 @@ public class Ventas extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConsultas;
+    private javax.swing.ButtonGroup Grupo1;
+    private javax.swing.JRadioButton RbCientos;
+    private javax.swing.JRadioButton RbMillar;
+    private javax.swing.JRadioButton RbRollos;
+    private javax.swing.JRadioButton RbYarda;
+    private javax.swing.JTable TablaProductos;
+    private javax.swing.JTable TableVentas;
     private javax.swing.JButton btnDespachar;
-    private javax.swing.JButton btnProductos;
-    private javax.swing.JButton btnVentas;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel pnlConsultas;
     private javax.swing.JPanel pnlContenedor;
-    private javax.swing.JPanel pnlProducto;
-    private javax.swing.JPanel pnlTabla;
-    private javax.swing.JTable tablaProductos;
+    private javax.swing.JPanel pnlVentas;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDireccionClient;
     private javax.swing.JTextField txtNitClient;
     private javax.swing.JTextField txtNombreClient;

@@ -27,6 +27,8 @@ public class General extends javax.swing.JFrame {
       // this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 
       this.setLocationRelativeTo(null);
+     // con = new Conexion();
+     // con.ConectarBaseDatos();
        // con.ConectarBaseDatos();
     }
 

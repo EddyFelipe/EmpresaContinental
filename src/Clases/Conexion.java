@@ -6,19 +6,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Conexion {
-    
-    public Conexion(){}
-    
+   
+    private static Connection conexion;
+     public Conexion(){}
     public Connection ConectarBaseDatos(){
-        
-        Connection con = null;
+           
         try {
-             con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/continental1", "root", "1234");
-    
+             conexion = DriverManager.getConnection("jdbc:mariadb://localhost:3303/ventas","root","felipe");
+             System.out.println("Abrio");
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return con;
+       return conexion;
     }
+    
+    //public static Connection getConnection(){ return conexion; }
     
 }

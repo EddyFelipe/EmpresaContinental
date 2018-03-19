@@ -34,8 +34,8 @@ public class Productos extends javax.swing.JPanel {
 
       DefaultTableModel modelo = new DefaultTableModel();
       String sql="SELECT * FROM producto";
-      Conexion con = new Conexion();
-      Connection cn=con.ConectarBaseDatos();
+     Conexion con = new Conexion();
+      Connection cn= con.ConectarBaseDatos();
     /**
      * Creates new form Productos
      */
