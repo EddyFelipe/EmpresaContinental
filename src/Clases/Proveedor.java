@@ -5,15 +5,62 @@
  */
 package Clases;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ismar
  */
 public class Proveedor {
-    public void insertar(String nombre,String empresa,String correo,String direccion, String telefono ){
+     String sql= "INSERT INTO proveedor(repartidor,nombre_empresa,correo,direccion) VALUES(?,?,?,?)";
+           String sql1 = "DELETE FROM proveedor WHERE id_proveedor =?";
+           String sql2 = "UPDATE proveedor SET repartidor=?,nombre_empresa=?,correo=?,direccion=? WHERE repartidor=?";
+    public void insertar(String nombre,String empresa,String correo,String direccion){
         
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+            try {
+            PreparedStatement pps = cn.prepareStatement(sql);
+            pps.setString(1,nombre);
+            pps.setString(2,empresa);
+            pps.setString(3,correo);
+            pps.setString(4,direccion);
+            pps.executeUpdate();
+                System.out.println("se agrego exitosamente el proveedor");
+            } catch (SQLException ex) {
+                 Logger.getLogger(Insertar_producto.class.getName()).log(Level.SEVERE, null, ex);
+                 System.out.println("no se agrego correctamente");
+            }
     }
+    
     public void Modificar(int id,String nombre,String empresa,String correo,String direccion, String telefono){
         
     }
+    
+    public void eliminar(int id) throws SQLException{
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+               try (PreparedStatement pps = cn.prepareStatement(sql1)) {
+                   pps.setInt(1, id);
+                   pps.execute();
+               }
+   }
+    
+    public void uptadte(String nombre,String empresa,String correo,String direccion) throws SQLException{
+         Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        PreparedStatement pps = cn.prepareStatement(sql2);
+        pps.setString(1, nombre);
+        pps.setString(2, empresa);
+        pps.setString(3, correo);
+        pps.setString(4, direccion);
+        pps.executeUpdate();
+        pps.close();
+        pps = null;
+    }
+    
 }
