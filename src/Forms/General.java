@@ -7,6 +7,7 @@ package Forms;
 
 import Animacion.Animacion;
 import Clases.Conexion;
+import Clases.Proveedor;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -190,6 +191,11 @@ public class General extends javax.swing.JFrame {
         jButton7.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/proveedor2.png"))); // NOI18N
         jButton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/proveedor1.png"))); // NOI18N
         jButton7.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 350, -1, -1));
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/empleados.png"))); // NOI18N
@@ -296,6 +302,18 @@ public class General extends javax.swing.JFrame {
         // TODO add your handling code here:
  
     }//GEN-LAST:event_jButton4MouseMoved
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+          // TODO add your handling code here:
+        proveedores llamar = new proveedores();
+        llamar.setSize(1420,810);
+        llamar.setLocation(0,0);
+        pnlContenedor.removeAll();
+        pnlContenedor.add(llamar,BorderLayout.CENTER);
+        pnlContenedor.revalidate();
+        pnlContenedor.repaint();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     public int ancho(){
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
