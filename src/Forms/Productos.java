@@ -73,7 +73,7 @@ public class Productos extends javax.swing.JPanel {
         tablaproducto = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
 
@@ -235,10 +235,10 @@ public class Productos extends javax.swing.JPanel {
             .addGap(0, 550, Short.MAX_VALUE)
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 405, 550));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 120, 405, 550));
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 10, 770));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(665, 30, 10, 770));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,16 +280,21 @@ public class Productos extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablaproducto);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 540, 700, 250));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 540, 740, 250));
 
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 200, 140, -1));
 
         jButton3.setText("Eliminar");
         add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, 140, -1));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Telas", "Etiquetas", "Carrito", "Metales", "Correas", "Zippers", "Hilo", "Plastico" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Telas", "Etiquetas", "Carrito", "Metales", "Correas", "Zippers", "Hilo", "Plastico" }));
         add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 60, 170, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -301,90 +306,45 @@ public class Productos extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        Etiqueta etiqueta = new Etiqueta();
-        etiqueta.setSize(405,550);
-        etiqueta.setLocation(0,0);
-        jPanel2.removeAll();
-        jPanel2.add(etiqueta,BorderLayout.CENTER);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+      panel_etiqueta();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        Carrito carrito = new Carrito();
-        carrito.setSize(405,550);
-        carrito.setLocation(0,0);
-        jPanel2.removeAll();
-        jPanel2.add(carrito,BorderLayout.CENTER);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+       panel_carrito();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        Tela tela = new Tela();
-        tela.setSize(405,550);
-        tela.setLocation(0,0);
-        jPanel2.removeAll();
-        jPanel2.add(tela,BorderLayout.CENTER);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+      panel_tela();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        Metales metal = new Metales();
-        metal.setSize(405,550);
-        metal.setLocation(0,0);
-        jPanel2.removeAll();
-        jPanel2.add(metal,BorderLayout.CENTER);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+     panel_metales();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        Correa c = new Correa();
-        c.setSize(405,550);
-        c.setLocation(0,0);
-        jPanel2.removeAll();
-        jPanel2.add(c,BorderLayout.CENTER);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+       panel_correa();
+        
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        Zipper z = new Zipper();
-        z.setSize(405,550);
-        z.setLocation(0,0);
-        jPanel2.removeAll();
-        jPanel2.add(z,BorderLayout.CENTER);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+        panel_zipper();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
-        Hilo h = new Hilo();
-        h.setSize(405,550);
-        h.setLocation(0,0);
-        jPanel2.removeAll();
-        jPanel2.add(h,BorderLayout.CENTER);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+        panel_hilo();
+       
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        Plastico p = new Plastico();
-        p.setSize(405,550);
-        p.setLocation(0,0);
-        jPanel2.removeAll();
-        jPanel2.add(p,BorderLayout.CENTER);
-        jPanel2.revalidate();
-        jPanel2.repaint(); 
+        panel_plastico();
+         
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -420,10 +380,46 @@ public class Productos extends javax.swing.JPanel {
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int fila =tablaproducto.getSelectedRow();
+        
+        switch (tablaproducto.getValueAt(fila,0).toString()) {
+              case "Tela":
+                  panel_tela();
+                  break;
+              case "Etiqueta":
+                  panel_etiqueta();
+                  break;
+              case "Carrito":
+                  panel_carrito();
+                  break;
+              case "Metales":
+                  panel_metales();
+                  break;
+              case "Correa":
+                  panel_correa();
+                  break;
+              case "Zipper":
+                  panel_zipper();
+                  break;
+              case "Hilo":
+                  panel_hilo();
+                  break;
+              case "Plastico":
+                  panel_plastico();
+                  break;
+              default:
+                  break;
+          }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public void mostrar_tela(){
         
        
         modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Tipo");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Yardas");
@@ -432,7 +428,7 @@ public class Productos extends javax.swing.JPanel {
         
         tablaproducto.setModel(modelo);
         
-        String[] datos = new String[6];
+        String[] datos = new String[7];
         Statement st;
           try {
               st=cn.createStatement();
@@ -444,7 +440,8 @@ public class Productos extends javax.swing.JPanel {
             datos[2]= rs.getString(3);
             datos[3]= rs.getString(4);
             datos[4]= rs.getString(5);
-            datos[5]= rs.getString(10);
+            datos[5]= rs.getString(6);
+            datos[6]= rs.getString(11);
             modelo.addRow(datos);
         }
               
@@ -457,6 +454,7 @@ public class Productos extends javax.swing.JPanel {
     public void  mostrar_etiqueta(){
         
         modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Marca");
         modelo.addColumn("Tamaño");
@@ -464,7 +462,7 @@ public class Productos extends javax.swing.JPanel {
         
         tablaproducto.setModel(modelo);
         
-        String[] datos = new String[5];
+        String[] datos = new String[6];
         Statement st;
           try {
               st=cn.createStatement();
@@ -472,10 +470,11 @@ public class Productos extends javax.swing.JPanel {
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
-            datos[1]= rs.getString(3);
-            datos[2]= rs.getString(6);
+            datos[1]= rs.getString(2);
+            datos[2]= rs.getString(4);
             datos[3]= rs.getString(7);
-            datos[4]= rs.getString(10);
+            datos[4]= rs.getString(8);
+            datos[5]= rs.getString(11);
             modelo.addRow(datos);
         }
               
@@ -488,6 +487,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_carrito(){
         
         modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Color");
         modelo.addColumn("Tamaño");
@@ -496,7 +496,7 @@ public class Productos extends javax.swing.JPanel {
         
         tablaproducto.setModel(modelo);
         
-        String[] datos = new String[6];
+        String[] datos = new String[7];
         Statement st;
           try {
               st=cn.createStatement();
@@ -504,11 +504,12 @@ public class Productos extends javax.swing.JPanel {
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
-            datos[1]= rs.getString(3);
-            datos[2]= rs.getString(5);
-            datos[3]= rs.getString(7);
+            datos[1]= rs.getString(2);
+            datos[2]= rs.getString(4);
+            datos[3]= rs.getString(6);
             datos[4]= rs.getString(8);
-            datos[5]= rs.getString(10);
+            datos[5]= rs.getString(9);
+            datos[5]= rs.getString(11);
             modelo.addRow(datos);
         }
               
@@ -521,6 +522,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_metales(){
         
         modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Tipo");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Medida");
@@ -528,7 +530,7 @@ public class Productos extends javax.swing.JPanel {
         
         tablaproducto.setModel(modelo);
         
-        String[] datos = new String[5];
+        String[] datos = new String[6];
         Statement st;
           try {
               st=cn.createStatement();
@@ -538,8 +540,9 @@ public class Productos extends javax.swing.JPanel {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
             datos[2]= rs.getString(3);
-            datos[3]= rs.getString(9);
+            datos[3]= rs.getString(4);
             datos[4]= rs.getString(10);
+            datos[5]= rs.getString(11);
             modelo.addRow(datos);
         }
               
@@ -552,6 +555,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_correa(){
         
         modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Color");
         modelo.addColumn("Numero");
@@ -559,7 +563,7 @@ public class Productos extends javax.swing.JPanel {
         
         tablaproducto.setModel(modelo);
         
-        String[] datos = new String[5];
+        String[] datos = new String[6];
         Statement st;
           try {
               st=cn.createStatement();
@@ -568,9 +572,10 @@ public class Productos extends javax.swing.JPanel {
         while (rs.next()) {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
-            datos[2]= rs.getString(5);
-            datos[3]= rs.getString(8);
-            datos[4]= rs.getString(10);
+            datos[2]= rs.getString(4);
+            datos[3]= rs.getString(6);
+            datos[4]= rs.getString(9);
+            datos[5]= rs.getString(11);
             modelo.addRow(datos);
         }
               
@@ -582,6 +587,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_zipper(){
         
         modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Color");
         modelo.addColumn("Tamaño");
@@ -590,7 +596,7 @@ public class Productos extends javax.swing.JPanel {
         
         tablaproducto.setModel(modelo);
         
-        String[] datos = new String[6];
+        String[] datos = new String[7];
         Statement st;
           try {
               st=cn.createStatement();
@@ -598,11 +604,12 @@ public class Productos extends javax.swing.JPanel {
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
-            datos[1]= rs.getString(3);
-            datos[2]= rs.getString(5);
-            datos[3]= rs.getString(7);
+            datos[1]= rs.getString(2);
+            datos[2]= rs.getString(4);
+            datos[3]= rs.getString(6);
             datos[4]= rs.getString(8);
-            datos[5]= rs.getString(10);
+            datos[5]= rs.getString(9);
+            datos[6]= rs.getString(11);
             modelo.addRow(datos);
         }
               
@@ -614,6 +621,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_hilo(){
         
         modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Color");
         modelo.addColumn("Marca");
@@ -621,7 +629,7 @@ public class Productos extends javax.swing.JPanel {
         
         tablaproducto.setModel(modelo);
         
-        String[] datos = new String[5];
+        String[] datos = new String[6];
         Statement st;
           try {
               st=cn.createStatement();
@@ -629,10 +637,11 @@ public class Productos extends javax.swing.JPanel {
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
-            datos[1]= rs.getString(3);
-            datos[2]= rs.getString(5);
+            datos[1]= rs.getString(2);
+            datos[2]= rs.getString(4);
             datos[3]= rs.getString(6);
-            datos[4]= rs.getString(10);
+            datos[4]= rs.getString(7);
+            datos[5]= rs.getString(11);
             modelo.addRow(datos);
         }
               
@@ -645,6 +654,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_plastico(){
         
         modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
         modelo.addColumn("Tipo");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Medida");
@@ -652,7 +662,7 @@ public class Productos extends javax.swing.JPanel {
         
         tablaproducto.setModel(modelo);
         
-        String[] datos = new String[5];
+        String[] datos = new String[6];
         Statement st;
           try {
               st=cn.createStatement();
@@ -662,14 +672,103 @@ public class Productos extends javax.swing.JPanel {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
             datos[2]= rs.getString(3);
-            datos[3]= rs.getString(9);
+            datos[3]= rs.getString(4);
             datos[4]= rs.getString(10);
+            datos[5]= rs.getString(11);
             modelo.addRow(datos);
         }
               
           } catch (SQLException ex) {
               Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
           }
+    }
+    
+    public void panel_tela(){
+        
+        Tela tela = new Tela();
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void panel_etiqueta(){
+     
+         Etiqueta etiqueta = new Etiqueta();
+        etiqueta.setSize(405,550);
+        etiqueta.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(etiqueta,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+        
+    }
+    
+    public void panel_carrito(){
+        
+        Carrito carrito = new Carrito();
+        carrito.setSize(405,550);
+        carrito.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(carrito,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void panel_metales(){
+        
+        Metales metal = new Metales();
+        metal.setSize(405,550);
+        metal.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(metal,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void panel_correa(){
+        
+        Correa c = new Correa();
+        c.setSize(405,550);
+        c.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(c,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void panel_zipper(){
+        Zipper z = new Zipper();
+        z.setSize(405,550);
+        z.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(z,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void panel_hilo(){
+        
+         Hilo h = new Hilo();
+        h.setSize(405,550);
+        h.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(h,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void panel_plastico(){
+        
+        Plastico p = new Plastico();
+        p.setSize(405,550);
+        p.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(p,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

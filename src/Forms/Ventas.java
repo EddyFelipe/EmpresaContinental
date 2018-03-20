@@ -43,7 +43,7 @@ public class Ventas extends javax.swing.JPanel {
     }
     private void TablaVentas(){
        ModeloProductos.addColumn("Nombre Producto"); ModeloProductos.addColumn("Existencia");
-       TablaProductos.setModel(Clases.Ventas.MostrarProducto(ModeloProductos, ConexionBaseDatos));
+       TablaProductos.setModel(Clases.Insertar_producto.MostrarProducto(ModeloProductos, ConexionBaseDatos));
     }
 
     /**
@@ -152,13 +152,21 @@ public class Ventas extends javax.swing.JPanel {
         jLabel5.setText("Listado de Productos:");
         pnlContenedor.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
-        jButton1.setText("Descuento");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento.png"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusPainted(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento2.png"))); // NOI18N
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento1.png"))); // NOI18N
+        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        pnlContenedor.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 150, -1, 46));
+        pnlContenedor.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 600, 90, 90));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -170,8 +178,16 @@ public class Ventas extends javax.swing.JPanel {
         jLabel8.setText("Total a pagar:");
         pnlContenedor.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 670, -1, -1));
 
-        btnDespachar.setText("Despachar");
-        pnlContenedor.add(btnDespachar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, -1, 46));
+        btnDespachar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar.png"))); // NOI18N
+        btnDespachar.setBorder(null);
+        btnDespachar.setBorderPainted(false);
+        btnDespachar.setContentAreaFilled(false);
+        btnDespachar.setFocusPainted(false);
+        btnDespachar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDespachar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar2.png"))); // NOI18N
+        btnDespachar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar1.png"))); // NOI18N
+        btnDespachar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        pnlContenedor.add(btnDespachar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, -1, 90));
 
         TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -230,8 +246,16 @@ public class Ventas extends javax.swing.JPanel {
         jLabel7.setText("Cantidad:");
         pnlContenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, -1, -1));
 
-        jButton2.setText("Aceptar");
-        pnlContenedor.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, -1, 46));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setFocusPainted(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender2.png"))); // NOI18N
+        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender1.png"))); // NOI18N
+        jButton2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        pnlContenedor.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 560, -1, 90));
 
         javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
         pnlVentas.setLayout(pnlVentasLayout);

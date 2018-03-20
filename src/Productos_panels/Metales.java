@@ -104,7 +104,7 @@ public class Metales extends javax.swing.JPanel {
         medida = Double.valueOf(txtmedida.getText());
         precio = Double.valueOf(txtprecio.getText());
         
-        insertar.insertar_producto(tipo, cantidad,0,"","",0,0, medida, precio,4);
+        insertar.insertar_producto("Metales",tipo, cantidad,0,"","",0,0, medida, precio,4);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

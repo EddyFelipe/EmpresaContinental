@@ -115,7 +115,7 @@ public class Zipper extends javax.swing.JPanel {
         color = txtcolor.getText();
         precio = Double.valueOf(txtprecio.getText());
         
-        insertar.insertar_producto("", cantidad,0, color,"", tamaño, numero,0, precio,6);
+        insertar.insertar_producto("Zipper","", cantidad,0, color,"", tamaño, numero,0, precio,6);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

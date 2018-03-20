@@ -15,10 +15,10 @@ public class Ventas {
     
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT nombre,existencia FROM producto");
+          ResultSet consulta = st.executeQuery("SELECT id_producto,cantidad FROM producto");
           
               while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2)});
+              Modelo.addRow(new Object[]{consulta.getInt(1),consulta.getInt(2)});
             }
             st.close();
             consulta.close();

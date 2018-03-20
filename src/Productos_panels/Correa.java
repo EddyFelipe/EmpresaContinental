@@ -103,7 +103,7 @@ public class Correa extends javax.swing.JPanel {
         color =txtcolor.getText();
         precio= Double.valueOf(txtprecio.getText());
         
-        insertar.insertar_producto("", cantidad,0, color,"",0, numero,0, precio,5);
+        insertar.insertar_producto("Correa","", cantidad,0, color,"",0, numero,0, precio,5);
         
         
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -105,7 +105,7 @@ public class Plastico extends javax.swing.JPanel {
         medida = Double.valueOf(txtmedida.getText());
         precio=Double.valueOf(txtprecio.getText());
         
-        insertar.insertar_producto(tipo, cantidad,0,"","",0,0, medida, precio,8);
+        insertar.insertar_producto("Plastico",tipo, cantidad,0,"","",0,0, medida, precio,8);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

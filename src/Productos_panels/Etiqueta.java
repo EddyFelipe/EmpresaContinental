@@ -104,7 +104,7 @@ public class Etiqueta extends javax.swing.JPanel {
         marca = txtmarca.getText();
         precio = Double.valueOf(txtprecio.getText());
         
-        insertar.insertar_producto("", cantidad,0,"", marca, tamaño,0,0, precio,2);
+        insertar.insertar_producto("Etiqueta","", cantidad,0,"", marca, tamaño,0,0, precio,2);
         
         
     }//GEN-LAST:event_jButton1ActionPerformed

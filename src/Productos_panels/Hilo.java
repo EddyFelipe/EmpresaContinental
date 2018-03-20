@@ -104,7 +104,7 @@ public class Hilo extends javax.swing.JPanel {
         color = txtcolor.getText();
         precio= Double.valueOf(txtprecio.getText());
         
-        insertar.insertar_producto("", cantidad,0, color, marca,0,0,0, precio,7);
+        insertar.insertar_producto("Hilo","", cantidad,0, color, marca,0,0,0, precio,7);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

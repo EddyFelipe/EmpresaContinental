@@ -120,7 +120,7 @@ public class Tela extends javax.swing.JPanel {
         cantidad= Integer.valueOf(txtcantidad.getText());
         yardaje = Integer.valueOf(String.valueOf(comboyarda.getSelectedItem()));
         
-        insertar.insertar_producto(tipo, cantidad, yardaje, color,"",0,0,0, precio,1);
+        insertar.insertar_producto("Tela",tipo, cantidad, yardaje, color,"",0,0,0, precio,1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
