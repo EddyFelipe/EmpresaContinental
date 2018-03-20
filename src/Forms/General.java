@@ -207,6 +207,11 @@ public class General extends javax.swing.JFrame {
         jButton8.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/empleados2.png"))); // NOI18N
         jButton8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/empleados1.png"))); // NOI18N
         jButton8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 430, -1, -1));
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-170, 0, 230, 810));
@@ -315,6 +320,16 @@ public class General extends javax.swing.JFrame {
         pnlContenedor.repaint();
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        IngresoEmpleados salir = new IngresoEmpleados();
+        salir.setSize(1420,810);
+        salir.setLocation(0,0);
+        pnlContenedor.removeAll();
+        pnlContenedor.add(salir,BorderLayout.CENTER);
+        pnlContenedor.revalidate();
+        pnlContenedor.repaint();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     public int ancho(){
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
       
@@ -350,6 +365,7 @@ public class General extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(General.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
