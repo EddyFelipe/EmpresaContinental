@@ -5,6 +5,8 @@
  */
 package Forms;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +18,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    Clases.Contrasena verificar = new Clases.Contrasena();
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -61,9 +64,19 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 100, 210, -1));
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyTyped(evt);
+            }
+        });
         jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 210, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ingresar1.png"))); // NOI18N
@@ -135,12 +148,35 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        General g = new General();
-        g.setVisible(true);
-        this.setVisible(false);
+        try {
+            // TODO add your handling code here:
+            if (verificar.Buscar(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword())))
+            {
+                General g = new General();
+                g.setVisible(true);
+                this.setVisible(false);
+            }
+            else
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectas");
+            if (jTextField1.getText().length() == 0 || jPasswordField1.getPassword().length == 0)
+                JOptionPane.showMessageDialog(null, "Por favor rellene los campos de usuario y contraseña");
+        } catch (Exception ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
                 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        int maximo = 25;
+        if (jTextField1.getText().length()>= maximo)
+            evt.consume();
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
+        int maximo = 30;
+        if (jPasswordField1.getPassword().length>= maximo)
+            evt.consume();
+    }//GEN-LAST:event_jPasswordField1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -167,6 +203,7 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
