@@ -6,6 +6,7 @@
 package Productos_panels;
 
 import Clases.Insertar_producto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -105,8 +106,17 @@ public class Metales extends javax.swing.JPanel {
         precio = Double.valueOf(txtprecio.getText());
         
         insertar.insertar_producto("Metales",tipo, cantidad,0,"","",0,0, medida, precio,4);
+        limpiar();
+          JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar(){
+        
+        txtcantidad.setText("");
+        txtipo.setText("");
+        txtmedida.setText("");
+        txtprecio.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

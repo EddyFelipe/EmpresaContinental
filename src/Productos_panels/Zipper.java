@@ -6,6 +6,7 @@
 package Productos_panels;
 
 import Clases.Insertar_producto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -116,9 +117,18 @@ public class Zipper extends javax.swing.JPanel {
         precio = Double.valueOf(txtprecio.getText());
         
         insertar.insertar_producto("Zipper","", cantidad,0, color,"", tamaño, numero,0, precio,6);
+        limpiar();
+          JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar(){
+        txtamaño.setText("");
+        txtcatidad.setText("");
+        txtcolor.setText("");
+        txtnumero.setText("");
+        txtprecio.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

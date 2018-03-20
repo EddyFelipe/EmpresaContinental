@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -121,8 +122,17 @@ public class Tela extends javax.swing.JPanel {
         yardaje = Integer.valueOf(String.valueOf(comboyarda.getSelectedItem()));
         
         insertar.insertar_producto("Tela",tipo, cantidad, yardaje, color,"",0,0,0, precio,1);
+        limpiar();
+          JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar(){
+        
+        txtPrecioVenta.setText("");
+        txtcantidad.setText("");
+        txtcolor.setText("");
+        txtipo.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboyarda;

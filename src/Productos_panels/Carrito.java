@@ -6,6 +6,7 @@
 package Productos_panels;
 
 import Clases.Insertar_producto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -114,11 +115,19 @@ public class Carrito extends javax.swing.JPanel {
         color = txtcolor.getText();
         precio=Double.valueOf(txtprecioventa.getText());
         
-        insertar.insertar_producto("Carrito","", cantidad,0, color,"", tamaño, numero,0,precio,3);
-        
-        
+        insertar.insertar_producto("Carrito","", cantidad,0, color,"", tamaño, numero,0,precio,3);  
+        limpiar();
+        JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar(){
+        
+        txtamaño.setText("");
+        txtcantidad.setText("");
+        txtcolor.setText("");
+        txtnumero.setText("");
+        txtprecioventa.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

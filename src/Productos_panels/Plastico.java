@@ -6,6 +6,7 @@
 package Productos_panels;
 
 import Clases.Insertar_producto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -106,8 +107,17 @@ public class Plastico extends javax.swing.JPanel {
         precio=Double.valueOf(txtprecio.getText());
         
         insertar.insertar_producto("Plastico",tipo, cantidad,0,"","",0,0, medida, precio,8);
+        limpiar();
+          JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar(){
+        
+        txtcantidad.setText("");
+        txtmedida.setText("");
+        txtprecio.setText("");
+        txttipo.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -6,6 +6,7 @@
 package Productos_panels;
 
 import Clases.Insertar_producto;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -105,9 +106,17 @@ public class Hilo extends javax.swing.JPanel {
         precio= Double.valueOf(txtprecio.getText());
         
         insertar.insertar_producto("Hilo","", cantidad,0, color, marca,0,0,0, precio,7);
-        
+        limpiar();
+          JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void limpiar(){
+        
+        txtcantidad.setText("");
+        txtcolor.setText("");
+        txtmarca.setText("");
+        txtprecio.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

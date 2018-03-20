@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Insertar_producto {
 
-        String sql= "INSERT INTO producto(tipo,cantidad,yardaje,color,marca,tamaño,numero,medida,precio_venta,producto_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql= "INSERT INTO producto(nombre,tipo,cantidad,yardaje,color,marca,tamaño,numero,medida,precio_venta,producto_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         
     public void insertar_producto(String nombre,String tipo, int cantidad,int yardaje,String color,String marca,int tamaño,int numero,double medida,double precio_venta,int id_producto){
         
@@ -38,7 +38,7 @@ public class Insertar_producto {
             pps.setInt(8,numero);
             pps.setDouble(9,medida);
             pps.setDouble(10,precio_venta);
-             pps.setInt(11,id_producto);
+            pps.setInt(11,id_producto);
             pps.executeUpdate();
             
             } catch (SQLException ex) {

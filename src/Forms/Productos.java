@@ -74,6 +74,9 @@ public class Productos extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField2 = new javax.swing.JTextField();
+        jButton13 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -115,7 +118,7 @@ public class Productos extends javax.swing.JPanel {
                 jButton5ActionPerformed(evt);
             }
         });
-        add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Tela.png"))); // NOI18N
         jButton6.setBorder(null);
@@ -130,7 +133,7 @@ public class Productos extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
-        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
+        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, -1, -1));
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Carrito.png"))); // NOI18N
         jButton7.setBorder(null);
@@ -145,7 +148,7 @@ public class Productos extends javax.swing.JPanel {
                 jButton7ActionPerformed(evt);
             }
         });
-        add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Metales.png"))); // NOI18N
         jButton8.setBorder(null);
@@ -160,7 +163,7 @@ public class Productos extends javax.swing.JPanel {
                 jButton8ActionPerformed(evt);
             }
         });
-        add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, -1));
+        add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, -1));
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Correa.png"))); // NOI18N
         jButton9.setBorder(null);
@@ -175,7 +178,7 @@ public class Productos extends javax.swing.JPanel {
                 jButton9ActionPerformed(evt);
             }
         });
-        add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+        add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Zipper.png"))); // NOI18N
         jButton10.setBorder(null);
@@ -190,7 +193,7 @@ public class Productos extends javax.swing.JPanel {
                 jButton10ActionPerformed(evt);
             }
         });
-        add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, -1, -1));
+        add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, -1, -1));
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Hilo.png"))); // NOI18N
         jButton11.setBorder(null);
@@ -205,7 +208,7 @@ public class Productos extends javax.swing.JPanel {
                 jButton11ActionPerformed(evt);
             }
         });
-        add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, -1, -1));
+        add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Plastico.png"))); // NOI18N
         jButton12.setBorder(null);
@@ -220,7 +223,7 @@ public class Productos extends javax.swing.JPanel {
                 jButton12ActionPerformed(evt);
             }
         });
-        add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 530, -1, -1));
+        add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(36, 41, 46));
 
@@ -243,29 +246,30 @@ public class Productos extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Productos");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Agregar Productos");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver_producto.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver.png"))); // NOI18N
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver_producto2.png"))); // NOI18N
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver_producto1.png"))); // NOI18N
+        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver2.png"))); // NOI18N
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver1.png"))); // NOI18N
         jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 120, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 50, 100, -1));
 
+        tablaproducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tablaproducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -280,7 +284,7 @@ public class Productos extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tablaproducto);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 540, 740, 250));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 730, 250));
 
         jButton2.setText("Modificar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -288,14 +292,39 @@ public class Productos extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 200, 140, -1));
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 500, 140, -1));
 
-        jButton3.setText("Eliminar");
-        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, 140, -1));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminar4.png"))); // NOI18N
+        jButton3.setBorder(null);
+        jButton3.setBorderPainted(false);
+        jButton3.setContentAreaFilled(false);
+        jButton3.setFocusPainted(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 430, 100, -1));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Telas", "Etiquetas", "Carrito", "Metales", "Correas", "Zippers", "Hilo", "Plastico" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 60, 170, -1));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Caregoria", "Telas", "Etiquetas", "Carrito", "Metales", "Correas", "Zippers", "Hilo", "Plastico" }));
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 80, 200, 30));
+
+        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, 210, 50));
+
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Buscar.png"))); // NOI18N
+        jButton13.setBorder(null);
+        jButton13.setBorderPainted(false);
+        jButton13.setContentAreaFilled(false);
+        jButton13.setFocusPainted(false);
+        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton13.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Buscar2.png"))); // NOI18N
+        jButton13.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Buscar1.png"))); // NOI18N
+        jButton13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Ingrese Nombre");
+        jLabel3.setToolTipText("");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 60, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -351,28 +380,31 @@ public class Productos extends javax.swing.JPanel {
           // TODO add your handling code here:
           switch (jComboBox1.getSelectedIndex()) {
               case 0:
-                  mostrar_tela();
+                 JOptionPane.showMessageDialog(null,"Escoja una Categoria para ver los Productos");
                   break;
               case 1:
-                  mostrar_etiqueta();
+                  mostrar_tela();
                   break;
               case 2:
-                  mostrar_carrito();
+                  mostrar_etiqueta();
                   break;
               case 3:
-                  mostrar_metales();
+                  mostrar_carrito();
                   break;
               case 4:
-                  mostrar_correa();
+                  mostrar_metales();
                   break;
               case 5:
-                  mostrar_zipper();
+                   mostrar_correa();
                   break;
               case 6:
-                  mostrar_hilo();
+                 mostrar_zipper();
                   break;
               case 7:
-                  mostrar_plastico();
+                 mostrar_hilo();
+                  break;
+              case 8:
+                    mostrar_plastico();
                   break;
               default:
                   break;
@@ -384,7 +416,7 @@ public class Productos extends javax.swing.JPanel {
         // TODO add your handling code here:
         int fila =tablaproducto.getSelectedRow();
         
-        switch (tablaproducto.getValueAt(fila,0).toString()) {
+        switch (tablaproducto.getValueAt(fila,1).toString()) {
               case "Tela":
                   panel_tela();
                   break;
@@ -775,6 +807,7 @@ public class Productos extends javax.swing.JPanel {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -786,12 +819,14 @@ public class Productos extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tablaproducto;
     // End of variables declaration//GEN-END:variables
 }
