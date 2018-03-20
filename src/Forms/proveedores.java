@@ -5,17 +5,39 @@
  */
 package Forms;
 
+import Clases.Proveedor;
+import java.awt.Dimension;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ismar
  */
 public class proveedores extends javax.swing.JPanel {
-
+     int cont=1;
+     int modifier=0;
+     int filaSeleccionada=0;
+      public DefaultTableModel modelo = new DefaultTableModel(); 
     /**
      * Creates new form proveedores
      */
     public proveedores() {
         initComponents();
+                 int gapWidth = 10;
+        int gapHeight = 4;
+        jTable1.setIntercellSpacing(new Dimension(gapWidth, gapHeight));
+        modelo.addColumn("No.");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Nombre Empresa");
+        modelo.addColumn("Correo electrónico");
+        modelo.addColumn("Dirección");
+        modelo.addColumn("Telefóno");
+        jTable1.setModel(modelo);
+        jPanel2.setVisible(false);
     }
 
     /**
@@ -27,13 +49,9 @@ public class proveedores extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAgregar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
-        btnAgregar1 = new javax.swing.JButton();
-        btnModificar1 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -58,30 +76,14 @@ public class proveedores extends javax.swing.JPanel {
         txtNombre = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        btnAgregarP = new javax.swing.JButton();
+        btnModificarp = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(new java.awt.Color(0, 0, 0));
         setMaximumSize(new java.awt.Dimension(1420, 780));
         setMinimumSize(new java.awt.Dimension(1420, 780));
         setPreferredSize(new java.awt.Dimension(1420, 780));
-
-        btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregarp.png"))); // NOI18N
-        btnAgregar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_click.png"))); // NOI18N
-        btnAgregar.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_mouse.png"))); // NOI18N
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
-        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificarp.png"))); // NOI18N
-        btnModificar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificar_click.png"))); // NOI18N
-        btnModificar.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminar_mouse.png"))); // NOI18N
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -90,26 +92,6 @@ public class proveedores extends javax.swing.JPanel {
 
         jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 10, 740));
-
-        btnAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregarp.png"))); // NOI18N
-        btnAgregar1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_click.png"))); // NOI18N
-        btnAgregar1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_mouse.png"))); // NOI18N
-        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregar1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 100, 100));
-
-        btnModificar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificarp.png"))); // NOI18N
-        btnModificar1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificar_click.png"))); // NOI18N
-        btnModificar1.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminar_mouse.png"))); // NOI18N
-        btnModificar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificar1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnModificar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 100));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Pedidop.png"))); // NOI18N
         jButton6.setText("jButton4");
@@ -145,7 +127,7 @@ public class proveedores extends javax.swing.JPanel {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cont1.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 360, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 360, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -253,7 +235,7 @@ public class proveedores extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "No.", "Nombre", "Nombre Empresa", "Correo Electrónico", "Dirección", "Telefono"
+                "No. Resgistro", "Nombre", "Nombre Empresa", "Correo Electrónico", "Dirección", "Telefono"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -269,74 +251,135 @@ public class proveedores extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 1090, 650));
 
+        btnAgregarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregarp.png"))); // NOI18N
+        btnAgregarP.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_click.png"))); // NOI18N
+        btnAgregarP.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_mouse.png"))); // NOI18N
+        btnAgregarP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAgregarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 100, 100));
+
+        btnModificarp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificarp.png"))); // NOI18N
+        btnModificarp.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificar_click.png"))); // NOI18N
+        btnModificarp.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificar_mouse.png"))); // NOI18N
+        btnModificarp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarpActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnModificarp, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 100, 100));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(1257, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1418, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(493, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 782, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        jPanel1.setVisible(true);
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-       
-    }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
-        jPanel1.setVisible(true);
-    }//GEN-LAST:event_btnAgregar1ActionPerformed
-
-    private void btnModificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificar1ActionPerformed
-       
-    }//GEN-LAST:event_btnModificar1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-
+        int filaselec = jTable1.getSelectedRow();
+        if (filaselec>=0) {
+             JOptionPane.showMessageDialog(null, "esta seguro de eliminar a este proveedor.");
+            modelo.removeRow(filaselec);
+            Proveedor delete = new Proveedor();
+            try {
+                delete.eliminar(filaselec);
+                 JOptionPane.showMessageDialog(null, "Proveedor eliminado de forma permanente.");
+            } catch (SQLException ex) {
+                Logger.getLogger(proveedores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+        }else{
+             JOptionPane.showMessageDialog(null, "Por favor, seleccione una casilla.");
+            jPanel2.setVisible(false);
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-
+         Proveedor enviar = new Proveedor();
+        if (modifier==0 && filaSeleccionada ==0) {
+            String Dato [] = new String[6];
+            Dato[0] = String.valueOf(cont);
+            Dato[1] = txtNombre.getText();
+            Dato[2] = txtEmpresa.getText();
+            Dato[3] = txtCorreo.getText();
+            Dato[4] = txtDireccion.getText();
+            JOptionPane.showMessageDialog(null, "Proveedor ingresado exitosamente!");
+            jPanel2.setVisible(false);
+            modelo.addRow(Dato);
+            enviar.insertar(txtNombre.getText(), txtEmpresa.getText(), txtCorreo.getText(),txtDireccion.getText());
+            txtNombre.setText("");
+            txtEmpresa.setText("");
+            txtCorreo.setText("");
+            txtDireccion.setText("");
+            txtTelefono.setText("");
+            cont++;
+        }else{
+        try {
+            enviar.uptadte(txtNombre.getText(), txtEmpresa.getText(), txtCorreo.getText(),txtDireccion.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            JOptionPane.showMessageDialog(null, "Proveedor modificado exitosamente!");
+            jPanel2.setVisible(false);
+            jTable1.setValueAt(txtNombre.getText(),filaSeleccionada ,1);
+            jTable1.setValueAt(txtEmpresa.getText(),filaSeleccionada ,2);
+            jTable1.setValueAt(txtCorreo.getText(),filaSeleccionada ,3);
+            jTable1.setValueAt(txtDireccion.getText(),filaSeleccionada ,4);
+            txtNombre.setText("");
+            txtEmpresa.setText("");
+            txtCorreo.setText("");
+            txtDireccion.setText("");
+            txtTelefono.setText("");
+            filaSeleccionada=0;
+            modifier=0;
+        }
+        
+      //  System.out.println("SE HA ENVIADO A LA DATA BASE");
+        
 
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void btnAgregarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPActionPerformed
+        // TODO add your handling code here:
+         jPanel2.setVisible(true);
+    }//GEN-LAST:event_btnAgregarPActionPerformed
+
+    private void btnModificarpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarpActionPerformed
+        // TODO add your handling code here:
+          modifier=1;
+        filaSeleccionada=1;
+        int filaSelec = jTable1.getSelectedRow();
+        if (filaSelec>=0){
+            jPanel2.setVisible(true);
+            txtNombre.setText(jTable1.getValueAt(filaSelec, 1).toString());
+            txtEmpresa.setText(jTable1.getValueAt(filaSelec, 2).toString());
+            txtCorreo.setText(jTable1.getValueAt(filaSelec, 3).toString());
+            txtDireccion.setText(jTable1.getValueAt(filaSelec, 4).toString());
+        }else{
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una casilla.");
+        }
+    }//GEN-LAST:event_btnModificarpActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnAgregar1;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JButton btnModificar1;
+    private javax.swing.JButton btnAgregarP;
+    private javax.swing.JButton btnModificarp;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
