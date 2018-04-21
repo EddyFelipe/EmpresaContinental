@@ -170,7 +170,7 @@
         <Container class="javax.swing.JPanel" name="PEmpleado">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
+              <Color blue="2e" green="29" red="24" type="rgb"/>
             </Property>
           </Properties>
 
@@ -294,8 +294,22 @@
             <Component class="javax.swing.JButton" name="BTNAgregar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\igeni\OneDrive\Documentos\Bases de Datos I\Im&#xe1;genes\Agregar.png"/>
+                  <Image iconType="3" name="/imagenes/Agrega_empleado.png"/>
                 </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                <Property name="focusPainted" type="boolean" value="false"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/Agrega_empleado2.png"/>
+                </Property>
+                <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/Agrega_empleado1.png"/>
+                </Property>
+                <Property name="verticalAlignment" type="int" value="3"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNAgregarActionPerformed"/>
@@ -306,7 +320,7 @@
         <Container class="javax.swing.JPanel" name="PAdministrador">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
+              <Color blue="2e" green="29" red="24" type="rgb"/>
             </Property>
           </Properties>
 
@@ -347,8 +361,22 @@
             <Component class="javax.swing.JButton" name="BTNAgregar1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\igeni\OneDrive\Documentos\Bases de Datos I\Im&#xe1;genes\Agregar.png"/>
+                  <Image iconType="3" name="/imagenes/Agregarp.png"/>
                 </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                <Property name="focusPainted" type="boolean" value="false"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/Agregar_click.png"/>
+                </Property>
+                <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/Agregar_mouse.png"/>
+                </Property>
+                <Property name="verticalAlignment" type="int" value="3"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNAgregar1ActionPerformed"/>
@@ -399,7 +427,7 @@
         <Container class="javax.swing.JPanel" name="PTelefono">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="99" green="99" red="99" type="rgb"/>
+              <Color blue="2e" green="29" red="24" type="rgb"/>
             </Property>
           </Properties>
 
@@ -469,7 +497,20 @@
             <Component class="javax.swing.JButton" name="BTNTelefono">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\igeni\OneDrive\Documentos\Bases de Datos I\Im&#xe1;genes\Agregar.png"/>
+                  <Image iconType="3" name="/imagenes/Agregar_telefono.png"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="borderPainted" type="boolean" value="false"/>
+                <Property name="contentAreaFilled" type="boolean" value="false"/>
+                <Property name="focusPainted" type="boolean" value="false"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/Agregar_telefono2.png"/>
+                </Property>
+                <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/Agregar_telefono1.png"/>
                 </Property>
               </Properties>
               <Events>

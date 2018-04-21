@@ -5,7 +5,15 @@
  */
 package Productos_panels;
 
+import Clases.Conexion;
 import Clases.Insertar_producto;
+import Forms.Productos;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +21,9 @@ import javax.swing.JOptionPane;
  * @author carlo
  */
 public class Correa extends javax.swing.JPanel {
+    Conexion con= new Conexion();;
+    Connection cn= con.ConectarBaseDatos();
+    public String index="";
 
     /**
      * Creates new form Correa
@@ -94,8 +105,9 @@ public class Correa extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Productos p = new Productos();
         Insertar_producto insertar = new Insertar_producto();
-        int cantidad,numero;
+        int cantidad,numero,categoriaid;
         String color;
         double precio;
         
@@ -103,8 +115,9 @@ public class Correa extends javax.swing.JPanel {
         numero = Integer.valueOf(txtnumero.getText());
         color =txtcolor.getText();
         precio= Double.valueOf(txtprecio.getText());
+        categoriaid=id_categoria(index);
         
-        insertar.insertar_producto("Correa","", cantidad,0, color,"",0, numero,0, precio,5);
+        insertar.insertar_producto("",cantidad,0, color,"",0, numero,0, precio,categoriaid);
         limpriar();
           JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
         
@@ -115,6 +128,26 @@ public class Correa extends javax.swing.JPanel {
         txtcolor.setText("");
         txtnumero.setText("");
         txtprecio.setText("");
+    }
+    
+    public int id_categoria(String categoria){
+        
+        Statement st;
+        int idcategoria=0;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT id FROM categoria WHERE categoria='"+categoria+"'");
+              
+        while (rs.next()) {
+          
+            idcategoria=rs.getInt(1);
+            
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+       return idcategoria;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -279,7 +279,7 @@ public class General extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         int sino = JOptionPane.YES_NO_OPTION;
+        int sino = JOptionPane.YES_NO_OPTION;
         int resultado = JOptionPane.showConfirmDialog(null,"¿Desea Sallir del Sistema?","Exit",sino);
         if(resultado==0){
             

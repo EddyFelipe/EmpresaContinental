@@ -146,7 +146,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         TTelefonos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(TTelefonos);
 
-        PEmpleado.setBackground(new java.awt.Color(153, 153, 153));
+        PEmpleado.setBackground(new java.awt.Color(36, 41, 46));
 
         LBLNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LBLNombre.setForeground(new java.awt.Color(255, 255, 255));
@@ -192,7 +192,15 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             }
         });
 
-        BTNAgregar.setIcon(new javax.swing.ImageIcon("C:\\Users\\igeni\\OneDrive\\Documentos\\Bases de Datos I\\Imágenes\\Agregar.png")); // NOI18N
+        BTNAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agrega_empleado.png"))); // NOI18N
+        BTNAgregar.setBorder(null);
+        BTNAgregar.setBorderPainted(false);
+        BTNAgregar.setContentAreaFilled(false);
+        BTNAgregar.setFocusPainted(false);
+        BTNAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BTNAgregar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agrega_empleado2.png"))); // NOI18N
+        BTNAgregar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agrega_empleado1.png"))); // NOI18N
+        BTNAgregar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         BTNAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTNAgregarActionPerformed(evt);
@@ -241,9 +249,17 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PAdministrador.setBackground(new java.awt.Color(153, 153, 153));
+        PAdministrador.setBackground(new java.awt.Color(36, 41, 46));
 
-        BTNAgregar1.setIcon(new javax.swing.ImageIcon("C:\\Users\\igeni\\OneDrive\\Documentos\\Bases de Datos I\\Imágenes\\Agregar.png")); // NOI18N
+        BTNAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregarp.png"))); // NOI18N
+        BTNAgregar1.setBorder(null);
+        BTNAgregar1.setBorderPainted(false);
+        BTNAgregar1.setContentAreaFilled(false);
+        BTNAgregar1.setFocusPainted(false);
+        BTNAgregar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BTNAgregar1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_click.png"))); // NOI18N
+        BTNAgregar1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_mouse.png"))); // NOI18N
+        BTNAgregar1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         BTNAgregar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTNAgregar1ActionPerformed(evt);
@@ -301,7 +317,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PTelefono.setBackground(new java.awt.Color(153, 153, 153));
+        PTelefono.setBackground(new java.awt.Color(36, 41, 46));
 
         LBLTelefono.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LBLTelefono.setForeground(new java.awt.Color(255, 255, 255));
@@ -314,7 +330,14 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             }
         });
 
-        BTNTelefono.setIcon(new javax.swing.ImageIcon("C:\\Users\\igeni\\OneDrive\\Documentos\\Bases de Datos I\\Imágenes\\Agregar.png")); // NOI18N
+        BTNTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_telefono.png"))); // NOI18N
+        BTNTelefono.setBorder(null);
+        BTNTelefono.setBorderPainted(false);
+        BTNTelefono.setContentAreaFilled(false);
+        BTNTelefono.setFocusPainted(false);
+        BTNTelefono.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        BTNTelefono.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_telefono2.png"))); // NOI18N
+        BTNTelefono.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_telefono1.png"))); // NOI18N
         BTNTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTNTelefonoActionPerformed(evt);

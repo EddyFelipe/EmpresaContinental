@@ -148,7 +148,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
+       try {
             // TODO add your handling code here:
             if (verificar.Buscar(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword())))
             {
@@ -159,9 +159,9 @@ public class Login extends javax.swing.JFrame {
             else
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectas");
             if (jTextField1.getText().length() == 0 || jPasswordField1.getPassword().length == 0)
-                JOptionPane.showMessageDialog(null, "Por favor rellene los campos de usuario y contraseña");
+               JOptionPane.showMessageDialog(null, "Por favor rellene los campos de usuario y contraseña");
         } catch (Exception ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
     }//GEN-LAST:event_jButton1ActionPerformed

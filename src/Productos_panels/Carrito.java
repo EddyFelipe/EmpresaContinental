@@ -5,7 +5,15 @@
  */
 package Productos_panels;
 
+import Clases.Conexion;
 import Clases.Insertar_producto;
+import Forms.Productos;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +21,10 @@ import javax.swing.JOptionPane;
  * @author carlo
  */
 public class Carrito extends javax.swing.JPanel {
+    
+     Conexion con = new Conexion();
+     Connection cn= con.ConectarBaseDatos();
+     public String index="";
 
     /**
      * Creates new form Carrito
@@ -104,18 +116,20 @@ public class Carrito extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        Productos p = new Productos();
         Insertar_producto insertar = new Insertar_producto();
         String color;
-        int cantidad,tamaño, numero;
+        int cantidad,tamaño, numero,categoriaid;
         double  precio;
-        
         cantidad= Integer.valueOf(txtcantidad.getText());
         tamaño=Integer.valueOf(txtamaño.getText());
         numero = Integer.valueOf(txtnumero.getText());
         color = txtcolor.getText();
         precio=Double.valueOf(txtprecioventa.getText());
-        
-        insertar.insertar_producto("Carrito","", cantidad,0, color,"", tamaño, numero,0,precio,3);  
+        categoriaid=id_categoria(index);
+       
+        insertar.insertar_producto("",cantidad,0,color,"",tamaño,numero,0,precio,categoriaid);  
         limpiar();
         JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -127,6 +141,26 @@ public class Carrito extends javax.swing.JPanel {
         txtcolor.setText("");
         txtnumero.setText("");
         txtprecioventa.setText("");
+    }
+    
+    public int id_categoria(String categoria){
+        
+        Statement st;
+        int idcategoria=0;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT id FROM categoria WHERE categoria='"+categoria+"'");
+              
+        while (rs.next()) {
+          
+            idcategoria=rs.getInt(1);
+            
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+       return idcategoria;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

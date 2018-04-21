@@ -7,9 +7,12 @@ package Productos_panels;
 
 import Clases.Conexion;
 import Clases.Insertar_producto;
+import Forms.Productos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -20,14 +23,17 @@ import javax.swing.JOptionPane;
  */
 public class Tela extends javax.swing.JPanel {
 
-    Conexion con;
+    Conexion con= new Conexion();;
+    Connection cn= con.ConectarBaseDatos();
     Insertar_producto insertar = new Insertar_producto();
+    public String index="";
     
     /**
      * Creates new form Tela
      */
     public Tela() {
         initComponents();
+       // jLabel6.setText(String.valueOf(id));
     }
 
     /**
@@ -113,17 +119,18 @@ public class Tela extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-
+        Productos p = new Productos();
         String tipo=txtipo.getText(),color=txtcolor.getText();
-        int cantidad,yardaje;
+        int cantidad,yardaje,categoriaid;
         double precio;
         precio=Double.valueOf(txtPrecioVenta.getText());
         cantidad= Integer.valueOf(txtcantidad.getText());
         yardaje = Integer.valueOf(String.valueOf(comboyarda.getSelectedItem()));
+        categoriaid=id_categoria(index);
         
-        insertar.insertar_producto("Tela",tipo, cantidad, yardaje, color,"",0,0,0, precio,1);
+        insertar.insertar_producto(tipo,cantidad,yardaje,color,"",0,0,0,precio,categoriaid);
         limpiar();
-          JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
+        JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void limpiar(){
@@ -133,16 +140,35 @@ public class Tela extends javax.swing.JPanel {
         txtcolor.setText("");
         txtipo.setText("");
     }
+    
+    public int id_categoria(String categoria){
+        
+        Statement st;
+        int idcategoria=0;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT id FROM categoria WHERE categoria='"+categoria+"'");
+              
+        while (rs.next()) {
+          
+            idcategoria=rs.getInt(1);
+            
+        }    
+          } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+       return idcategoria;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboyarda;
-    private javax.swing.JButton jButton1;
+    public static javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField txtPrecioVenta;
+    public javax.swing.JTextField txtPrecioVenta;
     private javax.swing.JTextField txtcantidad;
     private javax.swing.JTextField txtcolor;
     private javax.swing.JTextField txtipo;

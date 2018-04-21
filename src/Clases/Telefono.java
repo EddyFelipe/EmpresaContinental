@@ -31,7 +31,7 @@ public class Telefono {
         Connection cn=con.ConectarBaseDatos();
         try
         {
-            Insertar = cn.prepareStatement("INSERT INTO telefono (numero, empleados_id_empleados)"+" values (?, ?)");
+            Insertar = cn.prepareStatement("INSERT INTO telefono (numero, empleados_id_empleados)"+" values (?,?)");
         
             Insertar.setString(1, numero);
             Insertar.setInt(2, empleado);

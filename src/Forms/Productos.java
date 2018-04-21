@@ -6,6 +6,7 @@
 package Forms;
 
 import Clases.Conexion;
+import Modificar.*;
 import Productos_panels.Carrito;
 import Productos_panels.Correa;
 import Productos_panels.Etiqueta;
@@ -17,6 +18,7 @@ import Productos_panels.Zipper;
 import java.awt.BorderLayout;
 import java.awt.Window;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,7 +35,7 @@ import javax.swing.table.DefaultTableModel;
 public class Productos extends javax.swing.JPanel {
 
       DefaultTableModel modelo = new DefaultTableModel();
-      String sql="SELECT * FROM producto";
+     // String sql="SELECT * FROM producto";
      Conexion con = new Conexion();
       Connection cn= con.ConectarBaseDatos();
     /**
@@ -41,6 +43,7 @@ public class Productos extends javax.swing.JPanel {
      */
     public Productos() {
         initComponents();
+        mostrar_nombres_productos();
     }
 
     /**
@@ -56,14 +59,6 @@ public class Productos extends javax.swing.JPanel {
         jSeparator10 = new javax.swing.JSeparator();
         jSeparator11 = new javax.swing.JSeparator();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -74,9 +69,8 @@ public class Productos extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField2 = new javax.swing.JTextField();
-        jButton13 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -105,126 +99,6 @@ public class Productos extends javax.swing.JPanel {
         });
         add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/p1.png"))); // NOI18N
-        jButton5.setBorder(null);
-        jButton5.setBorderPainted(false);
-        jButton5.setContentAreaFilled(false);
-        jButton5.setFocusPainted(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Tela2.png"))); // NOI18N
-        jButton5.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Tela1.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Tela.png"))); // NOI18N
-        jButton6.setBorder(null);
-        jButton6.setBorderPainted(false);
-        jButton6.setContentAreaFilled(false);
-        jButton6.setFocusPainted(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Etiqueta2.png"))); // NOI18N
-        jButton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Etiqueta1.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, -1, -1));
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Carrito.png"))); // NOI18N
-        jButton7.setBorder(null);
-        jButton7.setBorderPainted(false);
-        jButton7.setContentAreaFilled(false);
-        jButton7.setFocusPainted(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Carrito2.png"))); // NOI18N
-        jButton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Carrito1.png"))); // NOI18N
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-        add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Metales.png"))); // NOI18N
-        jButton8.setBorder(null);
-        jButton8.setBorderPainted(false);
-        jButton8.setContentAreaFilled(false);
-        jButton8.setFocusPainted(false);
-        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton8.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Metales2.png"))); // NOI18N
-        jButton8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Metales1.png"))); // NOI18N
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, -1));
-
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Correa.png"))); // NOI18N
-        jButton9.setBorder(null);
-        jButton9.setBorderPainted(false);
-        jButton9.setContentAreaFilled(false);
-        jButton9.setFocusPainted(false);
-        jButton9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton9.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Correa2.png"))); // NOI18N
-        jButton9.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Correa1.png"))); // NOI18N
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
-
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Zipper.png"))); // NOI18N
-        jButton10.setBorder(null);
-        jButton10.setBorderPainted(false);
-        jButton10.setContentAreaFilled(false);
-        jButton10.setFocusPainted(false);
-        jButton10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton10.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Zipper2.png"))); // NOI18N
-        jButton10.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Zipper1.png"))); // NOI18N
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, -1, -1));
-
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Hilo.png"))); // NOI18N
-        jButton11.setBorder(null);
-        jButton11.setBorderPainted(false);
-        jButton11.setContentAreaFilled(false);
-        jButton11.setFocusPainted(false);
-        jButton11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton11.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Hilo2.png"))); // NOI18N
-        jButton11.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Hilo1.png"))); // NOI18N
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
-
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Plastico.png"))); // NOI18N
-        jButton12.setBorder(null);
-        jButton12.setBorderPainted(false);
-        jButton12.setContentAreaFilled(false);
-        jButton12.setFocusPainted(false);
-        jButton12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton12.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Plastico2.png"))); // NOI18N
-        jButton12.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Plastico1.png"))); // NOI18N
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-        add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, -1, -1));
-
         jPanel2.setBackground(new java.awt.Color(36, 41, 46));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -245,13 +119,13 @@ public class Productos extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Productos");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
+        jLabel1.setText("Categorias");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Agregar Productos");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, -1, -1));
+        jLabel2.setText(" Productos");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -267,9 +141,9 @@ public class Productos extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 50, 100, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, 100, -1));
 
-        tablaproducto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tablaproducto.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         tablaproducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -286,13 +160,21 @@ public class Productos extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 540, 730, 250));
 
-        jButton2.setText("Modificar");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificarp.png"))); // NOI18N
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setFocusPainted(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificar_click.png"))); // NOI18N
+        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificar_mouse.png"))); // NOI18N
+        jButton2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 500, 140, -1));
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 170, 100, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminar4.png"))); // NOI18N
         jButton3.setBorder(null);
@@ -300,31 +182,28 @@ public class Productos extends javax.swing.JPanel {
         jButton3.setContentAreaFilled(false);
         jButton3.setFocusPainted(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 430, 100, -1));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1310, 50, 100, -1));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Caregoria", "Telas", "Etiquetas", "Carrito", "Metales", "Correas", "Zippers", "Hilo", "Plastico" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 80, 200, 30));
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 200, 30));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, 210, 50));
+        jComboBox2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 220, 30));
 
-        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Buscar.png"))); // NOI18N
-        jButton13.setBorder(null);
-        jButton13.setBorderPainted(false);
-        jButton13.setContentAreaFilled(false);
-        jButton13.setFocusPainted(false);
-        jButton13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton13.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Buscar2.png"))); // NOI18N
-        jButton13.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Buscar1.png"))); // NOI18N
-        jButton13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Ingrese Nombre");
-        jLabel3.setToolTipText("");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 60, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Seleccione categoria");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -333,77 +212,48 @@ public class Productos extends javax.swing.JPanel {
       General.pnlContenedor.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-      panel_etiqueta();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-       panel_carrito();
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-      panel_tela();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-     panel_metales();
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-       panel_correa();
-        
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-        panel_zipper();
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-        panel_hilo();
-       
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
-        panel_plastico();
-         
-    }//GEN-LAST:event_jButton12ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
           // TODO add your handling code here:
           switch (jComboBox1.getSelectedIndex()) {
               case 0:
-                 JOptionPane.showMessageDialog(null,"Escoja una Categoria para ver los Productos");
-                  break;
-              case 1:
+                  modelo.setColumnCount(0);
+                  modelo.setRowCount(0);
                   mostrar_tela();
                   break;
-              case 2:
+              case 1:
+                  
+                  modelo.setColumnCount(0);
+                  modelo.setRowCount(0);
                   mostrar_etiqueta();
                   break;
-              case 3:
+              case 2:
+                   modelo.setColumnCount(0);
+                  modelo.setRowCount(0);
                   mostrar_carrito();
                   break;
-              case 4:
+              case 3:
+                  modelo.setColumnCount(0);
+                  modelo.setRowCount(0);
                   mostrar_metales();
                   break;
-              case 5:
+              case 4:
+                  modelo.setColumnCount(0);
+                   modelo.setRowCount(0);
                    mostrar_correa();
                   break;
-              case 6:
+              case 5:
+                   modelo.setColumnCount(0);
+                  modelo.setRowCount(0);
                  mostrar_zipper();
                   break;
-              case 7:
+              case 6:
+                  modelo.setColumnCount(0);
+                  modelo.setRowCount(0);
                  mostrar_hilo();
                   break;
-              case 8:
+              case 7:
+                  modelo.setColumnCount(0);
+                  modelo.setRowCount(0);
                     mostrar_plastico();
                   break;
               default:
@@ -416,42 +266,106 @@ public class Productos extends javax.swing.JPanel {
         // TODO add your handling code here:
         int fila =tablaproducto.getSelectedRow();
         
-        switch (tablaproducto.getValueAt(fila,1).toString()) {
-              case "Tela":
-                  panel_tela();
+        
+        if(fila>=0){
+            int idproducto =Integer.valueOf(tablaproducto.getValueAt(fila,0).toString());
+            switch (Integer.valueOf(tablaproducto.getValueAt(fila,1).toString())) {
+              case 1:
+                  modificar_tela(idproducto);
                   break;
-              case "Etiqueta":
-                  panel_etiqueta();
+              case 2:
+                  modificar_etiqueta(idproducto);
                   break;
-              case "Carrito":
-                  panel_carrito();
+              case 3:
+                  modificar_carrito(idproducto);
                   break;
-              case "Metales":
-                  panel_metales();
+              case 4:
+                  modificar_metales(idproducto);
                   break;
-              case "Correa":
-                  panel_correa();
+              case 5:
+                  modificar_correa(idproducto);
                   break;
-              case "Zipper":
-                  panel_zipper();
+              case 6:
+                  modificar_zipper(idproducto);
                   break;
-              case "Hilo":
-                  panel_hilo();
+              case 7:
+                  modificar_hilo(idproducto);
                   break;
-              case "Plastico":
-                  panel_plastico();
+              case 8:
+                  modificar_plastico(idproducto);
                   break;
               default:
                   break;
           }
+        }else{
+            
+            JOptionPane.showMessageDialog(null,"Debe seleccionar una fila para poder modificar");
+            
+        }
+        
+        
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+       switch (jComboBox2.getSelectedIndex()) {
+              case 0:
+                 panel_tela();
+                  break;
+              case 1:
+                  panel_etiqueta();
+                  break;
+              case 2:
+                  panel_carrito();
+                  break;
+              case 3:
+                  panel_metales();
+                  break;
+              case 4:
+                  panel_correa();
+                  break;
+              case 5:
+                   panel_zipper();
+                  break;
+              case 6:
+                panel_hilo();
+                  break;
+              case 7:
+                 panel_plastico();
+                  break;
+        
+              default:
+                  break;
+          }
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        int fila =tablaproducto.getSelectedRow();
+        int celda=Integer.valueOf(tablaproducto.getValueAt(fila,0).toString());
+        int sino = JOptionPane.YES_NO_OPTION;
+        int resultado = JOptionPane.showConfirmDialog(null,"¿Desea elimiar este registro?","Advertencia",sino);
+        if(resultado==0){
+            int bandera;
+            bandera=visible(celda);
+            
+            if(bandera==1){
+                JOptionPane.showMessageDialog(null,"Eliminado Exitosamente");
+            }else{
+                
+                JOptionPane.showMessageDialog(null,"Ocurrio un erro al eliminar el registro");
+            }
+             
+        }
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public void mostrar_tela(){
         
        
         modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Id Categoria");
         modelo.addColumn("Tipo");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Yardas");
@@ -463,17 +377,19 @@ public class Productos extends javax.swing.JPanel {
         String[] datos = new String[7];
         Statement st;
           try {
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT * FROM producto WHERE producto_id='"+1+"'");
+            String cat=String.valueOf(jComboBox1.getSelectedItem());
+            int id_categoria=id_categoria(cat);
+            st=cn.createStatement();
+            ResultSet rs=st.executeQuery("SELECT id_producto,tipo,cantidad,yardaje,color,precio_venta,categoria_id FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
-            datos[1]= rs.getString(2);
-            datos[2]= rs.getString(3);
-            datos[3]= rs.getString(4);
-            datos[4]= rs.getString(5);
-            datos[5]= rs.getString(6);
-            datos[6]= rs.getString(11);
+            datos[1]= rs.getString(7);
+            datos[2]= rs.getString(2);
+            datos[3]= rs.getString(3);
+            datos[4]= rs.getString(4);
+            datos[5]= rs.getString(5);
+            datos[6]= rs.getString(6);
             modelo.addRow(datos);
         }
               
@@ -486,7 +402,7 @@ public class Productos extends javax.swing.JPanel {
     public void  mostrar_etiqueta(){
         
         modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Id Categoria");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Marca");
         modelo.addColumn("Tamaño");
@@ -497,16 +413,18 @@ public class Productos extends javax.swing.JPanel {
         String[] datos = new String[6];
         Statement st;
           try {
+               String cat=String.valueOf(jComboBox1.getSelectedItem());
+              int id_categoria=id_categoria(cat);
               st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT * FROM producto WHERE producto_id='"+2+"'");
+              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,marca,tamaño,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"'");
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
-            datos[2]= rs.getString(4);
-            datos[3]= rs.getString(7);
-            datos[4]= rs.getString(8);
-            datos[5]= rs.getString(11);
+            datos[2]= rs.getString(3);
+            datos[3]= rs.getString(4);
+            datos[4]= rs.getString(5);
+            datos[5]= rs.getString(6);
             modelo.addRow(datos);
         }
               
@@ -519,7 +437,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_carrito(){
         
         modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Id Categoria");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Color");
         modelo.addColumn("Tamaño");
@@ -531,17 +449,19 @@ public class Productos extends javax.swing.JPanel {
         String[] datos = new String[7];
         Statement st;
           try {
+               String cat=String.valueOf(jComboBox1.getSelectedItem());
+              int id_categoria=id_categoria(cat);
               st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT * FROM producto WHERE producto_id='"+3+"'");
+              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,color,tamaño,numero,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
-            datos[2]= rs.getString(4);
-            datos[3]= rs.getString(6);
-            datos[4]= rs.getString(8);
-            datos[5]= rs.getString(9);
-            datos[5]= rs.getString(11);
+            datos[2]= rs.getString(3);
+            datos[3]= rs.getString(4);
+            datos[4]= rs.getString(5);
+            datos[5]= rs.getString(6);
+            datos[6]= rs.getString(7);
             modelo.addRow(datos);
         }
               
@@ -554,7 +474,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_metales(){
         
         modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Id Categoria");
         modelo.addColumn("Tipo");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Medida");
@@ -565,16 +485,18 @@ public class Productos extends javax.swing.JPanel {
         String[] datos = new String[6];
         Statement st;
           try {
+              String cat=String.valueOf(jComboBox1.getSelectedItem());
+              int id_categoria=id_categoria(cat);
               st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT * FROM producto WHERE producto_id='"+4+"'");
+              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,tipo,cantidad,medida,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
             datos[2]= rs.getString(3);
             datos[3]= rs.getString(4);
-            datos[4]= rs.getString(10);
-            datos[5]= rs.getString(11);
+            datos[4]= rs.getString(5);
+            datos[5]= rs.getString(6);
             modelo.addRow(datos);
         }
               
@@ -587,7 +509,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_correa(){
         
         modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Id Categoria");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Color");
         modelo.addColumn("Numero");
@@ -598,16 +520,18 @@ public class Productos extends javax.swing.JPanel {
         String[] datos = new String[6];
         Statement st;
           try {
+               String cat=String.valueOf(jComboBox1.getSelectedItem());
+              int id_categoria=id_categoria(cat);
               st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT * FROM producto WHERE producto_id='"+5+"'");
+              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,color,numero,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
-            datos[2]= rs.getString(4);
-            datos[3]= rs.getString(6);
-            datos[4]= rs.getString(9);
-            datos[5]= rs.getString(11);
+            datos[2]= rs.getString(3);
+            datos[3]= rs.getString(4);
+            datos[4]= rs.getString(5);
+            datos[5]= rs.getString(6);
             modelo.addRow(datos);
         }
               
@@ -619,7 +543,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_zipper(){
         
         modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Id Categoria");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Color");
         modelo.addColumn("Tamaño");
@@ -631,17 +555,19 @@ public class Productos extends javax.swing.JPanel {
         String[] datos = new String[7];
         Statement st;
           try {
+               String cat=String.valueOf(jComboBox1.getSelectedItem());
+              int id_categoria=id_categoria(cat);
               st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT * FROM producto WHERE producto_id='"+6+"'");
+              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,color,tamaño,numero,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
-            datos[2]= rs.getString(4);
-            datos[3]= rs.getString(6);
-            datos[4]= rs.getString(8);
-            datos[5]= rs.getString(9);
-            datos[6]= rs.getString(11);
+            datos[2]= rs.getString(3);
+            datos[3]= rs.getString(4);
+            datos[4]= rs.getString(5);
+            datos[5]= rs.getString(6);
+            datos[6]= rs.getString(7);
             modelo.addRow(datos);
         }
               
@@ -653,7 +579,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_hilo(){
         
         modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Id Categoria");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Color");
         modelo.addColumn("Marca");
@@ -664,16 +590,18 @@ public class Productos extends javax.swing.JPanel {
         String[] datos = new String[6];
         Statement st;
           try {
+              String cat=String.valueOf(jComboBox1.getSelectedItem());
+              int id_categoria=id_categoria(cat);
               st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT * FROM producto WHERE producto_id='"+7+"'");
+              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,color,marca,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
-            datos[2]= rs.getString(4);
-            datos[3]= rs.getString(6);
-            datos[4]= rs.getString(7);
-            datos[5]= rs.getString(11);
+            datos[2]= rs.getString(3);
+            datos[3]= rs.getString(4);
+            datos[4]= rs.getString(5);
+            datos[5]= rs.getString(6);
             modelo.addRow(datos);
         }
               
@@ -686,7 +614,7 @@ public class Productos extends javax.swing.JPanel {
     public void mostrar_plastico(){
         
         modelo.addColumn("ID");
-        modelo.addColumn("Nombre");
+        modelo.addColumn("Id Categoria");
         modelo.addColumn("Tipo");
         modelo.addColumn("Cantidad");
         modelo.addColumn("Medida");
@@ -697,16 +625,18 @@ public class Productos extends javax.swing.JPanel {
         String[] datos = new String[6];
         Statement st;
           try {
+              String cat=String.valueOf(jComboBox1.getSelectedItem());
+              int id_categoria=id_categoria(cat);
               st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT * FROM producto WHERE producto_id='"+8+"'");
+              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,tipo,cantidad,medida,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
             datos[1]= rs.getString(2);
             datos[2]= rs.getString(3);
             datos[3]= rs.getString(4);
-            datos[4]= rs.getString(10);
-            datos[5]= rs.getString(11);
+            datos[4]= rs.getString(5);
+            datos[5]= rs.getString(6);
             modelo.addRow(datos);
         }
               
@@ -716,8 +646,10 @@ public class Productos extends javax.swing.JPanel {
     }
     
     public void panel_tela(){
-        
+      
+      
         Tela tela = new Tela();
+        tela.index=String.valueOf(jComboBox2.getSelectedItem());
         tela.setSize(405,550);
         tela.setLocation(0,0);
         jPanel2.removeAll();
@@ -729,6 +661,7 @@ public class Productos extends javax.swing.JPanel {
     public void panel_etiqueta(){
      
          Etiqueta etiqueta = new Etiqueta();
+         etiqueta.index=String.valueOf(jComboBox2.getSelectedItem());
         etiqueta.setSize(405,550);
         etiqueta.setLocation(0,0);
         jPanel2.removeAll();
@@ -741,6 +674,7 @@ public class Productos extends javax.swing.JPanel {
     public void panel_carrito(){
         
         Carrito carrito = new Carrito();
+        carrito.index=(String.valueOf(jComboBox2.getSelectedItem()));
         carrito.setSize(405,550);
         carrito.setLocation(0,0);
         jPanel2.removeAll();
@@ -752,6 +686,7 @@ public class Productos extends javax.swing.JPanel {
     public void panel_metales(){
         
         Metales metal = new Metales();
+        metal.index=(String.valueOf(jComboBox2.getSelectedItem()));
         metal.setSize(405,550);
         metal.setLocation(0,0);
         jPanel2.removeAll();
@@ -763,6 +698,7 @@ public class Productos extends javax.swing.JPanel {
     public void panel_correa(){
         
         Correa c = new Correa();
+        c.index=(String.valueOf(jComboBox2.getSelectedItem()));
         c.setSize(405,550);
         c.setLocation(0,0);
         jPanel2.removeAll();
@@ -773,6 +709,7 @@ public class Productos extends javax.swing.JPanel {
     
     public void panel_zipper(){
         Zipper z = new Zipper();
+        z.index=(String.valueOf(jComboBox2.getSelectedItem()));
         z.setSize(405,550);
         z.setLocation(0,0);
         jPanel2.removeAll();
@@ -784,6 +721,7 @@ public class Productos extends javax.swing.JPanel {
     public void panel_hilo(){
         
          Hilo h = new Hilo();
+         h.index=(String.valueOf(jComboBox2.getSelectedItem()));
         h.setSize(405,550);
         h.setLocation(0,0);
         jPanel2.removeAll();
@@ -795,6 +733,7 @@ public class Productos extends javax.swing.JPanel {
     public void panel_plastico(){
         
         Plastico p = new Plastico();
+        p.index=(String.valueOf(jComboBox2.getSelectedItem()));
         p.setSize(405,550);
         p.setLocation(0,0);
         jPanel2.removeAll();
@@ -802,31 +741,160 @@ public class Productos extends javax.swing.JPanel {
         jPanel2.revalidate();
         jPanel2.repaint();
     }
+    
+    public void mostrar_nombres_productos(){
+        
+         
+   
+         String sql ="SELECT categoria FROM categoria";
+         Statement st ;
+         ResultSet rs;
+         
+          try {
+              st= cn.createStatement();
+              rs = st.executeQuery(sql);
+              while (rs.next()) {
+                  
+                  jComboBox1.addItem(rs.getString(1));
+                  jComboBox2.addItem(rs.getString(1));
+                  
+              } } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+   
+    }
+    
+    public int id_categoria(String categoria){
+        
+        Statement st;
+        int idcategoria=0;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT id FROM categoria WHERE categoria='"+categoria+"'");
+              
+        while (rs.next()) {
+          
+            idcategoria=rs.getInt(1);
+            
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+       return idcategoria;
+    }
+    
+    public int visible(int idproducto){
+        
+       
+          try {
+              String sql ="UPDATE producto SET visible='"+0+"' WHERE id_producto='"+idproducto+"'";
+              PreparedStatement preparado= cn.prepareStatement(sql);
+              preparado.executeUpdate();
+              return 1;
+          } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return 0;
+    }
+    
+    public void modificar_tela(int idproducto){
+        Mtela tela = new Mtela(idproducto);
+        tela.id_producto=idproducto;
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void modificar_etiqueta(int idproducto){
+        Metiqueta tela = new Metiqueta(idproducto);
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void modificar_carrito(int idproducto){
+        Mcarrito tela = new Mcarrito(idproducto);
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void modificar_metales(int idproducto){
+        Mmetales tela = new Mmetales(idproducto);
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void modificar_correa(int idproducto){
+        Mcorrea tela = new Mcorrea(idproducto);
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void modificar_zipper(int idproducto){
+        Mzipper tela = new Mzipper(idproducto);
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void modificar_hilo(int idproducto){
+        Mhilo tela = new Mhilo(idproducto);
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
+    public void modificar_plastico(int idproducto){
+        Mplastico tela = new Mplastico(idproducto);
+        tela.setSize(405,550);
+        tela.setLocation(0,0);
+        jPanel2.removeAll();
+        jPanel2.add(tela,BorderLayout.CENTER);
+        jPanel2.revalidate();
+        jPanel2.repaint();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
+    public javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tablaproducto;
     // End of variables declaration//GEN-END:variables
 }
