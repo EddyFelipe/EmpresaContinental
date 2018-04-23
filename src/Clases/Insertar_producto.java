@@ -51,10 +51,10 @@ public class Insertar_producto {
     
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT id_producto,cantidad FROM producto");
+          ResultSet consulta = st.executeQuery("SELECT nombre,existencia,precio_venta FROM producto");
           
               while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getInt(1),consulta.getInt(2)});
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
             }
             st.close();
             consulta.close();
@@ -64,4 +64,7 @@ public class Insertar_producto {
       }
      return Modelo;
   }
+  
+
+    
 }

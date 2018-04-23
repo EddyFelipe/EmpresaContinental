@@ -6,8 +6,14 @@
 package Forms;
 
 import Clases.Conexion;
+import com.sun.glass.events.KeyEvent;
 import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,18 +25,25 @@ public class Ventas extends javax.swing.JPanel {
     /**
      * Creates new form Ventas
      */
-    private String ColumnaVentas[] = {"Producto","Cantidad","Descripcion","Q. Unitario","Total"};
+    private String ColumnaVentas[] = {"Producto","Cantidad","Descripcion","Total"};
     private DefaultTableModel ModeloVentas,ModeloProductos;
     private Connection ConexionBaseDatos;
+    private boolean ProductoSeleccionado;
+    private ArrayList<Clases.AtributoVentas> ListaProductos;
+    private int RowSeleccionado;
+    private double Total,Descuento = 0; 
+    private DefaultListModel ModeloLista;
     public Ventas() {
         initComponents();
        Grupo1.add(RbYarda);
-       Grupo1.add(RbRollos);
+       Grupo1.add(RbUnidades);
        Grupo1.add(RbMillar);
        Grupo1.add(RbCientos);
+       Grupo1.add(RbRollos);
        
        ModeloProductos = new DefaultTableModel();
        ModeloVentas = new DefaultTableModel();
+       ModeloLista = new DefaultListModel();
        ModeloVentas.setColumnIdentifiers(ColumnaVentas);        
        TableVentas.setModel(ModeloVentas);
         
@@ -39,13 +52,84 @@ public class Ventas extends javax.swing.JPanel {
        ConexionBaseDatos = con.ConectarBaseDatos();
     //   ConexionBaseDatos = Clases.Conexion.getConnection();
        
+       //Variables
+       ProductoSeleccionado = false;
+       ListaProductos = new ArrayList<>();
+       
+       //Llamada a metodos
+       TablaProductos();  
        TablaVentas();
+       MetodoRadioButon();
+       OcultarDescuentos();
+     //  TableVentas.setComponentPopupMenu(PopMenu);
     }
+    
+    //Metodos que se van a utilizar en el formulario
     private void TablaVentas(){
-       ModeloProductos.addColumn("Nombre Producto"); ModeloProductos.addColumn("Existencia");
-       TablaProductos.setModel(Clases.Insertar_producto.MostrarProducto(ModeloProductos, ConexionBaseDatos));
+       ModeloProductos.addColumn("Nombre Producto"); ModeloProductos.addColumn("Existencia"); ModeloProductos.addColumn("Q. Unitario");
+       ModeloProductos = Clases.Insertar_producto.MostrarProducto(ModeloProductos, ConexionBaseDatos);
+       TablaProductos.setModel(ModeloProductos);
+     
     }
-
+    
+    //Funcion para dar doble click sobre el jtable producto
+    private void TablaProductos(){
+      TablaProductos.addMouseListener(new MouseAdapter() {
+           @Override
+            public void mouseClicked(MouseEvent e){
+           
+              if(e.getClickCount() == 2){
+                ProductoSeleccionado = true;
+                RowSeleccionado = TablaProductos.getSelectedRow();
+                SelectProducto.setText(ModeloProductos.getValueAt(TablaProductos.getSelectedRow(),0).toString());
+              }
+          }
+        });
+    }
+    private void MetodoRadioButon(){
+       RbCientos.setActionCommand("Cientos");
+       RbMillar.setActionCommand("Millar");
+       RbRollos.setActionCommand("Rollos");
+       RbUnidades.setActionCommand("Unidades");
+       RbYarda.setActionCommand("Yarda");
+  }
+    //METODO para agregar una venta
+   private void AgregarVenta(){
+       
+    if(ProductoSeleccionado && Grupo1.getSelection() != null && !txtCantidad.getText().equals("")){
+           Clases.AtributoVentas venta = new Clases.AtributoVentas();
+           //Seteando los los datos de la venta
+           venta.SetProducto(SelectProducto.getText());
+           venta.SetDescripcion(Grupo1.getSelection().getActionCommand());
+           venta.SetCantidad(Integer.parseInt(txtCantidad.getText()));
+           venta.SetTotal(Double.parseDouble(ModeloProductos.getValueAt(RowSeleccionado, 2).toString())*venta.getCantidad());
+           ListaProductos.add(venta);
+           ModeloVentas.addRow(new Object[]{ListaProductos.get(ListaProductos.size() - 1).getProducto(),ListaProductos.get(ListaProductos.size() - 1).getCantidad(),
+           ListaProductos.get(ListaProductos.size() - 1).getDescripcion(),ListaProductos.get(ListaProductos.size() - 1).getTotal()});
+           Total += venta.getTotal();
+           //Desceleccionar todos los objetos
+           Grupo1.clearSelection();
+           ProductoSeleccionado = false;
+           RowSeleccionado = 0;
+           SelectProducto.setText("");
+           txtCantidad.setText("");
+           lblTotal.setText(Total+"");
+           lblDescuento.setText(Descuento+"");
+        }
+        else 
+             JOptionPane.showMessageDialog(this, "No hay nada seleccionado");
+   }
+   private void OcultarDescuentos(){
+    lblTipos.setVisible(false);
+    txtDescuento.setVisible(false);
+    SepDes.setVisible(false);
+   }
+   private void VisibleDescuento(){
+       lblTipos.setVisible(true);
+       txtDescuento.setVisible(true);
+       SepDes.setVisible(true);
+   }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +140,9 @@ public class Ventas extends javax.swing.JPanel {
     private void initComponents() {
 
         Grupo1 = new javax.swing.ButtonGroup();
+        PopMenu = new javax.swing.JPopupMenu();
+        Eliminar = new javax.swing.JMenuItem();
+        Editar = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnlVentas = new javax.swing.JPanel();
         pnlContenedor = new javax.swing.JPanel();
@@ -70,23 +157,39 @@ public class Ventas extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         txtDireccionClient = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        btnDespachar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TablaProductos = new javax.swing.JTable();
+        SelectProducto = new javax.swing.JLabel();
+        btnDescuento = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         TableVentas = new javax.swing.JTable();
         RbYarda = new javax.swing.JRadioButton();
         RbCientos = new javax.swing.JRadioButton();
         RbMillar = new javax.swing.JRadioButton();
-        RbRollos = new javax.swing.JRadioButton();
+        RbUnidades = new javax.swing.JRadioButton();
         txtCantidad = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnVender = new javax.swing.JButton();
+        RbRollos = new javax.swing.JRadioButton();
+        lblDescuento = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        lblTipos = new javax.swing.JLabel();
+        SepDes = new javax.swing.JSeparator();
+        txtDescuento = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaProductos = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ListadoTipos = new javax.swing.JList();
+        lblDesMsg = new javax.swing.JLabel();
         pnlConsultas = new javax.swing.JPanel();
+
+        Eliminar.setText("Eliminar Producto");
+        PopMenu.add(Eliminar);
+
+        Editar.setText("Editar Producto");
+        PopMenu.add(Editar);
 
         setBackground(new java.awt.Color(36, 41, 46));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -136,7 +239,7 @@ public class Ventas extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nit:");
         pnlContenedor.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, -1, -1));
-        pnlContenedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 330, 190, 10));
+        pnlContenedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, 190, 10));
         pnlContenedor.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 310, 10));
 
         txtDireccionClient.setBackground(new java.awt.Color(36, 41, 46));
@@ -147,60 +250,48 @@ public class Ventas extends javax.swing.JPanel {
         txtDireccionClient.setBorder(null);
         pnlContenedor.add(txtDireccionClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 310, 40));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Listado de Productos:");
-        pnlContenedor.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+        SelectProducto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        SelectProducto.setForeground(new java.awt.Color(255, 255, 255));
+        SelectProducto.setText(".");
+        pnlContenedor.add(SelectProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 190, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusPainted(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento2.png"))); // NOI18N
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento1.png"))); // NOI18N
-        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento.png"))); // NOI18N
+        btnDescuento.setBorder(null);
+        btnDescuento.setBorderPainted(false);
+        btnDescuento.setContentAreaFilled(false);
+        btnDescuento.setFocusPainted(false);
+        btnDescuento.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDescuento.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento2.png"))); // NOI18N
+        btnDescuento.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento1.png"))); // NOI18N
+        btnDescuento.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnDescuento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDescuentoActionPerformed(evt);
             }
         });
-        pnlContenedor.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 600, 90, 90));
+        pnlContenedor.add(btnDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 610, 90, 90));
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Descuento:");
-        pnlContenedor.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 670, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Total a pagar:");
-        pnlContenedor.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 670, -1, -1));
-
-        btnDespachar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar.png"))); // NOI18N
-        btnDespachar.setBorder(null);
-        btnDespachar.setBorderPainted(false);
-        btnDespachar.setContentAreaFilled(false);
-        btnDespachar.setFocusPainted(false);
-        btnDespachar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnDespachar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar2.png"))); // NOI18N
-        btnDespachar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar1.png"))); // NOI18N
-        btnDespachar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        pnlContenedor.add(btnDespachar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, -1, 90));
-
-        TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar.png"))); // NOI18N
+        btnAceptar.setBorder(null);
+        btnAceptar.setBorderPainted(false);
+        btnAceptar.setContentAreaFilled(false);
+        btnAceptar.setFocusPainted(false);
+        btnAceptar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAceptar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar2.png"))); // NOI18N
+        btnAceptar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar1.png"))); // NOI18N
+        btnAceptar.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(TablaProductos);
+        });
+        pnlContenedor.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 380, -1, 90));
 
-        pnlContenedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 340, 470));
-
+        TablaProductos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex,int colIndex){
+                return false;
+            }
+        };
         TableVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -209,6 +300,13 @@ public class Ventas extends javax.swing.JPanel {
 
             }
         ));
+        TableVentas.setFocusable(false);
+        TableVentas.getTableHeader().setReorderingAllowed(false);
+        TableVentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                TableVentasMouseReleased(evt);
+            }
+        });
         jScrollPane3.setViewportView(TableVentas);
 
         pnlContenedor.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 630, 440));
@@ -228,10 +326,10 @@ public class Ventas extends javax.swing.JPanel {
         RbMillar.setText("Millar");
         pnlContenedor.add(RbMillar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, -1, -1));
 
-        RbRollos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        RbRollos.setForeground(new java.awt.Color(255, 255, 255));
-        RbRollos.setText("Rollos");
-        pnlContenedor.add(RbRollos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, -1, -1));
+        RbUnidades.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        RbUnidades.setForeground(new java.awt.Color(255, 255, 255));
+        RbUnidades.setText("Unidades");
+        pnlContenedor.add(RbUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, -1, -1));
 
         txtCantidad.setBackground(new java.awt.Color(36, 41, 46));
         txtCantidad.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -239,23 +337,119 @@ public class Ventas extends javax.swing.JPanel {
         txtCantidad.setAlignmentX(1.0F);
         txtCantidad.setAlignmentY(1.0F);
         txtCantidad.setBorder(null);
-        pnlContenedor.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 180, 30));
+        txtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCantidadKeyTyped(evt);
+            }
+        });
+        pnlContenedor.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 180, 30));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Cantidad:");
-        pnlContenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, -1, -1));
+        pnlContenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, -1, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender.png"))); // NOI18N
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setFocusPainted(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender2.png"))); // NOI18N
-        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender1.png"))); // NOI18N
-        jButton2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        pnlContenedor.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 560, -1, 90));
+        btnVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender.png"))); // NOI18N
+        btnVender.setBorder(null);
+        btnVender.setBorderPainted(false);
+        btnVender.setContentAreaFilled(false);
+        btnVender.setFocusPainted(false);
+        btnVender.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVender.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender2.png"))); // NOI18N
+        btnVender.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender1.png"))); // NOI18N
+        btnVender.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        btnVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderActionPerformed(evt);
+            }
+        });
+        pnlContenedor.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 610, -1, 90));
+
+        RbRollos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        RbRollos.setForeground(new java.awt.Color(255, 255, 255));
+        RbRollos.setText("Rollos");
+        pnlContenedor.add(RbRollos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, -1, -1));
+
+        lblDescuento.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        lblDescuento.setForeground(new java.awt.Color(0, 136, 204));
+        lblDescuento.setText(".");
+        pnlContenedor.add(lblDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 650, 330, -1));
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Descuento:");
+        pnlContenedor.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 660, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Total a pagar:");
+        pnlContenedor.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 710, -1, -1));
+
+        lblTotal.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        lblTotal.setForeground(new java.awt.Color(0, 136, 204));
+        lblTotal.setText(".");
+        pnlContenedor.add(lblTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 700, 320, -1));
+
+        lblTipos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblTipos.setForeground(new java.awt.Color(255, 255, 255));
+        lblTipos.setText("Tipos");
+        pnlContenedor.add(lblTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, -1, -1));
+        pnlContenedor.add(SepDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 580, 210, 10));
+
+        txtDescuento.setBackground(new java.awt.Color(36, 41, 46));
+        txtDescuento.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtDescuento.setForeground(new java.awt.Color(255, 255, 255));
+        txtDescuento.setAlignmentX(1.0F);
+        txtDescuento.setAlignmentY(1.0F);
+        txtDescuento.setBorder(null);
+        txtDescuento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescuentoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescuentoKeyTyped(evt);
+            }
+        });
+        pnlContenedor.add(txtDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 550, 180, 30));
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Producto Seleccionado:");
+        pnlContenedor.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+
+        TablaProductos = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex,int colIndex){
+                return false;
+            }
+        };
+        TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        TablaProductos.setFocusable(false);
+        TablaProductos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(TablaProductos);
+
+        pnlContenedor.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 350, 300));
+
+        jScrollPane2.setViewportView(ListadoTipos);
+
+        pnlContenedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, 350, -1));
+
+        lblDesMsg.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblDesMsg.setForeground(new java.awt.Color(255, 255, 255));
+        lblDesMsg.setText("Descuento:");
+        pnlContenedor.add(lblDesMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 560, -1, -1));
 
         javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
         pnlVentas.setLayout(pnlVentasLayout);
@@ -292,31 +486,84 @@ public class Ventas extends javax.swing.JPanel {
         add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1420, 800));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescuentoActionPerformed
+          VisibleDescuento();
+    }//GEN-LAST:event_btnDescuentoActionPerformed
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+      
+        int tem = Integer.parseInt(ModeloProductos.getValueAt(RowSeleccionado, 1).toString());
+        if(tem >= Integer.parseInt(txtCantidad.getText())){
+         ModeloProductos.setValueAt(tem - Integer.parseInt(txtCantidad.getText()),RowSeleccionado, 1);
+         AgregarVenta(); 
+        }
+        else 
+            JOptionPane.showMessageDialog(this,"Ya no hay existencia");
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
+        char capturar = evt.getKeyChar();
+        if(!Character.isDigit(capturar)){
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtCantidadKeyTyped
+
+    private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){ AgregarVenta(); }
+    }//GEN-LAST:event_txtCantidadKeyPressed
+
+    private void TableVentasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVentasMouseReleased
+         if(evt.isPopupTrigger()){       
+            PopMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }//GEN-LAST:event_TableVentasMouseReleased
+
+    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+       ListaProductos.clear();     
+       for(int i = 0; i < ModeloVentas.getRowCount(); i++){ ModeloVentas.removeRow(i); i--; }
+       Total  = 0;
+       lblTotal.setText(""+Total);
+    }//GEN-LAST:event_btnVenderActionPerformed
+
+    private void txtDescuentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescuentoKeyPressed
         // TODO add your handling code here:
-       
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_txtDescuentoKeyPressed
+
+    private void txtDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescuentoKeyTyped
+        char capturar = evt.getKeyChar();
+        if(!Character.isDigit(capturar)){
+          evt.consume();
+        }
+    }//GEN-LAST:event_txtDescuentoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Editar;
+    private javax.swing.JMenuItem Eliminar;
     private javax.swing.ButtonGroup Grupo1;
+    private javax.swing.JList ListadoTipos;
+    private javax.swing.JPopupMenu PopMenu;
     private javax.swing.JRadioButton RbCientos;
     private javax.swing.JRadioButton RbMillar;
     private javax.swing.JRadioButton RbRollos;
+    private javax.swing.JRadioButton RbUnidades;
     private javax.swing.JRadioButton RbYarda;
+    private javax.swing.JLabel SelectProducto;
+    private javax.swing.JSeparator SepDes;
     private javax.swing.JTable TablaProductos;
     private javax.swing.JTable TableVentas;
-    private javax.swing.JButton btnDespachar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnDescuento;
+    private javax.swing.JButton btnVender;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
@@ -324,10 +571,15 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblDesMsg;
+    private javax.swing.JLabel lblDescuento;
+    private javax.swing.JLabel lblTipos;
+    private javax.swing.JLabel lblTotal;
     private javax.swing.JPanel pnlConsultas;
     private javax.swing.JPanel pnlContenedor;
     private javax.swing.JPanel pnlVentas;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtDescuento;
     private javax.swing.JTextField txtDireccionClient;
     private javax.swing.JTextField txtNitClient;
     private javax.swing.JTextField txtNombreClient;
