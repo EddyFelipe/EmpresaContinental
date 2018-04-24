@@ -12,7 +12,7 @@ package Clases;
 public class AtributoVentas {
     
     private String Producto,Descripcion;
-    private int Cantidad,Id;
+    private int Cantidad,IdCategoria,idProducto;
     private double  Total;
 
 
@@ -31,6 +31,10 @@ public class AtributoVentas {
     public void SetTotal(double total){ Total = total; }
     public double getTotal(){return Total; }
     
-    public void Setid(int id){ Id = id; }
-    public int getid(){return Id; }
+    public void SetidCategoria(int id){ IdCategoria = id; }
+    public int getidCategoria(){return IdCategoria; }
+    
+    public void SetidProducto(int id){ idProducto = id; }
+    public int getidProducto(){ return idProducto; }
+    
 }

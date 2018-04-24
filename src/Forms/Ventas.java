@@ -30,7 +30,7 @@ public class Ventas extends javax.swing.JPanel {
     private Connection ConexionBaseDatos;
     private boolean ProductoSeleccionado;
     private ArrayList<Clases.AtributoVentas> ListaProductos;
-    private int RowSeleccionado;
+    private int RowSeleccionado,RowCategoria;
     private double Total,Descuento = 0; 
     private DefaultListModel ModeloLista;
     private ArrayList<ElementosCategoria> ProductosCategoria;
@@ -96,6 +96,7 @@ public class Ventas extends javax.swing.JPanel {
               if(e.getClickCount() == 2){
                   ModeloProductos = ProductosCategoria.get(ListadoTipos.getSelectedIndex()).getModelo();
                   TablaProductos.setModel(ModeloProductos);
+                  RowCategoria = ListadoTipos.getSelectedIndex();
               }
           }
         });
@@ -117,10 +118,13 @@ public class Ventas extends javax.swing.JPanel {
            venta.SetDescripcion(Grupo1.getSelection().getActionCommand());
            venta.SetCantidad(Integer.parseInt(txtCantidad.getText()));
            venta.SetTotal(Double.parseDouble(ModeloProductos.getValueAt(RowSeleccionado, col).toString())*venta.getCantidad());
+           venta.SetidCategoria(RowCategoria);
+           venta.SetidProducto(RowSeleccionado);
            ListaProductos.add(venta);
            ModeloVentas.addRow(new Object[]{ListaProductos.get(ListaProductos.size() - 1).getProducto(),ListaProductos.get(ListaProductos.size() - 1).getCantidad(),
            ListaProductos.get(ListaProductos.size() - 1).getDescripcion(),ListaProductos.get(ListaProductos.size() - 1).getTotal()});
            Total += venta.getTotal();
+           
            //Desceleccionar todos los objetos
            Grupo1.clearSelection();
            ProductoSeleccionado = false;
@@ -147,10 +151,7 @@ public class Ventas extends javax.swing.JPanel {
    //Metodo que carga los productos que pertenecen a distintas categorias
    private void CargarProductoCategorias(){
       
-       if(ProductosCategoria.size() != 0){
-       }
-       else{
-           System.out.println("Agregando Productos");
+        ProductosCategoria.clear();
         ElementosCategoria c1 = new ElementosCategoria();
         c1.SetModelo(Insertar_producto.MostrarTela(ConexionBaseDatos, 1));
         ProductosCategoria.add(c1);
@@ -159,7 +160,7 @@ public class Ventas extends javax.swing.JPanel {
         ElementosCategoria c4 = new ElementosCategoria();
         ElementosCategoria c5 = new ElementosCategoria();
         ElementosCategoria c6 = new ElementosCategoria();
-       }
+       
     
    }
   
@@ -219,6 +220,11 @@ public class Ventas extends javax.swing.JPanel {
         pnlConsultas = new javax.swing.JPanel();
 
         Eliminar.setText("Eliminar Producto");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
         PopMenu.add(Eliminar);
 
         Editar.setText("Editar Producto");
@@ -520,7 +526,10 @@ public class Ventas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescuentoActionPerformed
-          VisibleDescuento();
+          //VisibleDescuento();
+       for(int i =0; i < ListaProductos.size(); i++){
+           System.out.println(ListaProductos.get(i).getProducto());
+       }
     }//GEN-LAST:event_btnDescuentoActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
@@ -571,6 +580,12 @@ public class Ventas extends javax.swing.JPanel {
           evt.consume();
         }
     }//GEN-LAST:event_txtDescuentoKeyTyped
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        System.out.println("Eliminar Producto: idCategoria:"+ListaProductos.get(TableVentas.getSelectedRow()).getidCategoria()+" idProducto: "+ListaProductos.get(TableVentas.getSelectedRow()).getidProducto());
+        ListaProductos.remove(TableVentas.getSelectedRow());
+        ModeloVentas.removeRow(TableVentas.getSelectedRow());
+    }//GEN-LAST:event_EliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
