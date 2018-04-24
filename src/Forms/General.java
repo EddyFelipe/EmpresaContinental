@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class General extends javax.swing.JFrame {
    int menu=0;
+   public int conectado = 0;
     /**
      * Creates new form General
      */
@@ -69,6 +70,11 @@ public class General extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(36, 41, 46));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -327,6 +333,10 @@ public class General extends javax.swing.JFrame {
         pnlContenedor.revalidate();
         pnlContenedor.repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        System.out.println("Id conectado: " + conectado);
+    }//GEN-LAST:event_formWindowActivated
 
     public int ancho(){
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;

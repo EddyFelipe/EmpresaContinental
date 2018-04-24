@@ -207,6 +207,26 @@ public class InsertarEmpleado {
         return modelo;
     }
     
+    public int ObtenerId(String nick)
+    {
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        String[] datos = new String[6];
+        Statement st;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT id_empleados from empleados where usuario = "+'"'+nick+'"');
+              
+        while (rs.next()) {
+            datos[0]= rs.getString(1);
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(InsertarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return Integer.parseInt(datos[0]);
+    }
+    
     public boolean BuscarUsuario(String usuario)
     {
         Conexion con = new Conexion();

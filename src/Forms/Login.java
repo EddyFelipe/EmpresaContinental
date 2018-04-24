@@ -19,6 +19,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     Clases.Contrasena verificar = new Clases.Contrasena();
+    Clases.InsertarEmpleado empleado = new Clases.InsertarEmpleado();
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -148,14 +149,14 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     /*  try {
-            // TODO add your handling code here:
+       try {
             if (verificar.Buscar(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword())))
-            {*/
+            {
                 General g = new General();
                 g.setVisible(true);
                 this.setVisible(false);
-         /*   }
+                g.conectado = empleado.ObtenerId(jTextField1.getText());
+            }
             else
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectas");
             if (jTextField1.getText().length() == 0 || jPasswordField1.getPassword().length == 0)
@@ -163,7 +164,7 @@ public class Login extends javax.swing.JFrame {
         } catch (Exception ex) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-              */  
+               
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
