@@ -45,6 +45,45 @@ public class Telefono {
         
     }
     
+    public void Modificar(String numero, String anterior) throws SQLException
+    {
+        Clases.Conexion con = new Clases.Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        try
+        {
+            Insertar = cn.prepareStatement("UPDATE telefono SET numero = ? WHERE numero = ?");
+        
+            Insertar.setString(1, numero);
+            Insertar.setString(2, anterior);
+        
+            Insertar.executeUpdate();
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        
+    }
+    
+    public void Eliminar(String telefono) throws SQLException
+    {
+        Clases.Conexion con = new Clases.Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        try
+        {
+            Insertar = cn.prepareStatement("DELETE from telefono WHERE numero = ?");
+        
+            Insertar.setString(1, telefono);
+        
+            Insertar.executeUpdate();
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        
+    }
+    
     public DefaultTableModel Buscar(DefaultTableModel modelo, int indice)
     {
         
@@ -54,7 +93,7 @@ public class Telefono {
         Statement st;
           try {
               st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT numero FROM telefono WHERE empleados_id_empleados = " + indice);
+              ResultSet rs=st.executeQuery("SELECT numero FROM telefono WHERE empleados_id_empleados = " + (int)indice);
               
         while (rs.next()) {
             datos[0]= rs.getString(1);
@@ -65,5 +104,49 @@ public class Telefono {
               Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
           }
         return modelo;
+    }
+    
+    public DefaultTableModel Filtro(DefaultTableModel modelo, String telefono, int id)
+    {
+        
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        String[] datos = new String[1];
+        Statement st;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT numero FROM telefono WHERE numero like"+'"'+ telefono+ "%"+'"' + "AND empleados_id_empleados = " + id);
+              
+        while (rs.next()) {
+            datos[0]= rs.getString(1);
+            modelo.addRow(datos);
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return modelo;
+    }
+    
+    public boolean Encontrado(String telefono)
+    {
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        String[] datos = new String[1];
+        Statement st;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT numero FROM telefono");
+              
+        while (rs.next()) {
+            datos[0]= rs.getString(1);
+            if (datos[0].equals(telefono))
+                return true;
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return false;
     }
 }
