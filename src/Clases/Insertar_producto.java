@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -47,24 +48,174 @@ public class Insertar_producto {
             }
     }
     
-  public static DefaultTableModel MostrarProducto(DefaultTableModel Modelo,Connection ConexionBsse){
-    
+   //Metodos para mostrar los productos que pertenecen a alguna categoria
+  public static DefaultTableModel MostrarTela(Connection ConexionBsse,int id){
+     
+      DefaultTableModel Modelo = new DefaultTableModel();
+      Modelo.addColumn("Nombre"); Modelo.addColumn("Color"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT nombre,existencia,precio_venta FROM producto");
+          ResultSet consulta = st.executeQuery("SELECT tipo,color,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
           
               while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getString(2),consulta.getInt(3),consulta.getDouble(4)});
             }
             st.close();
-            consulta.close();
-        
+            consulta.close();      
       } catch (SQLException ex) {
           Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
       }
      return Modelo;
   }
   
+    public static DefaultTableModel MostrarEtiqueta(Connection ConexionBsse,int id){
+     
+      DefaultTableModel Modelo = new DefaultTableModel();
+      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      try {
+          Statement st = ConexionBsse.createStatement();
+          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          
+              while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+            }
+            st.close();
+            consulta.close();      
+      } catch (SQLException ex) {
+          Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     return Modelo;
+  }
+      public static DefaultTableModel MostrarCarrito(Connection ConexionBsse,int id){
+     
+      DefaultTableModel Modelo = new DefaultTableModel();
+      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      try {
+          Statement st = ConexionBsse.createStatement();
+          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          
+              while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+            }
+            st.close();
+            consulta.close();      
+      } catch (SQLException ex) {
+          Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     return Modelo;
+  }
+      
+        public static DefaultTableModel MostrarMetales(Connection ConexionBsse,int id){
+     
+      DefaultTableModel Modelo = new DefaultTableModel();
+      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      try {
+          Statement st = ConexionBsse.createStatement();
+          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          
+              while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+            }
+            st.close();
+            consulta.close();      
+      } catch (SQLException ex) {
+          Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     return Modelo;
+  }
+        
+          public static DefaultTableModel MostrarCorrea(Connection ConexionBsse,int id){
+     
+      DefaultTableModel Modelo = new DefaultTableModel();
+      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      try {
+          Statement st = ConexionBsse.createStatement();
+          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          
+              while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+            }
+            st.close();
+            consulta.close();      
+      } catch (SQLException ex) {
+          Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     return Modelo;
+  }
+       public static DefaultTableModel MostrarZipper(Connection ConexionBsse,int id){
+     
+      DefaultTableModel Modelo = new DefaultTableModel();
+      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      try {
+          Statement st = ConexionBsse.createStatement();
+          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          
+              while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+            }
+            st.close();
+            consulta.close();      
+      } catch (SQLException ex) {
+          Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     return Modelo;
+  }
+         public static DefaultTableModel MostrarPlastico(Connection ConexionBsse,int id){
+     
+      DefaultTableModel Modelo = new DefaultTableModel();
+      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      try {
+          Statement st = ConexionBsse.createStatement();
+          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          
+              while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+            }
+            st.close();
+            consulta.close();      
+      } catch (SQLException ex) {
+          Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     return Modelo;
+  }
+   
+    public static DefaultTableModel MostrarHilo(Connection ConexionBsse,int id){
+     
+      DefaultTableModel Modelo = new DefaultTableModel();
+      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      try {
+          Statement st = ConexionBsse.createStatement();
+          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          
+              while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+            }
+            st.close();
+            consulta.close();      
+      } catch (SQLException ex) {
+          Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+      }
+     return Modelo;
+  }
+  
+  public static DefaultListModel Categoria(Connection Conexion){
+         DefaultListModel listaCategoria = new DefaultListModel();
+            try {
+                Statement st = Conexion.createStatement();
+                ResultSet consulta = st.executeQuery("SELECT categoria FROM categoria");
+                
+                while(consulta.next()){
+                  listaCategoria.addElement(consulta.getString(1));
+                }
+                st.close();
+                consulta.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Insertar_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+      return listaCategoria;
+  }
+ 
 
     
 }

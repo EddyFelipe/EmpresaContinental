@@ -7,9 +7,7 @@ package Forms;
 
 import Animacion.Animacion;
 import Clases.Conexion;
-import Clases.Proveedor;
 import java.awt.BorderLayout;
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 /**
  *

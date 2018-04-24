@@ -5,9 +5,8 @@
  */
 package Forms;
 
-import Clases.Conexion;
+import Clases.*;
 import com.sun.glass.events.KeyEvent;
-import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
@@ -25,6 +24,7 @@ public class Ventas extends javax.swing.JPanel {
     /**
      * Creates new form Ventas
      */
+    //DECLARACION DE VARIABLES 
     private String ColumnaVentas[] = {"Producto","Cantidad","Descripcion","Total"};
     private DefaultTableModel ModeloVentas,ModeloProductos;
     private Connection ConexionBaseDatos;
@@ -33,6 +33,7 @@ public class Ventas extends javax.swing.JPanel {
     private int RowSeleccionado;
     private double Total,Descuento = 0; 
     private DefaultListModel ModeloLista;
+    private ArrayList<ElementosCategoria> ProductosCategoria;
     public Ventas() {
         initComponents();
        Grupo1.add(RbYarda);
@@ -41,35 +42,35 @@ public class Ventas extends javax.swing.JPanel {
        Grupo1.add(RbCientos);
        Grupo1.add(RbRollos);
        
-       ModeloProductos = new DefaultTableModel();
        ModeloVentas = new DefaultTableModel();
        ModeloLista = new DefaultListModel();
        ModeloVentas.setColumnIdentifiers(ColumnaVentas);        
        TableVentas.setModel(ModeloVentas);
         
        //Conexion a la base de datos
-       Clases.Conexion con = new Conexion();
+       Conexion con = new Conexion();
        ConexionBaseDatos = con.ConectarBaseDatos();
     //   ConexionBaseDatos = Clases.Conexion.getConnection();
        
        //Variables
        ProductoSeleccionado = false;
        ListaProductos = new ArrayList<>();
+       ProductosCategoria = new ArrayList<>();
        
        //Llamada a metodos
        TablaProductos();  
-       TablaVentas();
+       ComponentesInit();
        MetodoRadioButon();
        OcultarDescuentos();
+       DobleClikJlist();
      //  TableVentas.setComponentPopupMenu(PopMenu);
     }
     
     //Metodos que se van a utilizar en el formulario
-    private void TablaVentas(){
-       ModeloProductos.addColumn("Nombre Producto"); ModeloProductos.addColumn("Existencia"); ModeloProductos.addColumn("Q. Unitario");
-       ModeloProductos = Clases.Insertar_producto.MostrarProducto(ModeloProductos, ConexionBaseDatos);
-       TablaProductos.setModel(ModeloProductos);
-     
+    private void ComponentesInit(){
+       ModeloLista = Insertar_producto.Categoria(ConexionBaseDatos);
+       ListadoTipos.setModel(ModeloLista);
+       CargarProductoCategorias();
     }
     
     //Funcion para dar doble click sobre el jtable producto
@@ -86,6 +87,19 @@ public class Ventas extends javax.swing.JPanel {
           }
         });
     }
+    //Funcion para dar doble click sobre el jlist categoria
+    private void DobleClikJlist(){
+      ListadoTipos.addMouseListener(new MouseAdapter() {
+           @Override
+            public void mouseClicked(MouseEvent e){
+           
+              if(e.getClickCount() == 2){
+                  ModeloProductos = ProductosCategoria.get(ListadoTipos.getSelectedIndex()).getModelo();
+                  TablaProductos.setModel(ModeloProductos);
+              }
+          }
+        });
+    }
     private void MetodoRadioButon(){
        RbCientos.setActionCommand("Cientos");
        RbMillar.setActionCommand("Millar");
@@ -94,7 +108,7 @@ public class Ventas extends javax.swing.JPanel {
        RbYarda.setActionCommand("Yarda");
   }
     //METODO para agregar una venta
-   private void AgregarVenta(){
+   private void AgregarVenta(short col){
        
     if(ProductoSeleccionado && Grupo1.getSelection() != null && !txtCantidad.getText().equals("")){
            Clases.AtributoVentas venta = new Clases.AtributoVentas();
@@ -102,7 +116,7 @@ public class Ventas extends javax.swing.JPanel {
            venta.SetProducto(SelectProducto.getText());
            venta.SetDescripcion(Grupo1.getSelection().getActionCommand());
            venta.SetCantidad(Integer.parseInt(txtCantidad.getText()));
-           venta.SetTotal(Double.parseDouble(ModeloProductos.getValueAt(RowSeleccionado, 2).toString())*venta.getCantidad());
+           venta.SetTotal(Double.parseDouble(ModeloProductos.getValueAt(RowSeleccionado, col).toString())*venta.getCantidad());
            ListaProductos.add(venta);
            ModeloVentas.addRow(new Object[]{ListaProductos.get(ListaProductos.size() - 1).getProducto(),ListaProductos.get(ListaProductos.size() - 1).getCantidad(),
            ListaProductos.get(ListaProductos.size() - 1).getDescripcion(),ListaProductos.get(ListaProductos.size() - 1).getTotal()});
@@ -120,14 +134,33 @@ public class Ventas extends javax.swing.JPanel {
              JOptionPane.showMessageDialog(this, "No hay nada seleccionado");
    }
    private void OcultarDescuentos(){
-    lblTipos.setVisible(false);
+    lblDesMsg.setVisible(false);
     txtDescuento.setVisible(false);
     SepDes.setVisible(false);
    }
    private void VisibleDescuento(){
-       lblTipos.setVisible(true);
+       lblDesMsg.setVisible(true);
        txtDescuento.setVisible(true);
        SepDes.setVisible(true);
+   }
+   
+   //Metodo que carga los productos que pertenecen a distintas categorias
+   private void CargarProductoCategorias(){
+      
+       if(ProductosCategoria.size() != 0){
+       }
+       else{
+           System.out.println("Agregando Productos");
+        ElementosCategoria c1 = new ElementosCategoria();
+        c1.SetModelo(Insertar_producto.MostrarTela(ConexionBaseDatos, 1));
+        ProductosCategoria.add(c1);
+        ElementosCategoria c2 = new ElementosCategoria();
+        ElementosCategoria c3 = new ElementosCategoria();
+        ElementosCategoria c4 = new ElementosCategoria();
+        ElementosCategoria c5 = new ElementosCategoria();
+        ElementosCategoria c6 = new ElementosCategoria();
+       }
+    
    }
   
     /**
@@ -396,7 +429,7 @@ public class Ventas extends javax.swing.JPanel {
         lblTipos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTipos.setForeground(new java.awt.Color(255, 255, 255));
         lblTipos.setText("Tipos");
-        pnlContenedor.add(lblTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, -1, -1));
+        pnlContenedor.add(lblTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
         pnlContenedor.add(SepDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 580, 210, 10));
 
         txtDescuento.setBackground(new java.awt.Color(36, 41, 46));
@@ -444,7 +477,7 @@ public class Ventas extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(ListadoTipos);
 
-        pnlContenedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, 350, -1));
+        pnlContenedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 551, 350, 180));
 
         lblDesMsg.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblDesMsg.setForeground(new java.awt.Color(255, 255, 255));
@@ -491,14 +524,17 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDescuentoActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-      
-        int tem = Integer.parseInt(ModeloProductos.getValueAt(RowSeleccionado, 1).toString());
-        if(tem >= Integer.parseInt(txtCantidad.getText())){
-         ModeloProductos.setValueAt(tem - Integer.parseInt(txtCantidad.getText()),RowSeleccionado, 1);
-         AgregarVenta(); 
-        }
-        else 
-            JOptionPane.showMessageDialog(this,"Ya no hay existencia");
+     if(ProductoSeleccionado){ 
+       // int tem = Integer.parseInt(ModeloProductos.getValueAt(RowSeleccionado, 1).toString());
+      //  if(tem >= Integer.parseInt(txtCantidad.getText())){
+       //  ModeloProductos.setValueAt(tem - Integer.parseInt(txtCantidad.getText()),RowSeleccionado, 1);
+         AgregarVenta((short)(ModeloProductos.getColumnCount()-1)); 
+       // }
+      //  else 
+          //  JOptionPane.showMessageDialog(this,"Ya no hay existencia");
+     }
+     else 
+          JOptionPane.showMessageDialog(this,"Favor de seleccionar un producto");
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
@@ -509,7 +545,7 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){ AgregarVenta(); }
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){ AgregarVenta((short)(ModeloProductos.getColumnCount()-1)); }
     }//GEN-LAST:event_txtCantidadKeyPressed
 
     private void TableVentasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVentasMouseReleased
