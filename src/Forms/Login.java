@@ -149,13 +149,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try {
+     /*  try {
             if (verificar.Buscar(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword())))
-            {
+            {*/
                 General g = new General();
                 g.setVisible(true);
                 this.setVisible(false);
-                g.conectado = empleado.ObtenerId(jTextField1.getText());
+          /*      g.conectado = empleado.ObtenerId(jTextField1.getText());
             }
             else
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectas");
@@ -164,7 +164,7 @@ public class Login extends javax.swing.JFrame {
         } catch (Exception ex) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-               
+           */    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped

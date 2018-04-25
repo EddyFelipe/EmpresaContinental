@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -21,8 +22,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Insertar_producto {
 
-        String sql= "INSERT INTO producto(tipo,cantidad,yardaje,color,marca,tamaño,numero,medida,precio_venta,visible,categoria_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+       private static ArrayList<Integer> idProducto;
+    String sql= "INSERT INTO producto(tipo,cantidad,yardaje,color,marca,tamaño,numero,medida,precio_venta,visible,categoria_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         
+    private static void SetArray(ArrayList<Integer> arr){idProducto = arr; }
+    public static ArrayList getAraayId(){ return idProducto; }
+    
     public void insertar_producto(String tipo, int cantidad,int yardaje,String color,String marca,int tamaño,int numero,double medida,double precio_venta,int categoria_id){
         
         Conexion con = new Conexion();
@@ -52,15 +57,19 @@ public class Insertar_producto {
   public static DefaultTableModel MostrarTela(Connection ConexionBsse,int id){
      
       DefaultTableModel Modelo = new DefaultTableModel();
-      Modelo.addColumn("Nombre"); Modelo.addColumn("Color"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      Modelo.addColumn("Nombre"); Modelo.addColumn("Color"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Venta");
       
+      ArrayList<Integer> ids = new ArrayList<>();
+       //Reiniciando los ids de los productos
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT tipo,color,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          ResultSet consulta = st.executeQuery("SELECT tipo,color,cantidad,precio_venta,id_producto FROM producto WHERE categoria_id = '"+id+"'");
           
               while(consulta.next()){
               Modelo.addRow(new Object[]{consulta.getString(1),consulta.getString(2),consulta.getInt(3),consulta.getDouble(4)});
+              ids.add(consulta.getInt(5));
             }
+            SetArray(ids);
             st.close();
             consulta.close();      
       } catch (SQLException ex) {
@@ -72,14 +81,18 @@ public class Insertar_producto {
     public static DefaultTableModel MostrarEtiqueta(Connection ConexionBsse,int id){
      
       DefaultTableModel Modelo = new DefaultTableModel();
-      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      Modelo.addColumn("Marca"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Venta");
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          ResultSet consulta = st.executeQuery("SELECT marca,cantidad,precio_venta,id_producto FROM producto WHERE categoria_id = '"+id+"'");
           
-              while(consulta.next()){
+          ArrayList<Integer> ids = new ArrayList<>();
+          
+            while(consulta.next()){
               Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+              ids.add(consulta.getInt(4));
             }
+            SetArray(ids);
             st.close();
             consulta.close();      
       } catch (SQLException ex) {
@@ -90,14 +103,18 @@ public class Insertar_producto {
       public static DefaultTableModel MostrarCarrito(Connection ConexionBsse,int id){
      
       DefaultTableModel Modelo = new DefaultTableModel();
-      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      Modelo.addColumn("Tamaño"); Modelo.addColumn("Numero"); Modelo.addColumn("Color"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q Venta");
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          ResultSet consulta = st.executeQuery("SELECT tamaño,numero,color,cantidad,precio_venta,id_producto FROM producto WHERE categoria_id = '"+id+"'");
           
-              while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
+          ArrayList<Integer> ids = new ArrayList<>();
+          
+            while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getString(3),consulta.getInt(4),consulta.getDouble(5)});
+              ids.add(consulta.getInt(6));
             }
+            SetArray(ids);
             st.close();
             consulta.close();      
       } catch (SQLException ex) {
@@ -106,17 +123,21 @@ public class Insertar_producto {
      return Modelo;
   }
       
-        public static DefaultTableModel MostrarMetales(Connection ConexionBsse,int id){
+        public static DefaultTableModel MostrarMetalesyPlastico(Connection ConexionBsse,int id){
      
       DefaultTableModel Modelo = new DefaultTableModel();
-      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      Modelo.addColumn("Nombre"); Modelo.addColumn("Medida");  Modelo.addColumn("Existencia"); Modelo.addColumn("Q Venta");
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          ResultSet consulta = st.executeQuery("SELECT tipo,medida,cantidad,precio_venta,id_producto FROM producto WHERE categoria_id = '"+id+"'");
           
-              while(consulta.next()){
+          ArrayList<Integer> ids = new ArrayList<>();
+          
+             while(consulta.next()){
               Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
-            }
+              ids.add(consulta.getInt(4));
+             }
+             SetArray(ids);
             st.close();
             consulta.close();      
       } catch (SQLException ex) {
@@ -128,14 +149,18 @@ public class Insertar_producto {
           public static DefaultTableModel MostrarCorrea(Connection ConexionBsse,int id){
      
       DefaultTableModel Modelo = new DefaultTableModel();
-      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      Modelo.addColumn("Numero"); Modelo.addColumn("Color");  Modelo.addColumn("Existencia"); Modelo.addColumn("Q Venta");
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
+          ResultSet consulta = st.executeQuery("SELECT numero,color,cantidad,precio_venta,id_producto FROM producto WHERE categoria_id = '"+id+"'");
           
-              while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
-            }
+           ArrayList<Integer> ids = new ArrayList<>();
+            
+             while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getInt(1),consulta.getString(2),consulta.getInt(3),consulta.getDouble(4)});
+              ids.add(consulta.getInt(5));
+             }
+             SetArray(ids);
             st.close();
             consulta.close();      
       } catch (SQLException ex) {
@@ -146,32 +171,16 @@ public class Insertar_producto {
        public static DefaultTableModel MostrarZipper(Connection ConexionBsse,int id){
      
       DefaultTableModel Modelo = new DefaultTableModel();
-      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      Modelo.addColumn("Tamaño"); Modelo.addColumn("Numero");  Modelo.addColumn("Color");  Modelo.addColumn("Existencia"); Modelo.addColumn("Q Venta");
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
-          
+          ResultSet consulta = st.executeQuery("SELECT tamaño,numero,color,cantidad,precio_venta,id_producto FROM producto WHERE categoria_id = '"+id+"'");
+          ArrayList<Integer> ids = new ArrayList<>();
               while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
-            }
-            st.close();
-            consulta.close();      
-      } catch (SQLException ex) {
-          Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
-      }
-     return Modelo;
-  }
-         public static DefaultTableModel MostrarPlastico(Connection ConexionBsse,int id){
-     
-      DefaultTableModel Modelo = new DefaultTableModel();
-      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
-      try {
-          Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
-          
-              while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
-            }
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getString(3),consulta.getInt(4),consulta.getDouble(5)});
+               ids.add(consulta.getInt(6));
+             }
+              SetArray(ids);
             st.close();
             consulta.close();      
       } catch (SQLException ex) {
@@ -183,14 +192,17 @@ public class Insertar_producto {
     public static DefaultTableModel MostrarHilo(Connection ConexionBsse,int id){
      
       DefaultTableModel Modelo = new DefaultTableModel();
-      Modelo.addColumn("Nombre Producto"); Modelo.addColumn("Existencia"); Modelo.addColumn("Q. Unitario");
+      Modelo.addColumn("Marca"); Modelo.addColumn("Color");  Modelo.addColumn("Existencia"); Modelo.addColumn("Q Venta");
       try {
           Statement st = ConexionBsse.createStatement();
-          ResultSet consulta = st.executeQuery("SELECT tipo,cantidad,precio_venta FROM producto WHERE categoria_id = '"+id+"'");
-          
-              while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
-            }
+          ResultSet consulta = st.executeQuery("SELECT marca,color,cantidad,precio_venta,id_producto FROM producto WHERE categoria_id = '"+id+"'");
+          ArrayList<Integer> ids = new ArrayList<>();
+             
+           while(consulta.next()){
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getString(2),consulta.getInt(3),consulta.getDouble(4)});
+              ids.add(consulta.getInt(5));
+           }
+           SetArray(ids);
             st.close();
             consulta.close();      
       } catch (SQLException ex) {
@@ -215,7 +227,5 @@ public class Insertar_producto {
             }
       return listaCategoria;
   }
- 
 
-    
 }

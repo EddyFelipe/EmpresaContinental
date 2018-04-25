@@ -11,8 +11,8 @@ package Clases;
  */
 public class AtributoVentas {
     
-    private String Producto,Descripcion;
-    private int Cantidad,IdCategoria,idProducto;
+     private String Producto,Descripcion;
+    private int Cantidad,IdCategoria,idProducto,idInsercion;
     private double  Total;
 
 
@@ -36,5 +36,8 @@ public class AtributoVentas {
     
     public void SetidProducto(int id){ idProducto = id; }
     public int getidProducto(){ return idProducto; }
+    
+    public void SetIdInsercion(int id){ idInsercion = id; }
+    public int getIdInsercion(){ return idInsercion; }
     
 }

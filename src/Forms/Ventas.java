@@ -109,7 +109,7 @@ public class Ventas extends javax.swing.JPanel {
        RbYarda.setActionCommand("Yarda");
   }
     //METODO para agregar una venta
-   private void AgregarVenta(short col){
+    private void AgregarVenta(short col){
        
     if(ProductoSeleccionado && Grupo1.getSelection() != null && !txtCantidad.getText().equals("")){
            Clases.AtributoVentas venta = new Clases.AtributoVentas();
@@ -120,6 +120,11 @@ public class Ventas extends javax.swing.JPanel {
            venta.SetTotal(Double.parseDouble(ModeloProductos.getValueAt(RowSeleccionado, col).toString())*venta.getCantidad());
            venta.SetidCategoria(RowCategoria);
            venta.SetidProducto(RowSeleccionado);
+        
+           //Asigna el id del producto, el que tiene en la base de datos
+          ArrayList<Integer> ar =  ProductosCategoria.get(RowCategoria).getIdProducto();
+          venta.SetIdInsercion(ar.get(RowSeleccionado));
+           
            ListaProductos.add(venta);
            ModeloVentas.addRow(new Object[]{ListaProductos.get(ListaProductos.size() - 1).getProducto(),ListaProductos.get(ListaProductos.size() - 1).getCantidad(),
            ListaProductos.get(ListaProductos.size() - 1).getDescripcion(),ListaProductos.get(ListaProductos.size() - 1).getTotal()});
@@ -154,14 +159,36 @@ public class Ventas extends javax.swing.JPanel {
         ProductosCategoria.clear();
         ElementosCategoria c1 = new ElementosCategoria();
         c1.SetModelo(Insertar_producto.MostrarTela(ConexionBaseDatos, 1));
+        c1.SetIdProducto(Insertar_producto.getAraayId());
         ProductosCategoria.add(c1);
         ElementosCategoria c2 = new ElementosCategoria();
+        c2.SetModelo(Insertar_producto.MostrarEtiqueta(ConexionBaseDatos, 2));
+        c2.SetIdProducto(Insertar_producto.getAraayId());
+        ProductosCategoria.add(c2);
         ElementosCategoria c3 = new ElementosCategoria();
+        c3.SetModelo(Insertar_producto.MostrarCarrito(ConexionBaseDatos, 3));
+        c3.SetIdProducto(Insertar_producto.getAraayId());
+        ProductosCategoria.add(c3);
         ElementosCategoria c4 = new ElementosCategoria();
+        c4.SetModelo(Insertar_producto.MostrarMetalesyPlastico(ConexionBaseDatos, 4));
+        c4.SetIdProducto(Insertar_producto.getAraayId());
+        ProductosCategoria.add(c4);
         ElementosCategoria c5 = new ElementosCategoria();
+        c5.SetModelo(Insertar_producto.MostrarCorrea(ConexionBaseDatos, 5));
+        c5.SetIdProducto(Insertar_producto.getAraayId());
+        ProductosCategoria.add(c5);
         ElementosCategoria c6 = new ElementosCategoria();
-       
-    
+        c6.SetModelo(Insertar_producto.MostrarZipper(ConexionBaseDatos, 6));
+        c6.SetIdProducto(Insertar_producto.getAraayId());
+        ProductosCategoria.add(c6);
+        ElementosCategoria c7 = new ElementosCategoria();
+        c7.SetModelo(Insertar_producto.MostrarHilo(ConexionBaseDatos, 7));
+        c7.SetIdProducto(Insertar_producto.getAraayId());
+        ProductosCategoria.add(c7);
+        ElementosCategoria c8 = new ElementosCategoria();
+        c8.SetModelo(Insertar_producto.MostrarMetalesyPlastico(ConexionBaseDatos, 8));
+        c8.SetIdProducto(Insertar_producto.getAraayId());
+        ProductosCategoria.add(c8); 
    }
   
     /**
@@ -527,8 +554,8 @@ public class Ventas extends javax.swing.JPanel {
 
     private void btnDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescuentoActionPerformed
           //VisibleDescuento();
-       for(int i =0; i < ListaProductos.size(); i++){
-           System.out.println(ListaProductos.get(i).getProducto());
+      for(int i =0; i < ListaProductos.size(); i++){
+           System.out.println(ListaProductos.get(i).getProducto()+"idProducto: "+ListaProductos.get(i).getIdInsercion());
        }
     }//GEN-LAST:event_btnDescuentoActionPerformed
 
@@ -564,10 +591,30 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_TableVentasMouseReleased
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-       ListaProductos.clear();     
-       for(int i = 0; i < ModeloVentas.getRowCount(); i++){ ModeloVentas.removeRow(i); i--; }
-       Total  = 0;
-       lblTotal.setText(""+Total);
+       if (ListaProductos.size() != 0) {
+            if (!txtNombreClient.getText().equals("")) {
+                String Direccion = txtDireccionClient.getText().equals("")?"Ciudad":txtDireccionClient.getText();
+                String nit = txtNitClient.getText().equals("")?"C/F":txtDireccionClient.getText();
+               if(Clases.Ventas.InsertarFactura(txtNombreClient.getText(), Direccion, nit,Total ,0,ConexionBaseDatos,ListaProductos)){
+                
+                ListaProductos.clear();
+                for (int i = 0; i < ModeloVentas.getRowCount(); i++) {
+                    ModeloVentas.removeRow(i);
+                    i--;
+                }
+                Total = 0;
+                lblTotal.setText("" + Total);
+               }
+               else
+                    JOptionPane.showMessageDialog(this, "La venta no se realizo con exito");
+                   
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Favor de Ingresar un Cliente");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Factura Vacia");
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void txtDescuentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescuentoKeyPressed
