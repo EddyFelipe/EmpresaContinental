@@ -6,6 +6,7 @@
 package Modificar;
 
 import Clases.Conexion;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -62,6 +64,11 @@ public class Mcarrito extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         txtcantidad.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtcantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcantidadKeyTyped(evt);
+            }
+        });
         add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 150, -1));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -70,6 +77,11 @@ public class Mcarrito extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
         txtamaño.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtamaño.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtamañoKeyTyped(evt);
+            }
+        });
         add(txtamaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 150, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -78,6 +90,11 @@ public class Mcarrito extends javax.swing.JPanel {
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
         txtcolor.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtcolor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcolorKeyTyped(evt);
+            }
+        });
         add(txtcolor, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 150, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -86,6 +103,11 @@ public class Mcarrito extends javax.swing.JPanel {
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         txtnumero.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtnumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnumeroKeyTyped(evt);
+            }
+        });
         add(txtnumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 150, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -94,6 +116,11 @@ public class Mcarrito extends javax.swing.JPanel {
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
         txtprecioventa.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtprecioventa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtprecioventaKeyTyped(evt);
+            }
+        });
         add(txtprecioventa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 150, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cambios.png"))); // NOI18N
@@ -116,6 +143,53 @@ public class Mcarrito extends javax.swing.JPanel {
         // TODO add your handling code here:
         modificar();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtcantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcantidadKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtcantidadKeyTyped
+
+    private void txtamañoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtamañoKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtamañoKeyTyped
+
+    private void txtcolorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcolorKeyTyped
+        // TODO add your handling code here:
+        char validar =evt.getKeyChar();
+            if(Character.isLetter(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtcolorKeyTyped
+
+    private void txtnumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnumeroKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtnumeroKeyTyped
+
+    private void txtprecioventaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioventaKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        
+            if((c<'0'||c>'9') && (c!= KeyEvent.VK_BACK_SPACE) && (c!='.')) evt.consume();
+
+    }//GEN-LAST:event_txtprecioventaKeyTyped
 
     public void mostrar(int idproducto){
         
@@ -141,7 +215,8 @@ public class Mcarrito extends javax.swing.JPanel {
 
     public void modificar(){
         
-        int cantidad,tamaño,numero;
+        if(verificar()!=0){
+            int cantidad,tamaño,numero;
         String color;
         float precio;
         cantidad =Integer.valueOf(txtcantidad.getText());
@@ -158,9 +233,28 @@ public class Mcarrito extends javax.swing.JPanel {
             preparado.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(Mcarrito.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        }else{
+            JOptionPane.showMessageDialog(null,"Debe complerar los campos para modificar");
         }
+                
+        
             
     }
+    
+    public int verificar(){
+        
+        if(!"".equals(txtcantidad.getText()) && !"".equals(txtamaño.getText()) && !"".equals(txtnumero.getText()) &&!"".equals(txtcolor.getText()) && !"".equals(txtprecioventa.getText())){
+            
+            return 1;
+        }
+        
+        return 0;
+        
+    }
+    
+    
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

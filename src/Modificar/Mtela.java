@@ -6,6 +6,7 @@
 package Modificar;
 
 import Clases.Conexion;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +62,11 @@ public class Mtela extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtipo.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        txtipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtipoKeyTyped(evt);
+            }
+        });
         add(txtipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 160, -1));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -97,12 +104,27 @@ public class Mtela extends javax.swing.JPanel {
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
         txtcantidad.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        txtcantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcantidadKeyTyped(evt);
+            }
+        });
         add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 160, -1));
 
         txtcolor.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        txtcolor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcolorKeyTyped(evt);
+            }
+        });
         add(txtcolor, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 160, -1));
 
         txtPrecioVenta.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        txtPrecioVenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioVentaKeyTyped(evt);
+            }
+        });
         add(txtPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 160, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cambios.png"))); // NOI18N
@@ -151,8 +173,48 @@ public class Mtela extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        modificar_datos();
+        if(verificar()!=0){
+             modificar_datos();
+        }else{
+            JOptionPane.showMessageDialog(null,"Debe completar los campos para modificar");
+        }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtipoKeyTyped
+        // TODO add your handling code here:
+        char validar =evt.getKeyChar();
+            if(Character.isLetter(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtipoKeyTyped
+
+    private void txtcantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcantidadKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtcantidadKeyTyped
+
+    private void txtcolorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcolorKeyTyped
+        // TODO add your handling code here:
+         char validar =evt.getKeyChar();
+            if(Character.isLetter(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtcolorKeyTyped
+
+    private void txtPrecioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        
+        if((c<'0'||c>'9') && (c!= KeyEvent.VK_BACK_SPACE) && (c!='.')) evt.consume();
+    }//GEN-LAST:event_txtPrecioVentaKeyTyped
 
     public void mostrar_datos(int id_productos){
         
@@ -194,6 +256,15 @@ public class Mtela extends javax.swing.JPanel {
             Logger.getLogger(Mtela.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    public int verificar(){
+        
+        if(!"".equals(txtPrecioVenta.getText())&&!"".equals(txtcantidad.getText())&&!"".equals(txtcolor.getText())&&!"".equals(txtipo.getText())){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

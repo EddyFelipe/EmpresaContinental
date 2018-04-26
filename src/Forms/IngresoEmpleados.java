@@ -148,7 +148,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             .addGap(0, 419, Short.MAX_VALUE)
         );
 
-        PTelefono.setBackground(new java.awt.Color(0, 51, 102));
+        PTelefono.setBackground(new java.awt.Color(36, 41, 46));
 
         BTNEliTel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminarp.png"))); // NOI18N
         BTNEliTel.addActionListener(new java.awt.event.ActionListener() {
@@ -312,7 +312,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 .addGap(51, 51, 51))
         );
 
-        PEmpleados.setBackground(new java.awt.Color(0, 51, 102));
+        PEmpleados.setBackground(new java.awt.Color(36, 41, 46));
 
         BTNEliEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminarp.png"))); // NOI18N
         BTNEliEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -454,7 +454,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                     .addComponent(LBLUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LBLContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BTNAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PAdministradorLayout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(BTNAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(179, 179, 179))
         );
         PAdministradorLayout.setVerticalGroup(
@@ -546,11 +548,12 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                     .addComponent(LBLDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LBLApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TFApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PIngresoEmpleadoLayout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PIngresoEmpleadoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
         );
         PIngresoEmpleadoLayout.setVerticalGroup(
             PIngresoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -567,7 +570,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 .addComponent(LBLDireccion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -665,7 +668,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

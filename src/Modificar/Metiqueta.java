@@ -6,6 +6,7 @@
 package Modificar;
 
 import Clases.Conexion;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +62,11 @@ public class Metiqueta extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         txtcantidad.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtcantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcantidadKeyTyped(evt);
+            }
+        });
         add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 160, -1));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -68,6 +75,11 @@ public class Metiqueta extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         txtamaño.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtamaño.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtamañoKeyTyped(evt);
+            }
+        });
         add(txtamaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 160, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -76,6 +88,11 @@ public class Metiqueta extends javax.swing.JPanel {
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
         txtmarca.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtmarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtmarcaKeyTyped(evt);
+            }
+        });
         add(txtmarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 160, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -84,6 +101,11 @@ public class Metiqueta extends javax.swing.JPanel {
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
         txtprecio.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtprecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtprecioKeyTyped(evt);
+            }
+        });
         add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 160, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cambios.png"))); // NOI18N
@@ -105,8 +127,50 @@ public class Metiqueta extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        modificar();
+        
+        if(verificar()!=0){
+            modificar();
+        }else{
+            JOptionPane.showMessageDialog(null,"Debe de completar los campor para modificar");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtcantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcantidadKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtcantidadKeyTyped
+
+    private void txtamañoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtamañoKeyTyped
+        // TODO add your handling code here:
+          char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtamañoKeyTyped
+
+    private void txtmarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmarcaKeyTyped
+        // TODO add your handling code here:
+        char validar =evt.getKeyChar();
+            if(Character.isLetter(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtmarcaKeyTyped
+
+    private void txtprecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        
+        if((c<'0'||c>'9') && (c!= KeyEvent.VK_BACK_SPACE) && (c!='.')) evt.consume();
+    }//GEN-LAST:event_txtprecioKeyTyped
 
     public void mostrar(int idproducto){
         String sql="SELECT cantidad,tamaño,marca,precio_venta FROM producto WHERE id_producto='"+idproducto+"'";
@@ -132,7 +196,8 @@ public class Metiqueta extends javax.swing.JPanel {
     
     public void modificar(){
         
-       int cantidad,tamaño;
+       
+        int cantidad,tamaño;
        String marca;
        float precio;
        
@@ -153,6 +218,16 @@ public class Metiqueta extends javax.swing.JPanel {
             
     }
 
+     public int verificar(){
+         
+         if(!"".equals(txtcantidad.getText()) && !"".equals(txtamaño.getText())&&!"".equals(txtmarca.getText())&&!"".equals(txtprecio.getText())){
+             
+             return 1;
+         }else{
+             
+             return 0;
+         }
+     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

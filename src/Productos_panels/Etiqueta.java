@@ -8,6 +8,7 @@ package Productos_panels;
 import Clases.Conexion;
 import Clases.Insertar_producto;
 import Forms.Productos;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -76,6 +77,16 @@ public class Etiqueta extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         txtcantidad.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtcantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcantidadActionPerformed(evt);
+            }
+        });
+        txtcantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcantidadKeyTyped(evt);
+            }
+        });
         add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 160, -1));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -84,6 +95,11 @@ public class Etiqueta extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
         txtamaño.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtamaño.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtamañoKeyTyped(evt);
+            }
+        });
         add(txtamaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 160, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -92,6 +108,11 @@ public class Etiqueta extends javax.swing.JPanel {
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         txtmarca.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtmarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtmarcaKeyTyped(evt);
+            }
+        });
         add(txtmarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 160, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -100,29 +121,81 @@ public class Etiqueta extends javax.swing.JPanel {
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         txtprecio.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtprecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtprecioKeyTyped(evt);
+            }
+        });
         add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 160, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Insertar_producto insertar = new Insertar_producto();
-        Productos p = new Productos();
-        int cantidad,tamaño,categoriaid;
-        String marca;
-        double precio;
         
-        cantidad=Integer.valueOf(txtcantidad.getText());
-        tamaño= Integer.valueOf(txtamaño.getText());
-        marca = txtmarca.getText();
-        precio = Double.valueOf(txtprecio.getText());
-        categoriaid=id_categoria(index);
+        if(verificar()!=0){
+            Insertar_producto insertar = new Insertar_producto();
+        
+            int cantidad,tamaño,categoriaid;
+            String marca;
+            double precio;
+        
+            cantidad=Integer.valueOf(txtcantidad.getText());
+            tamaño= Integer.valueOf(txtamaño.getText());
+            marca = txtmarca.getText();
+            precio = Double.valueOf(txtprecio.getText());
+            categoriaid=id_categoria(index);
         //System.out.println(String.valueOf(categoriaid));
         
-        insertar.insertar_producto("",cantidad,0,"",marca,tamaño,0,0,precio,categoriaid);
-        limpiar();
-        JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
+            insertar.insertar_producto("",cantidad,0,"",marca,tamaño,0,0,precio,categoriaid);
+            limpiar();
+            JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
+        }else{
+            
+            JOptionPane.showMessageDialog(null,"Debe de completar todos lo campos para ingregar un producto");
+        }
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtcantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcantidadActionPerformed
+
+    private void txtcantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcantidadKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtcantidadKeyTyped
+
+    private void txtamañoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtamañoKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtamañoKeyTyped
+
+    private void txtmarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmarcaKeyTyped
+        // TODO add your handling code here:
+        char validar =evt.getKeyChar();
+            if(Character.isLetter(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtmarcaKeyTyped
+
+    private void txtprecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        
+        if((c<'0'||c>'9') && (c!= KeyEvent.VK_BACK_SPACE) && (c!='.')) evt.consume();
+    }//GEN-LAST:event_txtprecioKeyTyped
    
     public void limpiar(){
         
@@ -151,6 +224,16 @@ public class Etiqueta extends javax.swing.JPanel {
        return idcategoria;
     }
 
+     public int verificar(){
+         
+         if(!"".equals(txtcantidad.getText()) && !"".equals(txtamaño.getText())&&!"".equals(txtmarca.getText())&&!"".equals(txtprecio.getText())){
+             
+             return 1;
+         }else{
+             
+             return 0;
+         }
+     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

@@ -109,7 +109,7 @@
         <Container class="javax.swing.JPanel" name="PTelefono">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="33" red="0" type="rgb"/>
+              <Color blue="2e" green="29" red="24" type="rgb"/>
             </Property>
           </Properties>
 
@@ -346,7 +346,7 @@
         <Container class="javax.swing.JPanel" name="PEmpleados">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="33" red="0" type="rgb"/>
+              <Color blue="2e" green="29" red="24" type="rgb"/>
             </Property>
           </Properties>
 
@@ -434,7 +434,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="PAdministrador" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="PIngresoEmpleado" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="PIngresoEmpleado" alignment="0" min="-2" pref="321" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -579,7 +579,10 @@
                               <Component id="LBLUsuario" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
                               <Component id="TFUsuario" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
                               <Component id="LBLContrasena" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
-                              <Component id="BTNAgregar1" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                                  <Component id="BTNAgregar1" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
                       </Group>
@@ -680,7 +683,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="LBLNombre" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
@@ -689,12 +692,13 @@
                               <Component id="LBLApellidos" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
                               <Component id="TFApellidos" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
                               <Component id="TFDireccion" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
-                                  <Component id="BTNAgregar" min="-2" pref="100" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="BTNAgregar" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -713,7 +717,7 @@
                           <Component id="LBLDireccion" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="TFDireccion" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="BTNAgregar" min="-2" pref="101" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>

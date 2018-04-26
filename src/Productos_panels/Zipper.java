@@ -8,6 +8,7 @@ package Productos_panels;
 import Clases.Conexion;
 import Clases.Insertar_producto;
 import Forms.Productos;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,6 +63,11 @@ public class Zipper extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 42, -1, -1));
 
         txtnumero.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtnumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnumeroKeyTyped(evt);
+            }
+        });
         add(txtnumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 130, -1));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -70,6 +76,11 @@ public class Zipper extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
         txtcatidad.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtcatidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcatidadKeyTyped(evt);
+            }
+        });
         add(txtcatidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 130, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -78,6 +89,11 @@ public class Zipper extends javax.swing.JPanel {
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, -1, -1));
 
         txtcolor.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtcolor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcolorKeyTyped(evt);
+            }
+        });
         add(txtcolor, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 130, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -86,6 +102,11 @@ public class Zipper extends javax.swing.JPanel {
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         txtamaño.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtamaño.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtamañoKeyTyped(evt);
+            }
+        });
         add(txtamaño, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 130, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -94,6 +115,11 @@ public class Zipper extends javax.swing.JPanel {
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
 
         txtprecio.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtprecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtprecioKeyTyped(evt);
+            }
+        });
         add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 130, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar3.png"))); // NOI18N
@@ -115,25 +141,77 @@ public class Zipper extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Productos p = new Productos();
-        Insertar_producto insertar = new Insertar_producto();
+        if(verificar()!=0){
+            Insertar_producto insertar = new Insertar_producto();
         
-        int numero,cantidad,tamaño,categoriaid;
-        String color;
-        double precio;
+            int numero,cantidad,tamaño,categoriaid;
+            String color;
+            double precio;
         
-        numero = Integer.valueOf(txtnumero.getText());
-        cantidad = Integer.valueOf(txtcatidad.getText());
-        tamaño = Integer.valueOf(txtamaño.getText());
-        color = txtcolor.getText();
-        precio = Double.valueOf(txtprecio.getText());
-        categoriaid=id_categoria(index);
+            numero = Integer.valueOf(txtnumero.getText());
+            cantidad = Integer.valueOf(txtcatidad.getText());
+            tamaño = Integer.valueOf(txtamaño.getText());
+            color = txtcolor.getText();
+            precio = Double.valueOf(txtprecio.getText());
+            categoriaid=id_categoria(index);
         
-        insertar.insertar_producto("", cantidad,0, color,"", tamaño, numero,0, precio,categoriaid);
-        limpiar();
-          JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
+            insertar.insertar_producto("", cantidad,0, color,"", tamaño, numero,0, precio,categoriaid);
+            limpiar();
+            JOptionPane.showMessageDialog(null,"Producto Ingresado Exitosamente");
+        }else{
+            JOptionPane.showMessageDialog(null,"Debe de llegar los campos para ingresar el producto");
+        }
+               
+            
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtnumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnumeroKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtnumeroKeyTyped
+
+    private void txtcatidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcatidadKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtcatidadKeyTyped
+
+    private void txtcolorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcolorKeyTyped
+        // TODO add your handling code here:
+        char validar =evt.getKeyChar();
+            if(Character.isLetter(validar)){
+                    getToolkit().beep();
+                    evt.consume();
+            }
+    }//GEN-LAST:event_txtcolorKeyTyped
+
+    private void txtamañoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtamañoKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+            if(Character.isDigit(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txtamañoKeyTyped
+
+    private void txtprecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        
+            if((c<'0'||c>'9') && (c!= KeyEvent.VK_BACK_SPACE) && (c!='.')) evt.consume();
+    }//GEN-LAST:event_txtprecioKeyTyped
 
     public void limpiar(){
         txtamaño.setText("");
@@ -162,6 +240,14 @@ public class Zipper extends javax.swing.JPanel {
        return idcategoria;
     }
 
+    public int verificar(){
+        
+        if(!"".equals(txtamaño.getText())&&!"".equals(txtcatidad.getText())&&!"".equals(txtcolor.getText())&&!"".equals(txtnumero.getText()) &&!"".equals(txtprecio.getText())){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

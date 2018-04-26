@@ -6,6 +6,7 @@
 package Modificar;
 
 import Clases.Conexion;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -60,6 +62,11 @@ public class Mplastico extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
         txttipo.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txttipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txttipoKeyTyped(evt);
+            }
+        });
         add(txttipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 140, -1));
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -68,6 +75,11 @@ public class Mplastico extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
         txtcantidad.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtcantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcantidadKeyTyped(evt);
+            }
+        });
         add(txtcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 140, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -76,6 +88,11 @@ public class Mplastico extends javax.swing.JPanel {
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
 
         txtmedida.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtmedida.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtmedidaKeyTyped(evt);
+            }
+        });
         add(txtmedida, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 140, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
@@ -84,6 +101,11 @@ public class Mplastico extends javax.swing.JPanel {
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
 
         txtprecio.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        txtprecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtprecioKeyTyped(evt);
+            }
+        });
         add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 140, -1));
 
         btguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Cambios.png"))); // NOI18N
@@ -105,8 +127,49 @@ public class Mplastico extends javax.swing.JPanel {
 
     private void btguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btguardarActionPerformed
         // TODO add your handling code here:
-        modificar();
+        if(verificar()!=0){
+            modificar();
+        }else{
+        JOptionPane.showMessageDialog(null,"Debe completar los camopos para modificar");
+    }
+        
     }//GEN-LAST:event_btguardarActionPerformed
+
+    private void txttipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipoKeyTyped
+        // TODO add your handling code here:
+        char validar =evt.getKeyChar();
+            if(Character.isLetter(validar)){
+                getToolkit().beep();
+                evt.consume();
+            }
+    }//GEN-LAST:event_txttipoKeyTyped
+
+    private void txtcantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcantidadKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtcantidadKeyTyped
+
+    private void txtmedidaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmedidaKeyTyped
+        // TODO add your handling code here:
+        char validar=evt.getKeyChar();
+
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtmedidaKeyTyped
+
+    private void txtprecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtprecioKeyTyped
+        // TODO add your handling code here:
+        char c= evt.getKeyChar();
+        
+        if((c<'0'||c>'9') && (c!= KeyEvent.VK_BACK_SPACE) && (c!='.')) evt.consume();
+    }//GEN-LAST:event_txtprecioKeyTyped
 
     public void mostrar(int idproducto){
         
@@ -150,6 +213,14 @@ public class Mplastico extends javax.swing.JPanel {
             Logger.getLogger(Mplastico.class.getName()).log(Level.SEVERE, null, ex);
         }
             
+    }
+    
+     public int verificar(){
+        if(!"".equals(txttipo.getText())&&!"".equals(txtcantidad.getText())&&!"".equals(txtmedida.getText())&&!"".equals(txtprecio.getText())){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
