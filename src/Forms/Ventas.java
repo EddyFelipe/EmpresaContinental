@@ -310,7 +310,7 @@ public class Ventas extends javax.swing.JPanel {
         pnlConsultas = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaproducto = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
@@ -432,6 +432,7 @@ public class Ventas extends javax.swing.JPanel {
             }
         ));
         TableVentas.setFocusable(false);
+        TableVentas.getTableHeader().setResizingAllowed(false);
         TableVentas.getTableHeader().setReorderingAllowed(false);
         TableVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -592,7 +593,7 @@ public class Ventas extends javax.swing.JPanel {
         ));
         jScrollPane4.setViewportView(tablaproducto);
 
-        pnlConsultas.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 980, 260));
+        pnlConsultas.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 990, 390));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         pnlConsultas.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 180, -1));
@@ -697,7 +698,9 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDescuentoKeyTyped
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        if(TableVentas.getSelectedRow() != -1){
         double temporal = Double.parseDouble(ModeloVentas.getValueAt(TableVentas.getSelectedRow(), TableVentas.getColumnCount() - 1).toString());
+        
         if(Total >= temporal){
             
              
@@ -768,6 +771,7 @@ public class Ventas extends javax.swing.JPanel {
         }
         else
             JOptionPane.showMessageDialog(this, "No puede quedar total a pagar a un saldo negativo");
+        }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -134,8 +134,8 @@ public class Insertar_producto {
           ArrayList<Integer> ids = new ArrayList<>();
           
              while(consulta.next()){
-              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getDouble(3)});
-              ids.add(consulta.getInt(4));
+              Modelo.addRow(new Object[]{consulta.getString(1),consulta.getInt(2),consulta.getInt(3),consulta.getDouble(4)});
+              ids.add(consulta.getInt(5));
              }
              SetArray(ids);
             st.close();
