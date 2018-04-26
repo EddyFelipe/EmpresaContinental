@@ -5,9 +5,13 @@
  */
 package Forms;
 
+import Clases.Conexion;
 import Clases.Proveedor;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,6 +22,42 @@ import javax.swing.table.DefaultTableModel;
  * @author ismar
  */
 public class proveedores extends javax.swing.JPanel {
+    public void mostrar_Proveedores(){
+        Conexion con = new Conexion();
+        Connection cn = con.ConectarBaseDatos();
+        String sql = "SELECT id_proveedor,repartidor,nombre_empresa, correo, direccion FROM proveedor";
+        
+        modelo.addColumn("No. Registro");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Empresa");
+        modelo.addColumn("Correo Electronico");
+        modelo.addColumn("Direccion");
+        
+        jTable1.setModel(modelo);
+        
+        String[] datos = new String[5];
+        Statement st;
+        
+        try {
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            while (rs.next()) {                
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(proveedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+    
      int cont=1;
      int modifier=0;
      int filaSeleccionada=0;
@@ -27,16 +67,10 @@ public class proveedores extends javax.swing.JPanel {
      */
     public proveedores() {
         initComponents();
+        mostrar_Proveedores();
                  int gapWidth = 10;
         int gapHeight = 4;
         jTable1.setIntercellSpacing(new Dimension(gapWidth, gapHeight));
-        modelo.addColumn("No.");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Nombre Empresa");
-        modelo.addColumn("Correo electrónico");
-        modelo.addColumn("Dirección");
-        modelo.addColumn("Telefóno");
-        jTable1.setModel(modelo);
         jPanel2.setVisible(false);
     }
 
@@ -52,9 +86,7 @@ public class proveedores extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jSeparator11 = new javax.swing.JSeparator();
         jSeparator10 = new javax.swing.JSeparator();
-        jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -93,17 +125,6 @@ public class proveedores extends javax.swing.JPanel {
         jSeparator10.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 10, 740));
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Pedidop.png"))); // NOI18N
-        jButton6.setText("jButton4");
-        jButton6.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Pedido_click.png"))); // NOI18N
-        jButton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Pedido_mouse.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 100, 110));
-
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminarp.png"))); // NOI18N
         jButton7.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminar_click.png"))); // NOI18N
         jButton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminar_mouse.png"))); // NOI18N
@@ -112,12 +133,7 @@ public class proveedores extends javax.swing.JPanel {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 100, 100));
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Comprarp.png"))); // NOI18N
-        jButton8.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Comprar_click.png"))); // NOI18N
-        jButton8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Comprar_mouse.png"))); // NOI18N
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 100, 100));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 100, 100));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -249,7 +265,7 @@ public class proveedores extends javax.swing.JPanel {
         jTable1.setRowHeight(35);
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 1090, 650));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 1090, 620));
 
         btnAgregarP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregarp.png"))); // NOI18N
         btnAgregarP.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_click.png"))); // NOI18N
@@ -259,7 +275,7 @@ public class proveedores extends javax.swing.JPanel {
                 btnAgregarPActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAgregarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 100, 100));
+        jPanel1.add(btnAgregarP, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 110));
 
         btnModificarp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificarp.png"))); // NOI18N
         btnModificarp.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificar_click.png"))); // NOI18N
@@ -269,7 +285,7 @@ public class proveedores extends javax.swing.JPanel {
                 btnModificarpActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificarp, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 100, 100));
+        jPanel1.add(btnModificarp, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 100, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -284,10 +300,6 @@ public class proveedores extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
          int filaselec = jTable1.getSelectedRow();
@@ -383,9 +395,7 @@ public class proveedores extends javax.swing.JPanel {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregarP;
     private javax.swing.JButton btnModificarp;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
