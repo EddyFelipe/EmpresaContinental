@@ -26,15 +26,16 @@ public class InsertarEmpleado {
     
     private PreparedStatement Insertar;
     private Statement St;
-    
+    Clases.Contrasena contrasena = new Clases.Contrasena();
      
-    public void Insertar(String nombres, String apellidos, String direccion, String usuario, String contrasena, int administrador) throws SQLException
+    public void Insertar(String nombres, String apellidos, String direccion, String usuario, String contrasena, int administrador, String pregunta, String respuesta) throws SQLException
     {
         Clases.Conexion con = new Clases.Conexion();
         Connection cn=con.ConectarBaseDatos();
         try
         {
-            Insertar = cn.prepareStatement("INSERT INTO empleados (nombre, apellido, estado, direccion, usuario, contrasena, administrador)"+" values (?, ?, ?, ?, ?, ?, ?)");
+            Insertar = cn.prepareStatement("INSERT INTO empleados (nombre, apellido, estado, direccion, usuario, contrasena, administrador"
+                    + ", pregunta, respuesta)"+" values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         
             Insertar.setString(1, nombres);
             Insertar.setString(2, apellidos);
@@ -43,6 +44,8 @@ public class InsertarEmpleado {
             Insertar.setString(5, usuario);
             Insertar.setString(6, contrasena);
             Insertar.setInt(7, administrador);
+            Insertar.setString(8, pregunta);
+            Insertar.setString(9, respuesta);
             Insertar.executeUpdate();
         }
         catch (Exception ex)
@@ -309,6 +312,91 @@ public class InsertarEmpleado {
               Logger.getLogger(InsertarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
           }
         return false;
+    }
+    
+    public String ObtenerPregunta(String usuario)
+    {
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        String[] datos = new String[1];
+        Statement st;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT pregunta FROM empleados where usuario = " + '"' + usuario + '"');
+              
+        while (rs.next()) {
+            datos[0]= rs.getString(1);
+            try
+            {
+                return datos[0];
+            }
+            catch (Exception ex)
+            {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(InsertarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return "";
+    }
+    
+    public String ObtenerContrasena(String usuario)
+    {
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        String[] datos = new String[1];
+        Statement st;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT contrasena FROM empleados where usuario = " + '"' + usuario + '"');
+              
+        while (rs.next()) {
+            datos[0]= rs.getString(1);
+            try
+            {
+                return contrasena.Desencriptar(datos[0]);
+            }
+            catch (Exception ex)
+            {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(InsertarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return "";
+    }
+    
+    public String ObtenerRespuesta(String usuario, String respuesta)
+    {
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        String[] datos = new String[1];
+        Statement st;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT respuesta FROM empleados where usuario = " + '"' + usuario + '"');
+              
+        while (rs.next()) {
+            datos[0]= rs.getString(1);
+            try
+            {
+                if (datos[0].equals(respuesta))
+                return datos[0];
+            }
+            catch (Exception ex)
+            {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(InsertarEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return "";
     }
     
     public boolean Administrador(String usuario)

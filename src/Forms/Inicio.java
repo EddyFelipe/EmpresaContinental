@@ -49,6 +49,12 @@ public class Inicio extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         PFContrasena = new javax.swing.JPasswordField();
+        LBLUsuario1 = new javax.swing.JLabel();
+        RBMascota = new javax.swing.JRadioButton();
+        RBDeporte = new javax.swing.JRadioButton();
+        RBMejorAmigo = new javax.swing.JRadioButton();
+        LBLUsuario2 = new javax.swing.JLabel();
+        TFRespuesta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(961, 330));
@@ -79,7 +85,7 @@ public class Inicio extends javax.swing.JFrame {
                 BTNInsertarActionPerformed(evt);
             }
         });
-        jPanel1.add(BTNInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 370, -1, -1));
+        jPanel1.add(BTNInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 400, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Salida2.png"))); // NOI18N
         jButton2.setBorder(null);
@@ -95,7 +101,7 @@ public class Inicio extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 0, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 0, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/minimiza2.png"))); // NOI18N
         jButton3.setBorder(null);
@@ -111,12 +117,12 @@ public class Inicio extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(815, 0, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 0, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Mi contraseña:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,7 +135,7 @@ public class Inicio extends javax.swing.JFrame {
                 TFNombresKeyTyped(evt);
             }
         });
-        jPanel1.add(TFNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 200, -1));
+        jPanel1.add(TFNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 200, -1));
 
         TFApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -137,7 +143,7 @@ public class Inicio extends javax.swing.JFrame {
                 TFApellidosKeyTyped(evt);
             }
         });
-        jPanel1.add(TFApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, 200, -1));
+        jPanel1.add(TFApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, 200, -1));
 
         TFDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -145,7 +151,7 @@ public class Inicio extends javax.swing.JFrame {
                 TFDireccionKeyTyped(evt);
             }
         });
-        jPanel1.add(TFDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 200, -1));
+        jPanel1.add(TFDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 200, -1));
 
         TFUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -153,7 +159,7 @@ public class Inicio extends javax.swing.JFrame {
                 TFUsuarioKeyTyped(evt);
             }
         });
-        jPanel1.add(TFUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 240, 200, -1));
+        jPanel1.add(TFUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, 200, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -163,22 +169,22 @@ public class Inicio extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Mis nombres son:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Mis apellidos son:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Yo vivo en:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Mi nick de usuario será:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 210, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, -1, -1));
 
         PFContrasena.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         PFContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -186,27 +192,72 @@ public class Inicio extends javax.swing.JFrame {
                 PFContrasenaKeyTyped(evt);
             }
         });
-        jPanel1.add(PFContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 320, 200, -1));
+        jPanel1.add(PFContrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 200, -1));
+
+        LBLUsuario1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LBLUsuario1.setForeground(new java.awt.Color(255, 255, 255));
+        LBLUsuario1.setText("Preguntas de respaldo:");
+        jPanel1.add(LBLUsuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 100, -1, -1));
+
+        RBMascota.setBackground(new java.awt.Color(36, 41, 46));
+        RBMascota.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        RBMascota.setForeground(new java.awt.Color(255, 255, 255));
+        RBMascota.setText("Mi mascota preferida sería:");
+        RBMascota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBMascotaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(RBMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, -1, -1));
+
+        RBDeporte.setBackground(new java.awt.Color(36, 41, 46));
+        RBDeporte.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        RBDeporte.setForeground(new java.awt.Color(255, 255, 255));
+        RBDeporte.setText("Mi deporte favorito es:");
+        RBDeporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBDeporteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(RBDeporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 170, -1, -1));
+
+        RBMejorAmigo.setBackground(new java.awt.Color(36, 41, 46));
+        RBMejorAmigo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        RBMejorAmigo.setForeground(new java.awt.Color(255, 255, 255));
+        RBMejorAmigo.setText("Conocí a mi mejor amigo en la ciudad de:");
+        RBMejorAmigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBMejorAmigoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(RBMejorAmigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 210, -1, -1));
+
+        LBLUsuario2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LBLUsuario2.setForeground(new java.awt.Color(255, 255, 255));
+        LBLUsuario2.setText("Respuesta:");
+        jPanel1.add(LBLUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, -1, -1));
+
+        TFRespuesta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFRespuesta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFRespuestaKeyTyped(evt);
+            }
+        });
+        jPanel1.add(TFRespuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, 200, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 960, Short.MAX_VALUE)
+            .addGap(0, 1036, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1036, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE))
         );
 
         pack();
@@ -228,10 +279,17 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void BTNInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNInsertarActionPerformed
-        if (TFNombres.getText() != "" && TFApellidos.getText() != "" && TFDireccion.getText() != "" && TFUsuario.getText() != "" && String.valueOf(PFContrasena.getPassword()) != "")
+        if (!TFNombres.getText().equals("")  && !TFApellidos.getText().equals("") && !TFDireccion.getText().equals("") && !TFUsuario.getText().equals("") 
+                && !String.valueOf(PFContrasena.getPassword()).equals("") && (RBMascota.isSelected() || RBDeporte.isSelected() || 
+                RBMejorAmigo.isSelected()) && !TFRespuesta.getText().equals(""))
         {
             try {
-                insercion.Insertar(TFNombres.getText(), TFApellidos.getText(), TFDireccion.getText(), TFUsuario.getText(), encriptado.Encriptar(String.valueOf(PFContrasena.getPassword())), 1);
+                if (RBMascota.isSelected())
+                    insercion.Insertar(TFNombres.getText(), TFApellidos.getText(), TFDireccion.getText(), TFUsuario.getText(), encriptado.Encriptar(String.valueOf(PFContrasena.getPassword())), 1, RBMascota.getText(), TFRespuesta.getText());
+                else if (RBDeporte.isSelected())
+                    insercion.Insertar(TFNombres.getText(), TFApellidos.getText(), TFDireccion.getText(), TFUsuario.getText(), encriptado.Encriptar(String.valueOf(PFContrasena.getPassword())), 1, RBDeporte.getText(), TFRespuesta.getText());
+                else if (RBMejorAmigo.isSelected())
+                    insercion.Insertar(TFNombres.getText(), TFApellidos.getText(), TFDireccion.getText(), TFUsuario.getText(), encriptado.Encriptar(String.valueOf(PFContrasena.getPassword())), 1, RBMejorAmigo.getText(), TFRespuesta.getText());
                 Login loguear = new Login();
                 loguear.setVisible(true);
                 this.setVisible(false);
@@ -273,6 +331,34 @@ public class Inicio extends javax.swing.JFrame {
         if (PFContrasena.getPassword().length > 45) evt.consume();
     }//GEN-LAST:event_PFContrasenaKeyTyped
 
+    private void RBMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMascotaActionPerformed
+        if (RBMascota.isSelected())
+        {
+            RBDeporte.setSelected(false);
+            RBMejorAmigo.setSelected(false);
+        }
+    }//GEN-LAST:event_RBMascotaActionPerformed
+
+    private void RBDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBDeporteActionPerformed
+        if (RBDeporte.isSelected())
+        {
+            RBMascota.setSelected(false);
+            RBMejorAmigo.setSelected(false);
+        }
+    }//GEN-LAST:event_RBDeporteActionPerformed
+
+    private void RBMejorAmigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBMejorAmigoActionPerformed
+        if (RBMejorAmigo.isSelected())
+        {
+            RBMascota.setSelected(false);
+            RBDeporte.setSelected(false);
+        }
+    }//GEN-LAST:event_RBMejorAmigoActionPerformed
+
+    private void TFRespuestaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFRespuestaKeyTyped
+        if (TFRespuesta.getText().length() > 30) evt.consume();
+    }//GEN-LAST:event_TFRespuestaKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -300,6 +386,8 @@ public class Inicio extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -311,10 +399,16 @@ public class Inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNInsertar;
+    private javax.swing.JLabel LBLUsuario1;
+    private javax.swing.JLabel LBLUsuario2;
     private javax.swing.JPasswordField PFContrasena;
+    private javax.swing.JRadioButton RBDeporte;
+    private javax.swing.JRadioButton RBMascota;
+    private javax.swing.JRadioButton RBMejorAmigo;
     private javax.swing.JTextField TFApellidos;
     private javax.swing.JTextField TFDireccion;
     private javax.swing.JTextField TFNombres;
+    private javax.swing.JTextField TFRespuesta;
     private javax.swing.JTextField TFUsuario;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
