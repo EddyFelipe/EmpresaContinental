@@ -36,7 +36,7 @@ public class Ventas extends javax.swing.JPanel {
     private String ColumnaVentas[] = {"Producto","Cantidad","Descripcion","Total"};
     private DefaultTableModel ModeloVentas,ModeloProductos;
     private Connection ConexionBaseDatos;
-    private boolean ProductoSeleccionado;
+    private boolean ProductoSeleccionado,HayDescuento;
     private ArrayList<Clases.AtributoVentas> ListaProductos;
     private int RowSeleccionado,RowCategoria;
     private double Total,Descuento = 0; 
@@ -45,11 +45,11 @@ public class Ventas extends javax.swing.JPanel {
     public Ventas() {
         initComponents();
         mostrar_nombres_productos();
-       Grupo1.add(RbYarda);
+      /* Grupo1.add(RbYarda);
        Grupo1.add(RbUnidades);
        Grupo1.add(RbMillar);
        Grupo1.add(RbCientos);
-       Grupo1.add(RbRollos);
+       Grupo1.add(RbRollos);*/
        
        ModeloVentas = new DefaultTableModel();
        ModeloLista = new DefaultListModel();
@@ -63,13 +63,14 @@ public class Ventas extends javax.swing.JPanel {
        
        //Variables
        ProductoSeleccionado = false;
+       HayDescuento = true;
        ListaProductos = new ArrayList<>();
        ProductosCategoria = new ArrayList<>();
        
        //Llamada a metodos
        TablaProductos();  
        ComponentesInit();
-       MetodoRadioButon();
+       //MetodoRadioButon();
        OcultarDescuentos();
        DobleClikJlist();
      //  TableVentas.setComponentPopupMenu(PopMenu);
@@ -110,21 +111,21 @@ public class Ventas extends javax.swing.JPanel {
           }
         });
     }
-    private void MetodoRadioButon(){
+   /* private void MetodoRadioButon(){
        RbCientos.setActionCommand("Cientos");
        RbMillar.setActionCommand("Millar");
        RbRollos.setActionCommand("Rollos");
        RbUnidades.setActionCommand("Unidades");
        RbYarda.setActionCommand("Yarda");
-  }
+  }*/
     //METODO para agregar una venta
-    private void AgregarVenta(short col){
+     private void AgregarVenta(short col){
        
-    if(ProductoSeleccionado && Grupo1.getSelection() != null && !txtCantidad.getText().equals("")){
+    if(ProductoSeleccionado && !txtCantidad.getText().equals("")){
            Clases.AtributoVentas venta = new Clases.AtributoVentas();
            //Seteando los los datos de la venta
            venta.SetProducto(SelectProducto.getText());
-           venta.SetDescripcion(Grupo1.getSelection().getActionCommand());
+           venta.SetDescripcion("Unidades");
            venta.SetCantidad(Integer.parseInt(txtCantidad.getText()));
            venta.SetTotal(Double.parseDouble(ModeloProductos.getValueAt(RowSeleccionado, col).toString())*venta.getCantidad());
            venta.SetidCategoria(RowCategoria);
@@ -199,6 +200,44 @@ public class Ventas extends javax.swing.JPanel {
         c8.SetIdProducto(Insertar_producto.getAraayId());
         ProductosCategoria.add(c8); 
    }
+    private void VerificarExistencia(){
+    if(ProductoSeleccionado){ 
+        int tem = Integer.parseInt(ModeloProductos.getValueAt(RowSeleccionado, ModeloProductos.getColumnCount() - 2).toString());
+        if(tem >= Integer.parseInt(txtCantidad.getText()) && tem != 0){
+         ModeloProductos.setValueAt(tem - Integer.parseInt(txtCantidad.getText()),RowSeleccionado, ModeloProductos.getColumnCount() - 2);
+         AgregarVenta((short)(ModeloProductos.getColumnCount()-1)); 
+        }
+       else 
+          JOptionPane.showMessageDialog(this,"Ya no hay existencia");
+     }
+     else 
+          JOptionPane.showMessageDialog(this,"Favor de seleccionar un producto");
+   }
+      private void AgregarDescuento(){
+         if(HayDescuento && ListaProductos.size() != 0){
+          VisibleDescuento();
+          HayDescuento = false;
+        }
+        else if(ListaProductos.size() != 0 && !txtDescuento.getText().equals("")){
+           
+            Total += Descuento;
+            Descuento = Double.parseDouble(txtDescuento.getText());
+             
+            if(Descuento < Total){
+             HayDescuento = true;
+             Total -= Descuento;
+             lblTotal.setText(Total+"");
+             lblDescuento.setText(Descuento+"");
+             OcultarDescuentos(); 
+            }
+            else{
+                Descuento =  0;
+                JOptionPane.showMessageDialog(this,"La cantidad ingresada supera el total");
+            }     
+        }
+        else
+          JOptionPane.showMessageDialog(this, "Factura Vacia"); 
+    }
   
    public void mostrar_nombres_productos(){
         
@@ -233,7 +272,6 @@ public class Ventas extends javax.swing.JPanel {
         Grupo1 = new javax.swing.ButtonGroup();
         PopMenu = new javax.swing.JPopupMenu();
         Eliminar = new javax.swing.JMenuItem();
-        Editar = new javax.swing.JMenuItem();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         pnlVentas = new javax.swing.JPanel();
         pnlContenedor = new javax.swing.JPanel();
@@ -253,14 +291,9 @@ public class Ventas extends javax.swing.JPanel {
         btnAceptar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         TableVentas = new javax.swing.JTable();
-        RbYarda = new javax.swing.JRadioButton();
-        RbCientos = new javax.swing.JRadioButton();
-        RbMillar = new javax.swing.JRadioButton();
-        RbUnidades = new javax.swing.JRadioButton();
         txtCantidad = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         btnVender = new javax.swing.JButton();
-        RbRollos = new javax.swing.JRadioButton();
         lblDescuento = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -277,7 +310,7 @@ public class Ventas extends javax.swing.JPanel {
         pnlConsultas = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaproducto = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
@@ -288,9 +321,6 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
         PopMenu.add(Eliminar);
-
-        Editar.setText("Editar Producto");
-        PopMenu.add(Editar);
 
         setBackground(new java.awt.Color(36, 41, 46));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -340,7 +370,7 @@ public class Ventas extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nit:");
         pnlContenedor.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, -1, -1));
-        pnlContenedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 360, 190, 10));
+        pnlContenedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 190, 10));
         pnlContenedor.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 310, 10));
 
         txtDireccionClient.setBackground(new java.awt.Color(36, 41, 46));
@@ -351,8 +381,8 @@ public class Ventas extends javax.swing.JPanel {
         txtDireccionClient.setBorder(null);
         pnlContenedor.add(txtDireccionClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, 310, 40));
 
-        SelectProducto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        SelectProducto.setForeground(new java.awt.Color(255, 255, 255));
+        SelectProducto.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        SelectProducto.setForeground(new java.awt.Color(0, 136, 204));
         SelectProducto.setText(".");
         pnlContenedor.add(SelectProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 190, -1));
 
@@ -386,7 +416,7 @@ public class Ventas extends javax.swing.JPanel {
                 btnAceptarActionPerformed(evt);
             }
         });
-        pnlContenedor.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 380, -1, 90));
+        pnlContenedor.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, -1, 90));
 
         TablaProductos = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex,int colIndex){
@@ -412,26 +442,6 @@ public class Ventas extends javax.swing.JPanel {
 
         pnlContenedor.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 630, 440));
 
-        RbYarda.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        RbYarda.setForeground(new java.awt.Color(255, 255, 255));
-        RbYarda.setText("Yarda");
-        pnlContenedor.add(RbYarda, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, -1, -1));
-
-        RbCientos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        RbCientos.setForeground(new java.awt.Color(255, 255, 255));
-        RbCientos.setText("Cientos");
-        pnlContenedor.add(RbCientos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, -1, -1));
-
-        RbMillar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        RbMillar.setForeground(new java.awt.Color(255, 255, 255));
-        RbMillar.setText("Millar");
-        pnlContenedor.add(RbMillar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, -1, -1));
-
-        RbUnidades.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        RbUnidades.setForeground(new java.awt.Color(255, 255, 255));
-        RbUnidades.setText("Unidades");
-        pnlContenedor.add(RbUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, -1, -1));
-
         txtCantidad.setBackground(new java.awt.Color(36, 41, 46));
         txtCantidad.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtCantidad.setForeground(new java.awt.Color(255, 255, 255));
@@ -446,12 +456,12 @@ public class Ventas extends javax.swing.JPanel {
                 txtCantidadKeyTyped(evt);
             }
         });
-        pnlContenedor.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 180, 30));
+        pnlContenedor.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, 180, 30));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Cantidad:");
-        pnlContenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, -1, -1));
+        pnlContenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, -1, -1));
 
         btnVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender.png"))); // NOI18N
         btnVender.setBorder(null);
@@ -468,11 +478,6 @@ public class Ventas extends javax.swing.JPanel {
             }
         });
         pnlContenedor.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 610, -1, 90));
-
-        RbRollos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        RbRollos.setForeground(new java.awt.Color(255, 255, 255));
-        RbRollos.setText("Rollos");
-        pnlContenedor.add(RbRollos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, -1, -1));
 
         lblDescuento.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         lblDescuento.setForeground(new java.awt.Color(0, 136, 204));
@@ -619,24 +624,11 @@ public class Ventas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescuentoActionPerformed
-          //VisibleDescuento();
-      for(int i =0; i < ListaProductos.size(); i++){
-           System.out.println(ListaProductos.get(i).getProducto()+"idProducto: "+ListaProductos.get(i).getIdInsercion());
-       }
+       AgregarDescuento();
     }//GEN-LAST:event_btnDescuentoActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-     if(ProductoSeleccionado){ 
-       // int tem = Integer.parseInt(ModeloProductos.getValueAt(RowSeleccionado, 1).toString());
-      //  if(tem >= Integer.parseInt(txtCantidad.getText())){
-       //  ModeloProductos.setValueAt(tem - Integer.parseInt(txtCantidad.getText()),RowSeleccionado, 1);
-         AgregarVenta((short)(ModeloProductos.getColumnCount()-1)); 
-       // }
-      //  else 
-          //  JOptionPane.showMessageDialog(this,"Ya no hay existencia");
-     }
-     else 
-          JOptionPane.showMessageDialog(this,"Favor de seleccionar un producto");
+      VerificarExistencia();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyTyped
@@ -647,7 +639,7 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCantidadKeyTyped
 
     private void txtCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){ AgregarVenta((short)(ModeloProductos.getColumnCount()-1)); }
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){ VerificarExistencia(); }
     }//GEN-LAST:event_txtCantidadKeyPressed
 
     private void TableVentasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableVentasMouseReleased
@@ -657,34 +649,45 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_TableVentasMouseReleased
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-       if (ListaProductos.size() != 0) {
+     if (ListaProductos.size() != 0) {
+           if(HayDescuento){
             if (!txtNombreClient.getText().equals("")) {
                 String Direccion = txtDireccionClient.getText().equals("")?"Ciudad":txtDireccionClient.getText();
-                String nit = txtNitClient.getText().equals("")?"C/F":txtDireccionClient.getText();
-               if(Clases.Ventas.InsertarFactura(txtNombreClient.getText(), Direccion, nit,Total ,0,ConexionBaseDatos,ListaProductos)){
-                
-                ListaProductos.clear();
-                for (int i = 0; i < ModeloVentas.getRowCount(); i++) {
-                    ModeloVentas.removeRow(i);
-                    i--;
-                }
-                Total = 0;
-                lblTotal.setText("" + Total);
-               }
-               else
-                    JOptionPane.showMessageDialog(this, "La venta no se realizo con exito");
-                   
+                String nit = txtNitClient.getText().equals("")?"C/F":txtNitClient.getText();
+                int idCliente = Clases.Ventas.InsertarCliente(txtNombreClient.getText(), Direccion, nit, ConexionBaseDatos);                  
+                int idFactura = Clases.Ventas.InsertarFactura(Total,Descuento, idCliente, 1, ConexionBaseDatos);
+             
+                       if (Clases.Ventas.InsertarProducto(idFactura, ConexionBaseDatos, ListaProductos)) {
+                            ListaProductos.clear();
+                            for (int i = 0; i < ModeloVentas.getRowCount(); i++) {
+                                ModeloVentas.removeRow(i);
+                                i--;
+                            }
+                            CargarProductoCategorias();
+                            Total = 0;
+                            Descuento = 0;
+                            lblTotal.setText("" + Total);
+                            lblDescuento.setText(""+Descuento);
+                            txtNombreClient.setText("");
+                            txtDireccionClient.setText("");
+                            txtNitClient.setText("");
+                        }
+                        else
+                        JOptionPane.showMessageDialog(this, "La venta no se realizo con exito");
+                  
             }
             else
                 JOptionPane.showMessageDialog(this, "Favor de Ingresar un Cliente");
-
+           }
+           else
+                JOptionPane.showMessageDialog(this, "Favor de Terminar de ingresar el descuneto");
         } else {
             JOptionPane.showMessageDialog(this, "Factura Vacia");
         }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void txtDescuentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescuentoKeyPressed
-        // TODO add your handling code here:
+      if(evt.getKeyCode() == KeyEvent.VK_ENTER && !txtDescuento.getText().equals("")){ AgregarDescuento(); }
     }//GEN-LAST:event_txtDescuentoKeyPressed
 
     private void txtDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescuentoKeyTyped
@@ -695,9 +698,77 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDescuentoKeyTyped
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        System.out.println("Eliminar Producto: idCategoria:"+ListaProductos.get(TableVentas.getSelectedRow()).getidCategoria()+" idProducto: "+ListaProductos.get(TableVentas.getSelectedRow()).getidProducto());
-        ListaProductos.remove(TableVentas.getSelectedRow());
-        ModeloVentas.removeRow(TableVentas.getSelectedRow());
+        double temporal = Double.parseDouble(ModeloVentas.getValueAt(TableVentas.getSelectedRow(), TableVentas.getColumnCount() - 1).toString());
+        if(Total >= temporal){
+            
+             
+             //Actualiza el producto
+            switch (ListaProductos.get(TableVentas.getSelectedRow()).getidCategoria()) {
+                case 0:
+                    ProductosCategoria.get(0).SetModelo(Insertar_producto.MostrarTela(ConexionBaseDatos, 1));
+                    if (0 == RowCategoria) {
+                        ModeloProductos = ProductosCategoria.get(0).getModelo();
+                        TablaProductos.setModel(ModeloProductos);
+                    }
+                    break;
+                case 1:
+                    ProductosCategoria.get(1).SetModelo(Insertar_producto.MostrarEtiqueta(ConexionBaseDatos, 2));
+                    if (1 == RowCategoria) {
+                         ModeloProductos = ProductosCategoria.get(1).getModelo();
+                        TablaProductos.setModel(ModeloProductos);
+                    }
+                    break;
+                case 2:
+                    ProductosCategoria.get(2).SetModelo(Insertar_producto.MostrarCarrito(ConexionBaseDatos, 3));
+                    if (2 == RowCategoria) {
+                        ModeloProductos = ProductosCategoria.get(2).getModelo();
+                        TablaProductos.setModel(ModeloProductos);
+                    }
+                    break;
+                case 3:
+                    ProductosCategoria.get(3).SetModelo(Insertar_producto.MostrarMetalesyPlastico(ConexionBaseDatos, 4));
+                    if (3 == RowCategoria) {
+                       ModeloProductos = ProductosCategoria.get(3).getModelo();
+                        TablaProductos.setModel(ModeloProductos);
+                    }
+                    break;
+                case 4:
+                    ProductosCategoria.get(4).SetModelo(Insertar_producto.MostrarCorrea(ConexionBaseDatos, 5));
+                    if (4 == RowCategoria) {
+                         ModeloProductos = ProductosCategoria.get(4).getModelo();
+                        TablaProductos.setModel(ModeloProductos);
+                    }
+                    break;
+                case 5:
+                    ProductosCategoria.get(5).SetModelo(Insertar_producto.MostrarZipper(ConexionBaseDatos, 6));
+                    if (5 == RowCategoria) {
+                        ModeloProductos = ProductosCategoria.get(5).getModelo();
+                        TablaProductos.setModel(ModeloProductos);
+                    }
+                    break;
+                case 6:
+                    ProductosCategoria.get(6).SetModelo(Insertar_producto.MostrarHilo(ConexionBaseDatos, 7));
+                    if (6 == RowCategoria) {
+                        ModeloProductos = ProductosCategoria.get(6).getModelo();
+                        TablaProductos.setModel(ModeloProductos);
+                    }
+                    break;
+                case 7:
+                    ProductosCategoria.get(7).SetModelo(Insertar_producto.MostrarMetalesyPlastico(ConexionBaseDatos, 8));
+                    if (7 == RowCategoria) {
+                         ModeloProductos = ProductosCategoria.get(7).getModelo();
+                        TablaProductos.setModel(ModeloProductos);
+                    }
+                    break;
+            }
+            Total -= temporal;
+
+            lblTotal.setText(Total + "");
+            ListaProductos.remove(TableVentas.getSelectedRow());
+            ModeloVentas.removeRow(TableVentas.getSelectedRow());
+        }
+        else
+            JOptionPane.showMessageDialog(this, "No puede quedar total a pagar a un saldo negativo");
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1054,16 +1125,10 @@ public class Ventas extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Editar;
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.ButtonGroup Grupo1;
     private javax.swing.JList ListadoTipos;
     private javax.swing.JPopupMenu PopMenu;
-    private javax.swing.JRadioButton RbCientos;
-    private javax.swing.JRadioButton RbMillar;
-    private javax.swing.JRadioButton RbRollos;
-    private javax.swing.JRadioButton RbUnidades;
-    private javax.swing.JRadioButton RbYarda;
     private javax.swing.JLabel SelectProducto;
     private javax.swing.JSeparator SepDes;
     private javax.swing.JTable TablaProductos;

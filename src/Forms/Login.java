@@ -178,7 +178,7 @@ public class Login extends javax.swing.JFrame {
                     General g = new General();
                     g.setVisible(true);
                     this.setVisible(false);
-                    g.conectado = empleado.ObtenerId(jTextField1.getText());
+                   g.conectado = empleado.ObtenerId(jTextField1.getText());
                     g.administrador = empleado.Administrador(jTextField1.getText());
                     System.out.println("Resultado: " + empleado.Administrador(jTextField1.getText()));
                 }
