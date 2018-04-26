@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -50,17 +51,26 @@ public class Proveedor {
                }
    }
     
-    public void uptadte(String nombre,String empresa,String correo,String direccion) throws SQLException{
-         Conexion con = new Conexion();
+    public void update(String nombre, String empresa,String correo,String direccion,int id) throws SQLException
+    {
+        PreparedStatement Insertar;
+        Clases.Conexion con = new Clases.Conexion();
         Connection cn=con.ConectarBaseDatos();
-        PreparedStatement pps = cn.prepareStatement(sql2);
-        pps.setString(1, nombre);
-        pps.setString(2, empresa);
-        pps.setString(3, correo);
-        pps.setString(4, direccion);
-        pps.executeUpdate();
-        pps.close();
-        pps = null;
+        try
+        {
+            Insertar = cn.prepareStatement("UPDATE proveedor SET repartidor = ?,nombre_empresa = ?, correo = ?,direccion = ? ,eliminado= ? WHERE id_proveedor ='"+id+"'");
+            Insertar.setString(1, nombre);
+            Insertar.setString(2, empresa);
+            Insertar.setString(3, correo);
+            Insertar.setString(4, direccion);
+            Insertar.setBoolean(5, false);
+            Insertar.executeUpdate();
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex);
+        }
     }
     
 }
+

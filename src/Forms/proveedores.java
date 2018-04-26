@@ -290,7 +290,7 @@ public class proveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        int filaselec = jTable1.getSelectedRow();
+         int filaselec = jTable1.getSelectedRow();
         if (filaselec>=0) {
              JOptionPane.showMessageDialog(null, "esta seguro de eliminar a este proveedor.");
             modelo.removeRow(filaselec);
@@ -310,7 +310,7 @@ public class proveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-         Proveedor enviar = new Proveedor();
+          Proveedor enviar = new Proveedor();
         if (modifier==0 && filaSeleccionada ==0) {
             String Dato [] = new String[6];
             Dato[0] = String.valueOf(cont);
@@ -318,6 +318,7 @@ public class proveedores extends javax.swing.JPanel {
             Dato[2] = txtEmpresa.getText();
             Dato[3] = txtCorreo.getText();
             Dato[4] = txtDireccion.getText();
+            Dato[5] = txtTelefono.getText();
             JOptionPane.showMessageDialog(null, "Proveedor ingresado exitosamente!");
             jPanel2.setVisible(false);
             modelo.addRow(Dato);
@@ -328,18 +329,22 @@ public class proveedores extends javax.swing.JPanel {
             txtDireccion.setText("");
             txtTelefono.setText("");
             cont++;
-        }else{
+        }
+        else
+        {
+            int filaselect = jTable1.getSelectedRow();
         try {
-            enviar.uptadte(txtNombre.getText(), txtEmpresa.getText(), txtCorreo.getText(),txtDireccion.getText());
-        } catch (SQLException ex) {
+            enviar.update(txtNombre.getText(), txtEmpresa.getText(), txtCorreo.getText(),txtDireccion.getText(),Integer.parseInt(jTable1.getValueAt(filaselect, 0).toString()));
+        }   catch (SQLException ex) {
             Logger.getLogger(proveedores.class.getName()).log(Level.SEVERE, null, ex);
         }
             JOptionPane.showMessageDialog(null, "Proveedor modificado exitosamente!");
+            jTable1.setValueAt(txtNombre.getText(),filaselect ,1);
+            jTable1.setValueAt(txtEmpresa.getText(),filaselect ,2);
+            jTable1.setValueAt(txtCorreo.getText(),filaselect ,3);
+            jTable1.setValueAt(txtDireccion.getText(),filaselect ,4);
+            jTable1.setValueAt(txtTelefono.getText(), filaselect, 5);
             jPanel2.setVisible(false);
-            jTable1.setValueAt(txtNombre.getText(),filaSeleccionada ,1);
-            jTable1.setValueAt(txtEmpresa.getText(),filaSeleccionada ,2);
-            jTable1.setValueAt(txtCorreo.getText(),filaSeleccionada ,3);
-            jTable1.setValueAt(txtDireccion.getText(),filaSeleccionada ,4);
             txtNombre.setText("");
             txtEmpresa.setText("");
             txtCorreo.setText("");
@@ -348,10 +353,8 @@ public class proveedores extends javax.swing.JPanel {
             filaSeleccionada=0;
             modifier=0;
         }
-        
       //  System.out.println("SE HA ENVIADO A LA DATA BASE");
         
-
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnAgregarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPActionPerformed
@@ -360,7 +363,7 @@ public class proveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAgregarPActionPerformed
 
     private void btnModificarpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarpActionPerformed
-        // TODO add your handling code here:
+       // TODO add your handling code here:
           modifier=1;
         filaSeleccionada=1;
         int filaSelec = jTable1.getSelectedRow();
