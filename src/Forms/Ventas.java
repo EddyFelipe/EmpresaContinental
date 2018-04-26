@@ -272,7 +272,7 @@ public class Ventas extends javax.swing.JPanel {
         Grupo1 = new javax.swing.ButtonGroup();
         PopMenu = new javax.swing.JPopupMenu();
         Eliminar = new javax.swing.JMenuItem();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        indiceConsulta = new javax.swing.JTabbedPane();
         pnlVentas = new javax.swing.JPanel();
         pnlContenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -327,8 +327,13 @@ public class Ventas extends javax.swing.JPanel {
         setBackground(new java.awt.Color(36, 41, 46));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        indiceConsulta.setForeground(new java.awt.Color(255, 255, 255));
+        indiceConsulta.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        indiceConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                click(evt);
+            }
+        });
 
         pnlVentas.setBackground(new java.awt.Color(36, 41, 46));
 
@@ -586,7 +591,7 @@ public class Ventas extends javax.swing.JPanel {
                 .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Ventas", pnlVentas);
+        indiceConsulta.addTab("Ventas", pnlVentas);
 
         pnlConsultas.setBackground(new java.awt.Color(36, 41, 46));
         pnlConsultas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -632,9 +637,9 @@ public class Ventas extends javax.swing.JPanel {
         jLabel5.setText("Categorias");
         pnlConsultas.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
-        jTabbedPane1.addTab("Consultas", pnlConsultas);
+        indiceConsulta.addTab("Consultas", pnlConsultas);
 
-        add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1420, 800));
+        add(indiceConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1420, 800));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescuentoActionPerformed
@@ -835,6 +840,10 @@ public class Ventas extends javax.swing.JPanel {
                   break;
           }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_click
+        tablaproducto.setModel(HistorialVenta.HistorialVentas(ConexionBaseDatos));
+    }//GEN-LAST:event_click
 
     public int id_categoria(String categoria){
         
@@ -1152,6 +1161,7 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnDescuento;
     private javax.swing.JButton btnVender;
+    private javax.swing.JTabbedPane indiceConsulta;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -1173,7 +1183,6 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblDesMsg;
     private javax.swing.JLabel lblDescuento;
     private javax.swing.JLabel lblTipos;

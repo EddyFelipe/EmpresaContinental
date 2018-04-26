@@ -94,10 +94,7 @@ public class proveedores extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
-        jSeparator8 = new javax.swing.JSeparator();
-        txtTelefono = new javax.swing.JTextField();
         jSeparator7 = new javax.swing.JSeparator();
         txtDireccion = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
@@ -174,12 +171,6 @@ public class proveedores extends javax.swing.JPanel {
         jLabel6.setText("Dirección:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, -1, -1));
 
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Teléfono:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, -1, -1));
-
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar3.png"))); // NOI18N
         btnAceptar.setBorder(null);
         btnAceptar.setBorderPainted(false);
@@ -194,15 +185,7 @@ public class proveedores extends javax.swing.JPanel {
                 btnAceptarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 570, -1, -1));
-        jPanel2.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 160, 10));
-
-        txtTelefono.setBackground(new java.awt.Color(36, 41, 46));
-        txtTelefono.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        txtTelefono.setForeground(new java.awt.Color(255, 255, 255));
-        txtTelefono.setBorder(null);
-        txtTelefono.setCaretColor(new java.awt.Color(255, 255, 255));
-        jPanel2.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 160, 30));
+        jPanel2.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 530, -1, -1));
         jPanel2.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, 160, 10));
 
         txtDireccion.setBackground(new java.awt.Color(36, 41, 46));
@@ -238,6 +221,7 @@ public class proveedores extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 90, 500, 660));
 
+        jTable1.setFont(new java.awt.Font("Dubai", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -330,7 +314,7 @@ public class proveedores extends javax.swing.JPanel {
             Dato[2] = txtEmpresa.getText();
             Dato[3] = txtCorreo.getText();
             Dato[4] = txtDireccion.getText();
-            Dato[5] = txtTelefono.getText();
+            
             JOptionPane.showMessageDialog(null, "Proveedor ingresado exitosamente!");
             jPanel2.setVisible(false);
             modelo.addRow(Dato);
@@ -339,7 +323,7 @@ public class proveedores extends javax.swing.JPanel {
             txtEmpresa.setText("");
             txtCorreo.setText("");
             txtDireccion.setText("");
-            txtTelefono.setText("");
+            
             cont++;
         }
         else
@@ -355,13 +339,11 @@ public class proveedores extends javax.swing.JPanel {
             jTable1.setValueAt(txtEmpresa.getText(),filaselect ,2);
             jTable1.setValueAt(txtCorreo.getText(),filaselect ,3);
             jTable1.setValueAt(txtDireccion.getText(),filaselect ,4);
-            jTable1.setValueAt(txtTelefono.getText(), filaselect, 5);
             jPanel2.setVisible(false);
             txtNombre.setText("");
             txtEmpresa.setText("");
             txtCorreo.setText("");
             txtDireccion.setText("");
-            txtTelefono.setText("");
             filaSeleccionada=0;
             modifier=0;
         }
@@ -402,7 +384,6 @@ public class proveedores extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -412,12 +393,10 @@ public class proveedores extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
     public javax.swing.JTable jTable1;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtEmpresa;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
