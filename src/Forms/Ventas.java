@@ -307,6 +307,8 @@ public class Ventas extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         ListadoTipos = new javax.swing.JList();
         lblDesMsg = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         pnlConsultas = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaproducto = new javax.swing.JTable();
@@ -335,8 +337,8 @@ public class Ventas extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Datos del Clinte:");
-        pnlContenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 16, -1, -1));
+        jLabel1.setText("Datos del Cliente:");
+        pnlContenedor.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -370,7 +372,7 @@ public class Ventas extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Nit:");
         pnlContenedor.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 70, -1, -1));
-        pnlContenedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 190, 10));
+        pnlContenedor.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 420, 170, 10));
         pnlContenedor.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 310, 10));
 
         txtDireccionClient.setBackground(new java.awt.Color(36, 41, 46));
@@ -384,7 +386,7 @@ public class Ventas extends javax.swing.JPanel {
         SelectProducto.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         SelectProducto.setForeground(new java.awt.Color(0, 136, 204));
         SelectProducto.setText(".");
-        pnlContenedor.add(SelectProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 190, -1));
+        pnlContenedor.add(SelectProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 190, 190, -1));
 
         btnDescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Descuento.png"))); // NOI18N
         btnDescuento.setBorder(null);
@@ -400,7 +402,7 @@ public class Ventas extends javax.swing.JPanel {
                 btnDescuentoActionPerformed(evt);
             }
         });
-        pnlContenedor.add(btnDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 610, 90, 90));
+        pnlContenedor.add(btnDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 600, 90, 90));
 
         btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Aceptar.png"))); // NOI18N
         btnAceptar.setBorder(null);
@@ -416,13 +418,14 @@ public class Ventas extends javax.swing.JPanel {
                 btnAceptarActionPerformed(evt);
             }
         });
-        pnlContenedor.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, -1, 90));
+        pnlContenedor.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 360, 80, 80));
 
         TablaProductos = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex,int colIndex){
                 return false;
             }
         };
+        TableVentas.setFont(new java.awt.Font("DialogInput", 1, 18)); // NOI18N
         TableVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -457,12 +460,12 @@ public class Ventas extends javax.swing.JPanel {
                 txtCantidadKeyTyped(evt);
             }
         });
-        pnlContenedor.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, 180, 30));
+        pnlContenedor.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, 180, 30));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Cantidad:");
-        pnlContenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, -1, -1));
+        pnlContenedor.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 400, -1, -1));
 
         btnVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Vender.png"))); // NOI18N
         btnVender.setBorder(null);
@@ -478,7 +481,7 @@ public class Ventas extends javax.swing.JPanel {
                 btnVenderActionPerformed(evt);
             }
         });
-        pnlContenedor.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 610, -1, 90));
+        pnlContenedor.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 600, -1, 90));
 
         lblDescuento.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         lblDescuento.setForeground(new java.awt.Color(0, 136, 204));
@@ -502,8 +505,8 @@ public class Ventas extends javax.swing.JPanel {
 
         lblTipos.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblTipos.setForeground(new java.awt.Color(255, 255, 255));
-        lblTipos.setText("Tipos");
-        pnlContenedor.add(lblTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
+        lblTipos.setText("Productos");
+        pnlContenedor.add(lblTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
         pnlContenedor.add(SepDes, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 580, 210, 10));
 
         txtDescuento.setBackground(new java.awt.Color(36, 41, 46));
@@ -525,13 +528,14 @@ public class Ventas extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Producto Seleccionado:");
-        pnlContenedor.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        pnlContenedor.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, -1));
 
         TablaProductos = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex,int colIndex){
                 return false;
             }
         };
+        TablaProductos.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -547,28 +551,37 @@ public class Ventas extends javax.swing.JPanel {
         TablaProductos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(TablaProductos);
 
-        pnlContenedor.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 350, 300));
+        pnlContenedor.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 350, 300));
 
+        ListadoTipos.setFont(new java.awt.Font("DialogInput", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(ListadoTipos);
 
-        pnlContenedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 551, 350, 180));
+        pnlContenedor.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 350, 180));
 
         lblDesMsg.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblDesMsg.setForeground(new java.awt.Color(255, 255, 255));
         lblDesMsg.setText("Descuento:");
         pnlContenedor.add(lblDesMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 560, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel6.setText("FACTURA");
+        pnlContenedor.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 160, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel11.setText("Clasificaciones");
+        pnlContenedor.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, -1, -1));
+
         javax.swing.GroupLayout pnlVentasLayout = new javax.swing.GroupLayout(pnlVentas);
         pnlVentas.setLayout(pnlVentasLayout);
         pnlVentasLayout.setHorizontalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1418, Short.MAX_VALUE)
+            .addGap(0, 1415, Short.MAX_VALUE)
             .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 1418, Short.MAX_VALUE))
         );
         pnlVentasLayout.setVerticalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 758, Short.MAX_VALUE)
+            .addGap(0, 756, Short.MAX_VALUE)
             .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE))
         );
@@ -1143,10 +1156,12 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
