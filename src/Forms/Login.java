@@ -171,17 +171,20 @@ public class Login extends javax.swing.JFrame {
        try {
             if (verificar.Buscar(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword())))
             {
+                if (jTextField1.getText().length() == 0 || jPasswordField1.getPassword().length == 0)
+                    JOptionPane.showMessageDialog(null, "Por favor rellene los campos de usuario y contraseña");
+                else
+                {
                     General g = new General();
                     g.setVisible(true);
                     this.setVisible(false);
                     g.conectado = empleado.ObtenerId(jTextField1.getText());
                     g.administrador = empleado.Administrador(jTextField1.getText());
                     System.out.println("Resultado: " + empleado.Administrador(jTextField1.getText()));
+                }
             }
             else
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectas");
-            if (jTextField1.getText().length() == 0 || jPasswordField1.getPassword().length == 0)
-               JOptionPane.showMessageDialog(null, "Por favor rellene los campos de usuario y contraseña");
         } catch (Exception ex) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }

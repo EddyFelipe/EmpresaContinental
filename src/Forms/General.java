@@ -306,7 +306,6 @@ public class General extends javax.swing.JFrame {
         pnlContenedor.add(venta,BorderLayout.CENTER);
         pnlContenedor.revalidate();
         pnlContenedor.repaint();
-        venta.conectado = conectado;
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void jButton4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseMoved
