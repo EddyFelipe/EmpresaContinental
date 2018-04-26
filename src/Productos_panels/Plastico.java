@@ -151,7 +151,7 @@ public class Plastico extends javax.swing.JPanel {
     private void txttipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttipoKeyTyped
         // TODO add your handling code here:
         char validar =evt.getKeyChar();
-            if(Character.isLetter(validar)){
+            if(!Character.isLetter(validar)){
                 getToolkit().beep();
                 evt.consume();
             }
@@ -161,7 +161,7 @@ public class Plastico extends javax.swing.JPanel {
         // TODO add your handling code here:
         char validar=evt.getKeyChar();
 
-            if(Character.isDigit(validar)){
+            if(!Character.isDigit(validar)){
                 getToolkit().beep();
                 evt.consume();
             }
@@ -171,7 +171,7 @@ public class Plastico extends javax.swing.JPanel {
         // TODO add your handling code here:
         char validar=evt.getKeyChar();
 
-            if(Character.isDigit(validar)){
+            if(!Character.isDigit(validar)){
                 getToolkit().beep();
                 evt.consume();
             }

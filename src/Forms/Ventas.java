@@ -691,10 +691,9 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDescuentoKeyPressed
 
     private void txtDescuentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescuentoKeyTyped
-        char capturar = evt.getKeyChar();
-        if(!Character.isDigit(capturar)){
-          evt.consume();
-        }
+          char c= evt.getKeyChar();
+        
+            if((c<'0'||c>'9') && (c!= java.awt.event.KeyEvent.VK_BACK_SPACE) && (c!='.')) evt.consume();
     }//GEN-LAST:event_txtDescuentoKeyTyped
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed

@@ -165,7 +165,7 @@ public class Etiqueta extends javax.swing.JPanel {
         // TODO add your handling code here:
         char validar=evt.getKeyChar();
 
-        if(Character.isDigit(validar)){
+        if(!Character.isDigit(validar)){
             getToolkit().beep();
             evt.consume();
         }
@@ -175,7 +175,7 @@ public class Etiqueta extends javax.swing.JPanel {
         // TODO add your handling code here:
         char validar=evt.getKeyChar();
 
-        if(Character.isDigit(validar)){
+        if(!Character.isDigit(validar)){
             getToolkit().beep();
             evt.consume();
         }
@@ -184,7 +184,7 @@ public class Etiqueta extends javax.swing.JPanel {
     private void txtmarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmarcaKeyTyped
         // TODO add your handling code here:
         char validar =evt.getKeyChar();
-            if(Character.isLetter(validar)){
+            if(!Character.isLetter(validar)){
                 getToolkit().beep();
                 evt.consume();
             }
