@@ -8,12 +8,14 @@ package Forms;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -33,12 +35,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     
     public IngresoEmpleados() {
         initComponents();
-        LBLAdmin.setVisible(false);
-        PAdministrador.setVisible(false);
-        PIngresoEmpleado.setVisible(true);
-        PIngresoTelefono.setVisible(false);
         BTNEliEmpleado.setEnabled(false);
-        BTNEliEmpleado.setVisible(false);
         conexion.ConectarBaseDatos();
         TFNombres.setEnabled(true);
         TFDireccion.setEnabled(true);
@@ -48,25 +45,23 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         TFMDireccion.setEnabled(false);
         TFTelefono1.setEnabled(false);
         BTNAgregar.setEnabled(true);
-        TFUsuario.setEnabled(false);
-        PFContrasena.setEnabled(false);
-        BTNAgregar1.setEnabled(false);
+        TFUsuario.setEnabled(true);
+        PFContrasena.setEnabled(true);
         BTNTelefono.setEnabled(false);
         TFTelefono.setEnabled(false);
         BTNModEmpleado.setEnabled(false);
         BTNModCel.setEnabled(false);
         BTNEliEmpleado.setEnabled(false);
         BTNEliTel.setEnabled(false);
-        BTNEliEmpleado.setVisible(false);
-        BTNEliTel.setVisible(false);
-        BTNModEmpleado.setVisible(false);
-        BTNModCel.setVisible(false);
+        RBVendedor.setEnabled(true);
+        RBAdministrador.setEnabled(true);
         empleados.addColumn("Código");
         empleados.addColumn("Nombres");
         empleados.addColumn("Apellidos");
         empleados.addColumn("Dirección");
         empleados.addColumn("Estado");
         empleados.addColumn("Usuario");
+        empleados.addColumn("Rol");
         TEmpleados.setModel(empleados);
         clientes.addColumn("Telefonos");
         TTelefonos.setModel(clientes);
@@ -93,41 +88,41 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         BTNModCel = new javax.swing.JButton();
         PIngresoTelefono = new javax.swing.JPanel();
         LBLTelefono = new javax.swing.JLabel();
-        TFTelefono = new javax.swing.JTextField();
         BTNTelefono = new javax.swing.JButton();
+        TFTelefono = new javax.swing.JTextField();
         LBLMTelefono = new javax.swing.JLabel();
-        TFTelefono1 = new javax.swing.JTextField();
         LBLBusqTel = new javax.swing.JLabel();
         TFFiltro1 = new javax.swing.JTextField();
+        TFTelefono1 = new javax.swing.JTextField();
         PEmpleados = new javax.swing.JPanel();
         BTNEliEmpleado = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TEmpleados = new javax.swing.JTable();
         LBLMApellidos = new javax.swing.JLabel();
-        TFMApellidos = new javax.swing.JTextField();
         LBLMDireccion = new javax.swing.JLabel();
-        TFMDireccion = new javax.swing.JTextField();
         BTNModEmpleado = new javax.swing.JButton();
         LBLMNombre = new javax.swing.JLabel();
-        TFMNombre = new javax.swing.JTextField();
-        PAdministrador = new javax.swing.JPanel();
-        BTNAgregar1 = new javax.swing.JButton();
-        LBLUsuario = new javax.swing.JLabel();
-        TFUsuario = new javax.swing.JTextField();
-        LBLContrasena = new javax.swing.JLabel();
-        PFContrasena = new javax.swing.JPasswordField();
         PIngresoEmpleado = new javax.swing.JPanel();
         LBLApellidos = new javax.swing.JLabel();
-        TFApellidos = new javax.swing.JTextField();
         LBLDireccion = new javax.swing.JLabel();
-        TFDireccion = new javax.swing.JTextField();
-        BTNAgregar = new javax.swing.JButton();
         LBLNombre = new javax.swing.JLabel();
+        RBVendedor = new javax.swing.JRadioButton();
+        RBAdministrador = new javax.swing.JRadioButton();
         TFNombres = new javax.swing.JTextField();
+        TFApellidos = new javax.swing.JTextField();
+        TFDireccion = new javax.swing.JTextField();
+        PAdministrador = new javax.swing.JPanel();
+        LBLUsuario = new javax.swing.JLabel();
+        LBLContrasena = new javax.swing.JLabel();
+        PFContrasena = new javax.swing.JPasswordField();
+        BTNAgregar = new javax.swing.JButton();
+        TFUsuario = new javax.swing.JTextField();
         LBLIngresoEmpleado = new javax.swing.JLabel();
-        LBLAdmin = new javax.swing.JLabel();
-        TFFiltro = new javax.swing.JTextField();
         LBLBusqEmpleado = new javax.swing.JLabel();
+        TFMNombre = new javax.swing.JTextField();
+        TFMApellidos = new javax.swing.JTextField();
+        TFMDireccion = new javax.swing.JTextField();
+        TFFiltro = new javax.swing.JTextField();
 
         panel1.setBackground(new java.awt.Color(36, 41, 46));
 
@@ -148,7 +143,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             .addGap(0, 419, Short.MAX_VALUE)
         );
 
-        PTelefono.setBackground(new java.awt.Color(36, 41, 46));
+        PTelefono.setBackground(new java.awt.Color(0, 51, 102));
 
         BTNEliTel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminarp.png"))); // NOI18N
         BTNEliTel.addActionListener(new java.awt.event.ActionListener() {
@@ -195,13 +190,6 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         LBLTelefono.setForeground(new java.awt.Color(255, 255, 255));
         LBLTelefono.setText("Teléfono/Celular del empleado:");
 
-        TFTelefono.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFTelefonoKeyTyped(evt);
-            }
-        });
-
         BTNTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_telefono.png"))); // NOI18N
         BTNTelefono.setBorder(null);
         BTNTelefono.setBorderPainted(false);
@@ -216,6 +204,13 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             }
         });
 
+        TFTelefono.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFTelefonoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout PIngresoTelefonoLayout = new javax.swing.GroupLayout(PIngresoTelefono);
         PIngresoTelefono.setLayout(PIngresoTelefonoLayout);
         PIngresoTelefonoLayout.setHorizontalGroup(
@@ -223,8 +218,8 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             .addGroup(PIngresoTelefonoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(PIngresoTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TFTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BTNTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LBLTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
@@ -233,9 +228,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             .addGroup(PIngresoTelefonoLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(LBLTelefono)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TFTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TFTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addComponent(BTNTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -244,26 +239,27 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         LBLMTelefono.setForeground(new java.awt.Color(255, 255, 255));
         LBLMTelefono.setText("Teléfono/Celular del empleado:");
 
-        TFTelefono1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFTelefono1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFTelefono1KeyTyped(evt);
-            }
-        });
-
         LBLBusqTel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LBLBusqTel.setForeground(new java.awt.Color(255, 255, 255));
         LBLBusqTel.setText("Buscar por nombre:");
 
         TFFiltro1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFFiltro1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFFiltro1ActionPerformed(evt);
-            }
-        });
         TFFiltro1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFFiltro1KeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 TFFiltro1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFFiltro1KeyTyped(evt);
+            }
+        });
+
+        TFTelefono1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFTelefono1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFTelefono1KeyTyped(evt);
             }
         });
 
@@ -274,45 +270,50 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             .addGroup(PTelefonoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TFTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LBLBusqTel, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PTelefonoLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(BTNModCel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGroup(PTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(PTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PTelefonoLayout.createSequentialGroup()
+                                    .addComponent(LBLMTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(131, 131, 131))
+                                .addComponent(TFTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PTelefonoLayout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BTNModCel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BTNEliTel, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(LBLMTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFFiltro1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLBusqTel, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                    .addComponent(TFFiltro1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(156, 156, 156)
                 .addComponent(PIngresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PTelefonoLayout.setVerticalGroup(
             PTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PTelefonoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(LBLBusqTel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(PTelefonoLayout.createSequentialGroup()
                 .addGroup(PTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PTelefonoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LBLBusqTel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TFFiltro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(PTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PTelefonoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BTNModCel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BTNEliTel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LBLMTelefono)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TFTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TFTelefono1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PTelefonoLayout.createSequentialGroup()
-                        .addComponent(PIngresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(51, 51, 51))
+                        .addGap(19, 19, 19)
+                        .addComponent(PIngresoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
-        PEmpleados.setBackground(new java.awt.Color(36, 41, 46));
+        PEmpleados.setBackground(new java.awt.Color(0, 51, 102));
 
         BTNEliEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Eliminarp.png"))); // NOI18N
         BTNEliEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -350,35 +351,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         LBLMApellidos.setForeground(new java.awt.Color(255, 255, 255));
         LBLMApellidos.setText("Apellidos:");
 
-        TFMApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFMApellidos.setName(""); // NOI18N
-        TFMApellidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFMApellidosActionPerformed(evt);
-            }
-        });
-        TFMApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFMApellidosKeyTyped(evt);
-            }
-        });
-
         LBLMDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LBLMDireccion.setForeground(new java.awt.Color(255, 255, 255));
         LBLMDireccion.setText("Dirección:");
-
-        TFMDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFMDireccion.setName(""); // NOI18N
-        TFMDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFMDireccionActionPerformed(evt);
-            }
-        });
-        TFMDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFMDireccionKeyTyped(evt);
-            }
-        });
 
         BTNModEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Modificarp.png"))); // NOI18N
         BTNModEmpleado.addActionListener(new java.awt.event.ActionListener() {
@@ -391,95 +366,46 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         LBLMNombre.setForeground(new java.awt.Color(255, 255, 255));
         LBLMNombre.setText("Nombres:");
 
-        TFMNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFMNombre.setName(""); // NOI18N
-        TFMNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFMNombreActionPerformed(evt);
-            }
-        });
-        TFMNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFMNombreKeyTyped(evt);
-            }
-        });
-
-        PAdministrador.setBackground(new java.awt.Color(36, 41, 46));
-
-        BTNAgregar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregarp.png"))); // NOI18N
-        BTNAgregar1.setBorder(null);
-        BTNAgregar1.setBorderPainted(false);
-        BTNAgregar1.setContentAreaFilled(false);
-        BTNAgregar1.setFocusPainted(false);
-        BTNAgregar1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        BTNAgregar1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_click.png"))); // NOI18N
-        BTNAgregar1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Agregar_mouse.png"))); // NOI18N
-        BTNAgregar1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        BTNAgregar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BTNAgregar1ActionPerformed(evt);
-            }
-        });
-
-        LBLUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        LBLUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        LBLUsuario.setText("Usuario:");
-
-        TFUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFUsuarioActionPerformed(evt);
-            }
-        });
-        TFUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFUsuarioKeyTyped(evt);
-            }
-        });
-
-        LBLContrasena.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        LBLContrasena.setForeground(new java.awt.Color(255, 255, 255));
-        LBLContrasena.setText("Contraseña:");
-
-        PFContrasena.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        javax.swing.GroupLayout PAdministradorLayout = new javax.swing.GroupLayout(PAdministrador);
-        PAdministrador.setLayout(PAdministradorLayout);
-        PAdministradorLayout.setHorizontalGroup(
-            PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PAdministradorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PFContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PAdministradorLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(BTNAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(179, 179, 179))
-        );
-        PAdministradorLayout.setVerticalGroup(
-            PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PAdministradorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LBLUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LBLContrasena)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PFContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(BTNAgregar1)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
         PIngresoEmpleado.setBackground(new java.awt.Color(36, 41, 46));
 
         LBLApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LBLApellidos.setForeground(new java.awt.Color(255, 255, 255));
         LBLApellidos.setText("Apellidos:");
+
+        LBLDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LBLDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        LBLDireccion.setText("Dirección:");
+
+        LBLNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LBLNombre.setForeground(new java.awt.Color(255, 255, 255));
+        LBLNombre.setText("Nombres:");
+
+        RBVendedor.setBackground(new java.awt.Color(36, 41, 46));
+        RBVendedor.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        RBVendedor.setForeground(new java.awt.Color(255, 255, 255));
+        RBVendedor.setText("Vendedor");
+        RBVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBVendedorActionPerformed(evt);
+            }
+        });
+
+        RBAdministrador.setBackground(new java.awt.Color(36, 41, 46));
+        RBAdministrador.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        RBAdministrador.setForeground(new java.awt.Color(255, 255, 255));
+        RBAdministrador.setText("Administrador");
+        RBAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RBAdministradorActionPerformed(evt);
+            }
+        });
+
+        TFNombres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFNombresKeyTyped(evt);
+            }
+        });
 
         TFApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -488,19 +414,27 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             }
         });
 
-        LBLDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        LBLDireccion.setForeground(new java.awt.Color(255, 255, 255));
-        LBLDireccion.setText("Dirección:");
-
         TFDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFDireccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFDireccionActionPerformed(evt);
-            }
-        });
         TFDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFDireccionKeyTyped(evt);
+            }
+        });
+
+        PAdministrador.setBackground(new java.awt.Color(36, 41, 46));
+
+        LBLUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LBLUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        LBLUsuario.setText("Usuario:");
+
+        LBLContrasena.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        LBLContrasena.setForeground(new java.awt.Color(255, 255, 255));
+        LBLContrasena.setText("Contraseña:");
+
+        PFContrasena.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        PFContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PFContrasenaKeyTyped(evt);
             }
         });
 
@@ -519,41 +453,76 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             }
         });
 
-        LBLNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        LBLNombre.setForeground(new java.awt.Color(255, 255, 255));
-        LBLNombre.setText("Nombres:");
-
-        TFNombres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFNombres.setName(""); // NOI18N
-        TFNombres.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFNombresActionPerformed(evt);
-            }
-        });
-        TFNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+        TFUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                TFNombresKeyTyped(evt);
+                TFUsuarioKeyTyped(evt);
             }
         });
+
+        javax.swing.GroupLayout PAdministradorLayout = new javax.swing.GroupLayout(PAdministrador);
+        PAdministrador.setLayout(PAdministradorLayout);
+        PAdministradorLayout.setHorizontalGroup(
+            PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PAdministradorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LBLUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LBLContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(PFContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(179, 179, 179))
+            .addGroup(PAdministradorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PAdministradorLayout.setVerticalGroup(
+            PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PAdministradorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(LBLUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(LBLContrasena)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PFContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
 
         javax.swing.GroupLayout PIngresoEmpleadoLayout = new javax.swing.GroupLayout(PIngresoEmpleado);
         PIngresoEmpleado.setLayout(PIngresoEmpleadoLayout);
         PIngresoEmpleadoLayout.setHorizontalGroup(
             PIngresoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PIngresoEmpleadoLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(PIngresoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LBLNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PIngresoEmpleadoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                    .addGroup(PIngresoEmpleadoLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(PIngresoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PIngresoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(LBLDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(PIngresoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TFApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(LBLApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(PIngresoEmpleadoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(PIngresoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(RBVendedor)
+                            .addComponent(RBAdministrador)))
+                    .addGroup(PIngresoEmpleadoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(TFNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PIngresoEmpleadoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LBLNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
         );
         PIngresoEmpleadoLayout.setVerticalGroup(
             PIngresoEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,42 +531,63 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 .addComponent(LBLNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TFNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LBLApellidos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TFApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TFApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(LBLDireccion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TFDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(RBVendedor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RBAdministrador)
+                .addContainerGap(42, Short.MAX_VALUE))
+            .addComponent(PAdministrador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         LBLIngresoEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LBLIngresoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         LBLIngresoEmpleado.setText("Ingresar empleado:");
 
-        LBLAdmin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        LBLAdmin.setForeground(new java.awt.Color(255, 255, 255));
-        LBLAdmin.setText("Agregar usuario al empleado:");
-
-        TFFiltro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        TFFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFFiltroActionPerformed(evt);
-            }
-        });
-        TFFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                TFFiltroKeyReleased(evt);
-            }
-        });
-
         LBLBusqEmpleado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LBLBusqEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         LBLBusqEmpleado.setText("Buscar por nombre:");
+
+        TFMNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFMNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFMNombreKeyTyped(evt);
+            }
+        });
+
+        TFMApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFMApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFMApellidosKeyTyped(evt);
+            }
+        });
+
+        TFMDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFMDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFMDireccionKeyTyped(evt);
+            }
+        });
+
+        TFFiltro.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFFiltroKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TFFiltroKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TFFiltroKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout PEmpleadosLayout = new javax.swing.GroupLayout(PEmpleados);
         PEmpleados.setLayout(PEmpleadosLayout);
@@ -606,34 +596,35 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             .addGroup(PEmpleadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TFFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLBusqEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PEmpleadosLayout.createSequentialGroup()
                         .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TFMNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LBLMNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PEmpleadosLayout.createSequentialGroup()
+                                .addComponent(LBLMNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)
+                                .addComponent(LBLMApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29))
+                            .addGroup(PEmpleadosLayout.createSequentialGroup()
+                                .addComponent(TFMNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(TFMApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)))
                         .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TFMApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LBLMApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LBLMDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TFMDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(TFMDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LBLMDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PEmpleadosLayout.createSequentialGroup()
-                        .addComponent(BTNEliEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BTNModEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(LBLBusqEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PEmpleadosLayout.createSequentialGroup()
+                                .addComponent(BTNEliEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(BTNModEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TFFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 76, Short.MAX_VALUE)))
                 .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LBLAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(246, Short.MAX_VALUE))
+                    .addComponent(LBLIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(1148, Short.MAX_VALUE))
         );
         PEmpleadosLayout.setVerticalGroup(
             PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -659,16 +650,12 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                     .addComponent(TFMNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TFMApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TFMDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PEmpleadosLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LBLIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE)
+                .addComponent(LBLIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PEmpleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(PIngresoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -683,12 +670,12 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                         .addComponent(LBLPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(PEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(PTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(437, 437, 437)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -701,7 +688,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                         .addComponent(PEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -743,17 +730,12 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         TableModel modelo = TTelefonos.getModel();
         BTNTelefono.setEnabled(true);
         TFTelefono.setEnabled(true);
-        PIngresoTelefono.setVisible(true);
         if (indice > 0)
         {
             LBLMTelefono.setEnabled(true);
-            LBLMTelefono.setVisible(true);
             TFTelefono1.setEnabled(true);
-            TFTelefono1.setVisible(true);
             BTNModCel.setEnabled(true);
-            BTNModCel.setVisible(true);
             BTNEliTel.setEnabled(true);
-            BTNEliTel.setVisible(true);
         }
     }//GEN-LAST:event_TTelefonosMouseClicked
 
@@ -762,15 +744,14 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         {
             if (TTelefonos.getSelectedRow() != -1)
             {
-                if (!telefono.Encontrado(String.valueOf(TTelefonos.getSelectedRow())))
-                {
+
                     if(TTelefonos.getSelectedRow() != -1)
                     {
                         try {
                             telefono.Modificar(TFTelefono1.getText(), String.valueOf(TTelefonos.getValueAt(TTelefonos.getSelectedRow(), 0)));
                             while(clientes.getRowCount()>0)
                             clientes.removeRow(0);
-                            telefono.Buscar(clientes, Integer.parseInt(String.valueOf(TEmpleados.getValueAt(idseleccionado, 0))));
+                            telefono.Buscar(clientes, idseleccionado);
                             TFTelefono.setText("");
                             TFTelefono1.setText("");
                             TFFiltro1.setText("");
@@ -780,10 +761,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                         }
                     }
                     else
-                    JOptionPane.showMessageDialog(null, "Seleccione un número de teléfono para modificar");
-                }
-                else
-                JOptionPane.showMessageDialog(null, "Este número de teléfono lo utiliza otro usuario");
+                    JOptionPane.showMessageDialog(null, "Seleccione una número de teléfono");
             }
             else
             JOptionPane.showMessageDialog(null, "Por favor seleccione un número de teléfono");
@@ -792,13 +770,6 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Por favor rellene el campo de teléfono celular");
     }//GEN-LAST:event_BTNModCelActionPerformed
 
-    private void TFTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFTelefonoKeyTyped
-        ValidarNombreYApellido(TFNombres, false);
-        int maximo = 45;
-        if (TFTelefono.getText().length()>= maximo)
-            evt.consume();
-    }//GEN-LAST:event_TFTelefonoKeyTyped
-
     private void BTNTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNTelefonoActionPerformed
         while(clientes.getRowCount()>0)
         clientes.removeRow(0);
@@ -806,19 +777,16 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         {
             if (TEmpleados.getSelectedRow() != -1)
             {
-                if (!telefono.Encontrado(TFTelefono.getText()))
-                {
                     try {
-                        telefono.Insertar(TFTelefono.getText(), TEmpleados.getSelectedRow() + 1);
+                        telefono.Insertar(TFTelefono.getText(), idseleccionado);
                         TFTelefono.setText("");
                         TFTelefono1.setText("");
                         TFFiltro1.setText("");
                         TFTelefono1.setEnabled(false);
-                        telefono.Buscar(clientes, TEmpleados.getSelectedRow() + 1);
+                        telefono.Buscar(clientes, idseleccionado);
                     } catch (SQLException ex) {
                         Logger.getLogger(IngresoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
             }
             else
             {
@@ -831,28 +799,17 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_BTNTelefonoActionPerformed
 
-    private void TFTelefono1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFTelefono1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFTelefono1KeyTyped
-
-    private void TFFiltro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFFiltro1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFFiltro1ActionPerformed
-
-    private void TFFiltro1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltro1KeyReleased
-        while(clientes.getRowCount()>0)
-        clientes.removeRow(0);
-        if (TFFiltro1.getText().length()  > 0)
-            telefono.Filtro(clientes, TFFiltro1.getText(), idseleccionado);
-        else
-            telefono.Buscar(clientes, idseleccionado);
-    }//GEN-LAST:event_TFFiltro1KeyReleased
-
     private void BTNEliEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNEliEmpleadoActionPerformed
-        if (TEmpleados.getSelectedRow() != -1)
+        while(empleados.getRowCount()>0)
+            empleados.removeRow(0);
+        while(clientes.getRowCount()>0)
+            clientes.removeRow(0);
+        System.out.println(TEmpleados.getSelectedRow());
+        if (idseleccionado != -1)
         {
             try {
-                Insercion.Eliminar(TEmpleados.getValueAt(TEmpleados.getSelectedRow(), 0));
+                Insercion.Eliminar(idseleccionado);
+                Insercion.InsertarUsuario("", "", idseleccionado, 1);
                 TFDireccion.setText("");
                 TFApellidos.setText("");
                 TFNombres.setText("");
@@ -866,28 +823,18 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 TFFiltro.setText("");
                 TFFiltro1.setText("");
                 BTNEliEmpleado.setEnabled(false);
-                BTNEliEmpleado.setVisible(false);
                 BTNModEmpleado.setEnabled(false);
-                BTNModEmpleado.setVisible(false);
-                PAdministrador.setVisible(false);
-                BTNAgregar1.setEnabled(false);
-                BTNAgregar1.setVisible(false);
-                TFMNombre.setVisible(false);
-                TFMApellidos.setVisible(false);
-                TFMDireccion.setVisible(false);
                 TFMNombre.setEnabled(false);
                 TFMApellidos.setEnabled(false);
                 TFMDireccion.setEnabled(false);
-                TFUsuario.setEnabled(false);
-                PFContrasena.setEnabled(false);
-                LBLAdmin.setVisible(false);
-                JOptionPane.showMessageDialog(null, "Teléfono eliminado con éxito");
+                JOptionPane.showMessageDialog(null, "Empleado despedido con éxito");
             } catch (SQLException ex) {
                 Logger.getLogger(IngresoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else
-        JOptionPane.showMessageDialog(null, "Por favor seleccione un número de teléfono");
+            JOptionPane.showMessageDialog(null, "Por favor seleccione un empleado");
+        Insercion.Buscar(empleados);
     }//GEN-LAST:event_BTNEliEmpleadoActionPerformed
 
     private void TEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TEmpleadosMouseClicked
@@ -902,43 +849,17 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         TFTelefono.setEnabled(true);
         PIngresoTelefono.setVisible(true);
         LBLTelefono.setText("Teléfono/Celular de " + String.valueOf(empleados.getValueAt(TEmpleados.getSelectedRow(),1)));
-        LBLUsuario.setText("Usuario de " + String.valueOf(empleados.getValueAt(TEmpleados.getSelectedRow(),1)) + ":");
         if (indice > 0)
         {
             BTNEliEmpleado.setEnabled(true);
-            BTNEliEmpleado.setVisible(true);
             BTNModEmpleado.setEnabled(true);
-            BTNModEmpleado.setVisible(true);
-            PAdministrador.setVisible(true);
-            BTNAgregar1.setEnabled(true);
-            BTNAgregar1.setVisible(true);
-            TFMNombre.setVisible(true);
-            TFMApellidos.setVisible(true);
-            TFMDireccion.setVisible(true);
             TFMNombre.setEnabled(true);
             TFMApellidos.setEnabled(true);
             TFMDireccion.setEnabled(true);
             TFUsuario.setEnabled(true);
             PFContrasena.setEnabled(true);
-            LBLAdmin.setVisible(true);
         }
     }//GEN-LAST:event_TEmpleadosMouseClicked
-
-    private void TFMApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFMApellidosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFMApellidosActionPerformed
-
-    private void TFMApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMApellidosKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFMApellidosKeyTyped
-
-    private void TFMDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFMDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFMDireccionActionPerformed
-
-    private void TFMDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMDireccionKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFMDireccionKeyTyped
 
     private void BTNModEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNModEmpleadoActionPerformed
         while(empleados.getRowCount()>0)
@@ -963,21 +884,10 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 TFFiltro1.setText("");
                 TFFiltro.setText("");
                 BTNEliEmpleado.setEnabled(false);
-                BTNEliEmpleado.setVisible(false);
                 BTNModEmpleado.setEnabled(false);
-                BTNModEmpleado.setVisible(false);
-                PAdministrador.setVisible(false);
-                BTNAgregar1.setEnabled(false);
-                BTNAgregar1.setVisible(false);
-                TFMNombre.setVisible(false);
-                TFMApellidos.setVisible(false);
-                TFMDireccion.setVisible(false);
                 TFMNombre.setEnabled(false);
                 TFMApellidos.setEnabled(false);
                 TFMDireccion.setEnabled(false);
-                TFUsuario.setEnabled(false);
-                PFContrasena.setEnabled(false);
-                LBLAdmin.setVisible(false);
             } catch (SQLException ex) {
                 Logger.getLogger(IngresoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -987,9 +897,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         {
             JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos");
             while(empleados.getRowCount()>0)
-            empleados.removeRow(0);
+                empleados.removeRow(0);
             while(clientes.getRowCount()>0)
-            clientes.removeRow(0);
+                clientes.removeRow(0);
         }
         seleccionado = -1;
         idseleccionado = -1;
@@ -997,91 +907,26 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         PIngresoTelefono.setVisible(false);
     }//GEN-LAST:event_BTNModEmpleadoActionPerformed
 
-    private void TFMNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFMNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFMNombreActionPerformed
-
-    private void TFMNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMNombreKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFMNombreKeyTyped
-
-    private void BTNAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAgregar1ActionPerformed
-        while(empleados.getRowCount()>0)
-        empleados.removeRow(0);
-        while(clientes.getRowCount()>0)
-        clientes.removeRow(0);
-        if (TFUsuario.getText().length() > 0 && PFContrasena.getPassword().length > 0)
-        {
-            try {
-                if (seleccionado > 0){
-                    if (!Insercion.BuscarUsuario(TFUsuario.getText()))
-                    {
-                        Insercion.InsertarUsuario(TFUsuario.getText(), encriptado.Encriptar(String.valueOf(PFContrasena.getPassword())), empleados.getValueAt(TEmpleados.getSelectedRow(), 0));
-                        TFUsuario.setText("");
-                        PFContrasena.setText("");
-                    }
-                    else
-                    {
-                        TFUsuario.setText("");
-                        PFContrasena.setText("");
-                        JOptionPane.showMessageDialog(null, "El usuario ingresado ya existe");
-                    }
-                }
-                else
-                JOptionPane.showMessageDialog(null, "Por favor seleccione un empleado");
-            } catch (SQLException ex) {
-                Logger.getLogger(IngresoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else
-        {
-            if (TFUsuario.getText().length() == 0)
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo de usuario");
-            else if (PFContrasena.getPassword().length == 0)
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo de contraseña");
-        }
-        Insercion.Buscar(empleados);
-        seleccionado = -1;
-        PIngresoTelefono.setVisible(false);
-        LBLUsuario.setText("Usuario:");
-    }//GEN-LAST:event_BTNAgregar1ActionPerformed
-
-    private void TFUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFUsuarioActionPerformed
-
-    private void TFUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFUsuarioKeyTyped
-        int maximo = 45;
-        if (TFTelefono.getText().length()>= maximo)
-        evt.consume();
-    }//GEN-LAST:event_TFUsuarioKeyTyped
-
-    private void TFApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFApellidosKeyTyped
-        int maximo = 30;
-        if (TFApellidos.getText().length()>= maximo)
-        evt.consume();
-    }//GEN-LAST:event_TFApellidosKeyTyped
-
-    private void TFDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFDireccionActionPerformed
-
-    }//GEN-LAST:event_TFDireccionActionPerformed
-
-    private void TFDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDireccionKeyTyped
-        int maximo = 45;
-        if (TFDireccion.getText().length()>= maximo)
-        evt.consume();
-    }//GEN-LAST:event_TFDireccionKeyTyped
-
     private void BTNAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAgregarActionPerformed
         while(empleados.getRowCount()>0)
-        empleados.removeRow(0);
+            empleados.removeRow(0);
         while(clientes.getRowCount()>0)
-        clientes.removeRow(0);
+            clientes.removeRow(0);
         seleccionado = -1;
-        if (TFDireccion.getText().length() > 0 && TFApellidos.getText().length() > 0 && TFNombres.getText().length() > 0)
+        if (TFDireccion.getText().length() > 0 && TFApellidos.getText().length() > 0 && TFNombres.getText().length() > 0
+                && TFUsuario.getText().length() > 0 && PFContrasena.getPassword().length > 0 &&
+                (RBVendedor.isSelected() || RBAdministrador.isSelected()))        
         {
             try {
-                Insercion.Insertar(TFNombres.getText(), TFApellidos.getText(), TFDireccion.getText());
+                if (!Insercion.BuscarUsuario(TFUsuario.getText()))
+                {
+                    if (RBVendedor.isSelected())
+                        Insercion.Insertar(TFNombres.getText(), TFApellidos.getText(), TFDireccion.getText(), TFUsuario.getText(), encriptado.Encriptar(String.valueOf(PFContrasena.getPassword())), 0);
+                    else if (RBAdministrador.isSelected())
+                        Insercion.Insertar(TFNombres.getText(), TFApellidos.getText(), TFDireccion.getText(), TFUsuario.getText(), encriptado.Encriptar(String.valueOf(PFContrasena.getPassword())), 1);
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "El usuario ingresado ya existe");
                 TFDireccion.setText("");
                 TFApellidos.setText("");
                 TFNombres.setText("");
@@ -1094,22 +939,11 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 TFTelefono1.setText("");
                 TFFiltro.setText("");
                 TFFiltro1.setText("");
-                BTNEliEmpleado.setEnabled(false);
-                BTNEliEmpleado.setVisible(false);
+                BTNEliEmpleado.setEnabled(false);                
                 BTNModEmpleado.setEnabled(false);
-                BTNModEmpleado.setVisible(false);
-                PAdministrador.setVisible(false);
-                BTNAgregar1.setEnabled(false);
-                BTNAgregar1.setVisible(false);
-                TFMNombre.setVisible(false);
-                TFMApellidos.setVisible(false);
-                TFMDireccion.setVisible(false);
                 TFMNombre.setEnabled(false);
                 TFMApellidos.setEnabled(false);
                 TFMDireccion.setEnabled(false);
-                TFUsuario.setEnabled(false);
-                PFContrasena.setEnabled(false);
-                LBLAdmin.setVisible(false);
             } catch (SQLException ex) {
                 Logger.getLogger(IngresoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1127,29 +961,121 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         PIngresoTelefono.setVisible(false);
     }//GEN-LAST:event_BTNAgregarActionPerformed
 
-    private void TFNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFNombresActionPerformed
+    private void RBVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBVendedorActionPerformed
+        if (RBVendedor.isSelected())
+            RBAdministrador.setSelected(false);
+    }//GEN-LAST:event_RBVendedorActionPerformed
 
-    }//GEN-LAST:event_TFNombresActionPerformed
+    private void RBAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBAdministradorActionPerformed
+        if (RBAdministrador.isSelected())
+            RBVendedor.setSelected(false);
+    }//GEN-LAST:event_RBAdministradorActionPerformed
+
+    private void TFFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltroKeyTyped
+        char c = evt.getKeyChar();
+        
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if (TFFiltro.getText().length() > 30) evt.consume();
+        
+    }//GEN-LAST:event_TFFiltroKeyTyped
+
+    private void TFMNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMNombreKeyTyped
+        char c = evt.getKeyChar();
+        
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if (TFMNombre.getText().length() > 30) evt.consume();
+    }//GEN-LAST:event_TFMNombreKeyTyped
+
+    private void TFMApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMApellidosKeyTyped
+        char c = evt.getKeyChar();
+        
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if (TFMApellidos.getText().length() > 30) evt.consume();
+    }//GEN-LAST:event_TFMApellidosKeyTyped
+
+    private void TFMDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMDireccionKeyTyped
+        char c = evt.getKeyChar();
+        
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if (TFMDireccion.getText().length() > 30) evt.consume();
+    }//GEN-LAST:event_TFMDireccionKeyTyped
 
     private void TFNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFNombresKeyTyped
-
-        int maximo = 30;
-        if (TFTelefono.getText().length()>= maximo)
-        evt.consume();
+        char c = evt.getKeyChar();
+        
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if (TFNombres.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFNombresKeyTyped
 
-    private void TFFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFFiltroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TFFiltroActionPerformed
+    private void TFApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFApellidosKeyTyped
+        char c = evt.getKeyChar();
+        
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if (TFApellidos.getText().length() > 30) evt.consume();
+    }//GEN-LAST:event_TFApellidosKeyTyped
+
+    private void TFDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDireccionKeyTyped
+        char c = evt.getKeyChar();
+        if (TFApellidos.getText().length() > 45) evt.consume();
+    }//GEN-LAST:event_TFDireccionKeyTyped
+
+    private void TFUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFUsuarioKeyTyped
+        char c = evt.getKeyChar();
+        
+    }//GEN-LAST:event_TFUsuarioKeyTyped
+
+    private void TFFiltro1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltro1KeyTyped
+        char c = evt.getKeyChar();
+        
+        if (c < '0' || c > '9') evt.consume();
+        if (TFFiltro.getText().length() > 10) evt.consume();
+    }//GEN-LAST:event_TFFiltro1KeyTyped
+
+    private void TFTelefono1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFTelefono1KeyTyped
+        char c = evt.getKeyChar();
+        
+        if (c < '0' || c > '9') evt.consume();
+        if (TFTelefono1.getText().length() > 10) evt.consume();
+    }//GEN-LAST:event_TFTelefono1KeyTyped
+
+    private void TFTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFTelefonoKeyTyped
+        char c = evt.getKeyChar();
+        
+        if (c < '0' || c > '9') evt.consume();
+        if (TFTelefono.getText().length() > 10) evt.consume();
+    }//GEN-LAST:event_TFTelefonoKeyTyped
+
+    private void PFContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PFContrasenaKeyTyped
+        if (PFContrasena.getPassword().length > 40) evt.consume();
+    }//GEN-LAST:event_PFContrasenaKeyTyped
+
+    private void TFFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltroKeyPressed
+
+    }//GEN-LAST:event_TFFiltroKeyPressed
+
+    private void TFFiltro1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltro1KeyPressed
+
+    }//GEN-LAST:event_TFFiltro1KeyPressed
 
     private void TFFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltroKeyReleased
         while(empleados.getRowCount()>0)
-        empleados.removeRow(0);
-        if (TFFiltro.getText().length()  > 0)
-        Insercion.Filtro(empleados, TFFiltro.getText());
+            empleados.removeRow(0);
+        while(clientes.getRowCount()>0)
+            clientes.removeRow(0);
+        if (!TFFiltro.getText().equals(""))
+            Insercion.Filtro(empleados, TFFiltro.getText());
         else
-        Insercion.Buscar(empleados);
+            Insercion.Buscar(empleados);
     }//GEN-LAST:event_TFFiltroKeyReleased
+
+    private void TFFiltro1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltro1KeyReleased
+        while(clientes.getRowCount()>0)
+            clientes.removeRow(0);
+        if (!TFFiltro1.getText().equals(""))
+            telefono.Filtro(clientes, TFFiltro1.getText(), idseleccionado);
+        else
+            telefono.Buscar(clientes, idseleccionado);
+    }//GEN-LAST:event_TFFiltro1KeyReleased
 
     
         private void ValidarNombreYApellido(JTextField textfield, boolean direccion)
@@ -1193,13 +1119,11 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNAgregar;
-    private javax.swing.JButton BTNAgregar1;
     private javax.swing.JButton BTNEliEmpleado;
     private javax.swing.JButton BTNEliTel;
     private javax.swing.JButton BTNModCel;
     private javax.swing.JButton BTNModEmpleado;
     private javax.swing.JButton BTNTelefono;
-    private javax.swing.JLabel LBLAdmin;
     private javax.swing.JLabel LBLApellidos;
     private javax.swing.JLabel LBLBusqEmpleado;
     private javax.swing.JLabel LBLBusqTel;
@@ -1220,6 +1144,8 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     private javax.swing.JPanel PIngresoEmpleado;
     private javax.swing.JPanel PIngresoTelefono;
     private javax.swing.JPanel PTelefono;
+    private javax.swing.JRadioButton RBAdministrador;
+    private javax.swing.JRadioButton RBVendedor;
     private javax.swing.JTable TEmpleados;
     private javax.swing.JTextField TFApellidos;
     private javax.swing.JTextField TFDireccion;

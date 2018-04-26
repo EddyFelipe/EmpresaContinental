@@ -16,13 +16,13 @@ import javax.swing.JOptionPane;
 public class General extends javax.swing.JFrame {
    int menu=0;
    public int conectado = 0;
+   public boolean administrador;
     /**
      * Creates new form General
      */
     Conexion con;
     public General() {
         initComponents();
-        
      
       // this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 
@@ -301,10 +301,12 @@ public class General extends javax.swing.JFrame {
         Ventas venta =  new Ventas();
         venta.setSize(1420,810);
         venta.setLocation(0,0);
+        
         pnlContenedor.removeAll();
         pnlContenedor.add(venta,BorderLayout.CENTER);
         pnlContenedor.revalidate();
         pnlContenedor.repaint();
+        venta.conectado = conectado;
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void jButton4MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseMoved
@@ -336,6 +338,14 @@ public class General extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         System.out.println("Id conectado: " + conectado);
+        System.out.println("Administrador: " + administrador);
+        if (administrador == false)
+        {
+            jButton4.setEnabled(false);
+            jButton6.setEnabled(false);
+            jButton7.setEnabled(false);
+            jButton8.setEnabled(false);
+        }
     }//GEN-LAST:event_formWindowActivated
 
     public int ancho(){
@@ -373,6 +383,8 @@ public class General extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(General.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

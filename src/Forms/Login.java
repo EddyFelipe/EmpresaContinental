@@ -5,6 +5,7 @@
  */
 package Forms;
 
+import Clases.InsertarEmpleado;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,6 +22,16 @@ public class Login extends javax.swing.JFrame {
     Clases.Contrasena verificar = new Clases.Contrasena();
     Clases.InsertarEmpleado empleado = new Clases.InsertarEmpleado();
     public Login() {
+        if (empleado.Vacio())
+        {
+            Inicio iniciar = new Inicio();
+            iniciar.setVisible(true);
+            
+        }
+        else
+        {
+            
+        }
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -46,6 +57,14 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(36, 41, 46));
@@ -149,13 +168,15 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     /*  try {
+       try {
             if (verificar.Buscar(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword())))
-            {*/
-                General g = new General();
-                g.setVisible(true);
-                this.setVisible(false);
-          /*      g.conectado = empleado.ObtenerId(jTextField1.getText());
+            {
+                    General g = new General();
+                    g.setVisible(true);
+                    this.setVisible(false);
+                    g.conectado = empleado.ObtenerId(jTextField1.getText());
+                    g.administrador = empleado.Administrador(jTextField1.getText());
+                    System.out.println("Resultado: " + empleado.Administrador(jTextField1.getText()));
             }
             else
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectas");
@@ -164,7 +185,7 @@ public class Login extends javax.swing.JFrame {
         } catch (Exception ex) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-           */    
+               
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
@@ -178,6 +199,15 @@ public class Login extends javax.swing.JFrame {
         if (jPasswordField1.getPassword().length>= maximo)
             evt.consume();
     }//GEN-LAST:event_jPasswordField1KeyTyped
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        if (empleado.Vacio())
+            this.dispose();
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -206,7 +236,9 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        //</editor-fold>
+        //</editor-fold>
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
