@@ -252,7 +252,7 @@ public class Ventas extends javax.swing.JPanel {
               rs = st.executeQuery(sql);
               while (rs.next()) {
                   
-                  jComboBox1.addItem(rs.getString(1));
+                  //jComboBox1.addItem(rs.getString(1));
                  
                   
               } } catch (SQLException ex) {
@@ -312,9 +312,6 @@ public class Ventas extends javax.swing.JPanel {
         pnlConsultas = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaproducto = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
 
         Eliminar.setText("Eliminar Producto");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -613,30 +610,6 @@ public class Ventas extends javax.swing.JPanel {
 
         pnlConsultas.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 990, 390));
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        pnlConsultas.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 180, -1));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusPainted(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver2.png"))); // NOI18N
-        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Ver1.png"))); // NOI18N
-        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        pnlConsultas.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Categorias");
-        pnlConsultas.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
-
         indiceConsulta.addTab("Consultas", pnlConsultas);
 
         add(indiceConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1420, 800));
@@ -792,362 +765,25 @@ public class Ventas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_EliminarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-         switch (jComboBox1.getSelectedIndex()) {
-              case 0:
-                  modelo.setColumnCount(0);
-                  modelo.setRowCount(0);
-                  mostrar_tela();
-                  break;
-              case 1:
-                  
-                  modelo.setColumnCount(0);
-                  modelo.setRowCount(0);
-                  mostrar_etiqueta();
-                  break;
-              case 2:
-                   modelo.setColumnCount(0);
-                  modelo.setRowCount(0);
-                  mostrar_carrito();
-                  break;
-              case 3:
-                  modelo.setColumnCount(0);
-                  modelo.setRowCount(0);
-                  mostrar_metales();
-                  break;
-              case 4:
-                  modelo.setColumnCount(0);
-                   modelo.setRowCount(0);
-                   mostrar_correa();
-                  break;
-              case 5:
-                   modelo.setColumnCount(0);
-                  modelo.setRowCount(0);
-                 mostrar_zipper();
-                  break;
-              case 6:
-                  modelo.setColumnCount(0);
-                  modelo.setRowCount(0);
-                 mostrar_hilo();
-                  break;
-              case 7:
-                  modelo.setColumnCount(0);
-                  modelo.setRowCount(0);
-                    mostrar_plastico();
-                  break;
-              default:
-                  break;
-          }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_click
         tablaproducto.setModel(HistorialVenta.HistorialVentas(ConexionBaseDatos));
     }//GEN-LAST:event_click
 
-    public int id_categoria(String categoria){
-        
-        Statement st;
-        int idcategoria=0;
-          try {
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT id FROM categoria WHERE categoria='"+categoria+"'");
-              
-        while (rs.next()) {
-          
-            idcategoria=rs.getInt(1);
-            
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
-       return idcategoria;
-    }
+   
     
-    public void mostrar_tela(){
-        
-       
-        modelo.addColumn("ID");
-        modelo.addColumn("Id Categoria");
-        modelo.addColumn("Tipo");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Yardas");
-        modelo.addColumn("Color");
-        modelo.addColumn("Precio");
-        
-        tablaproducto.setModel(modelo);
-        
-        String[] datos = new String[7];
-        Statement st;
-          try {
-            String cat=String.valueOf(jComboBox1.getSelectedItem());
-            int id_categoria=id_categoria(cat);
-            st=cn.createStatement();
-            ResultSet rs=st.executeQuery("SELECT id_producto,tipo,cantidad,yardaje,color,precio_venta,categoria_id FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
-              
-        while (rs.next()) {
-            datos[0]= rs.getString(1);
-            datos[1]= rs.getString(7);
-            datos[2]= rs.getString(2);
-            datos[3]= rs.getString(3);
-            datos[4]= rs.getString(4);
-            datos[5]= rs.getString(5);
-            datos[6]= rs.getString(6);
-            modelo.addRow(datos);
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
+   
     
-    }
+    
 
-    public void  mostrar_etiqueta(){
+ 
         
-        modelo.addColumn("ID");
-        modelo.addColumn("Id Categoria");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Marca");
-        modelo.addColumn("Tamaño");
-        modelo.addColumn("Precio");
-        
-        tablaproducto.setModel(modelo);
-        
-        String[] datos = new String[6];
-        Statement st;
-          try {
-               String cat=String.valueOf(jComboBox1.getSelectedItem());
-              int id_categoria=id_categoria(cat);
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,marca,tamaño,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"'");
-              
-        while (rs.next()) {
-            datos[0]= rs.getString(1);
-            datos[1]= rs.getString(2);
-            datos[2]= rs.getString(3);
-            datos[3]= rs.getString(4);
-            datos[4]= rs.getString(5);
-            datos[5]= rs.getString(6);
-            modelo.addRow(datos);
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        
-    }
     
-    public void mostrar_carrito(){
-        
-        modelo.addColumn("ID");
-        modelo.addColumn("Id Categoria");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Color");
-        modelo.addColumn("Tamaño");
-        modelo.addColumn("Numero");
-        modelo.addColumn("Precio");
-        
-        tablaproducto.setModel(modelo);
-        
-        String[] datos = new String[7];
-        Statement st;
-          try {
-               String cat=String.valueOf(jComboBox1.getSelectedItem());
-              int id_categoria=id_categoria(cat);
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,color,tamaño,numero,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
-              
-        while (rs.next()) {
-            datos[0]= rs.getString(1);
-            datos[1]= rs.getString(2);
-            datos[2]= rs.getString(3);
-            datos[3]= rs.getString(4);
-            datos[4]= rs.getString(5);
-            datos[5]= rs.getString(6);
-            datos[6]= rs.getString(7);
-            modelo.addRow(datos);
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        
-    }
     
-    public void mostrar_metales(){
         
-        modelo.addColumn("ID");
-        modelo.addColumn("Id Categoria");
-        modelo.addColumn("Tipo");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Medida");
-        modelo.addColumn("Precio");
-        
-        tablaproducto.setModel(modelo);
-        
-        String[] datos = new String[6];
-        Statement st;
-          try {
-              String cat=String.valueOf(jComboBox1.getSelectedItem());
-              int id_categoria=id_categoria(cat);
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,tipo,cantidad,medida,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
-              
-        while (rs.next()) {
-            datos[0]= rs.getString(1);
-            datos[1]= rs.getString(2);
-            datos[2]= rs.getString(3);
-            datos[3]= rs.getString(4);
-            datos[4]= rs.getString(5);
-            datos[5]= rs.getString(6);
-            modelo.addRow(datos);
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        
-    }
     
-    public void mostrar_correa(){
-        
-        modelo.addColumn("ID");
-        modelo.addColumn("Id Categoria");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Color");
-        modelo.addColumn("Numero");
-        modelo.addColumn("Precio");
-        
-        tablaproducto.setModel(modelo);
-        
-        String[] datos = new String[6];
-        Statement st;
-          try {
-               String cat=String.valueOf(jComboBox1.getSelectedItem());
-              int id_categoria=id_categoria(cat);
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,color,numero,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
-              
-        while (rs.next()) {
-            datos[0]= rs.getString(1);
-            datos[1]= rs.getString(2);
-            datos[2]= rs.getString(3);
-            datos[3]= rs.getString(4);
-            datos[4]= rs.getString(5);
-            datos[5]= rs.getString(6);
-            modelo.addRow(datos);
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
-    }
-     
-    public void mostrar_zipper(){
-        
-        modelo.addColumn("ID");
-        modelo.addColumn("Id Categoria");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Color");
-        modelo.addColumn("Tamaño");
-        modelo.addColumn("Numero");
-        modelo.addColumn("Precio");
-        
-        tablaproducto.setModel(modelo);
-        
-        String[] datos = new String[7];
-        Statement st;
-          try {
-               String cat=String.valueOf(jComboBox1.getSelectedItem());
-              int id_categoria=id_categoria(cat);
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,color,tamaño,numero,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
-              
-        while (rs.next()) {
-            datos[0]= rs.getString(1);
-            datos[1]= rs.getString(2);
-            datos[2]= rs.getString(3);
-            datos[3]= rs.getString(4);
-            datos[4]= rs.getString(5);
-            datos[5]= rs.getString(6);
-            datos[6]= rs.getString(7);
-            modelo.addRow(datos);
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
-    }
     
-    public void mostrar_hilo(){
-        
-        modelo.addColumn("ID");
-        modelo.addColumn("Id Categoria");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Color");
-        modelo.addColumn("Marca");
-        modelo.addColumn("Precio");
-        
-        tablaproducto.setModel(modelo);
-        
-        String[] datos = new String[6];
-        Statement st;
-          try {
-              String cat=String.valueOf(jComboBox1.getSelectedItem());
-              int id_categoria=id_categoria(cat);
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,cantidad,color,marca,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
-              
-        while (rs.next()) {
-            datos[0]= rs.getString(1);
-            datos[1]= rs.getString(2);
-            datos[2]= rs.getString(3);
-            datos[3]= rs.getString(4);
-            datos[4]= rs.getString(5);
-            datos[5]= rs.getString(6);
-            modelo.addRow(datos);
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        
-    }
-     
-    public void mostrar_plastico(){
-        
-        modelo.addColumn("ID");
-        modelo.addColumn("Id Categoria");
-        modelo.addColumn("Tipo");
-        modelo.addColumn("Cantidad");
-        modelo.addColumn("Medida");
-        modelo.addColumn("Precio");
-        
-        tablaproducto.setModel(modelo);
-        
-        String[] datos = new String[6];
-        Statement st;
-          try {
-              String cat=String.valueOf(jComboBox1.getSelectedItem());
-              int id_categoria=id_categoria(cat);
-              st=cn.createStatement();
-              ResultSet rs=st.executeQuery("SELECT id_producto,categoria_id,tipo,cantidad,medida,precio_venta FROM producto WHERE categoria_id='"+id_categoria+"' AND visible='"+1+"'");
-              
-        while (rs.next()) {
-            datos[0]= rs.getString(1);
-            datos[1]= rs.getString(2);
-            datos[2]= rs.getString(3);
-            datos[3]= rs.getString(4);
-            datos[4]= rs.getString(5);
-            datos[5]= rs.getString(6);
-            modelo.addRow(datos);
-        }
-              
-          } catch (SQLException ex) {
-              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
-          }
-    }
+ 
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Eliminar;
@@ -1162,15 +798,12 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JButton btnDescuento;
     private javax.swing.JButton btnVender;
     private javax.swing.JTabbedPane indiceConsulta;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

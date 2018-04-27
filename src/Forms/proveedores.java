@@ -25,7 +25,7 @@ public class proveedores extends javax.swing.JPanel {
     public void mostrar_Proveedores(){
         Conexion con = new Conexion();
         Connection cn = con.ConectarBaseDatos();
-        String sql = "SELECT id_proveedor,repartidor,nombre_empresa, correo, direccion FROM proveedor";
+        String sql = "SELECT id_proveedor,repartidor,nombre_empresa, correo, direccion FROM proveedor ";
         
         modelo.addColumn("No. Registro");
         modelo.addColumn("Nombre");
@@ -72,6 +72,9 @@ public class proveedores extends javax.swing.JPanel {
         int gapHeight = 4;
         jTable1.setIntercellSpacing(new Dimension(gapWidth, gapHeight));
         jPanel2.setVisible(false);
+        //cont = jTable1.getRowCount()+1;
+        cont = Integer.parseInt(jTable1.getValueAt(jTable1.getRowCount()-1, 0).toString());
+    
     }
 
     /**
@@ -309,7 +312,7 @@ public class proveedores extends javax.swing.JPanel {
           Proveedor enviar = new Proveedor();
         if (modifier==0 && filaSeleccionada ==0) {
             String Dato [] = new String[6];
-            Dato[0] = String.valueOf(cont);
+            Dato[0] = String.valueOf(cont+1);
             Dato[1] = txtNombre.getText();
             Dato[2] = txtEmpresa.getText();
             Dato[3] = txtCorreo.getText();
