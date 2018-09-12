@@ -199,7 +199,7 @@ public class Login extends javax.swing.JFrame {
         } catch (Exception ex) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-               
+          
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
