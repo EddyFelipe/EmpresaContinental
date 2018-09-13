@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +33,6 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     int seleccionado = 0;
     int seltel = 0;
     int idseleccionado = 0;
-    
     public IngresoEmpleados() {
         initComponents();
         BTNEliEmpleado.setEnabled(false);
@@ -421,6 +421,11 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         });
 
         TFDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        TFDireccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFDireccionActionPerformed(evt);
+            }
+        });
         TFDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFDireccionKeyTyped(evt);
@@ -521,9 +526,8 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                     .addComponent(LBLUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addComponent(TFUsuario)
                     .addComponent(BTNAgregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(LBLContrasena, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                        .addComponent(PFContrasena, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(LBLContrasena, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(PFContrasena, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(RBDeporte)
@@ -1082,9 +1086,15 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
     private void TFMDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMDireccionKeyTyped
         char c = evt.getKeyChar();
-        
-        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
-        if (TFMDireccion.getText().length() > 30) evt.consume();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') 
+        {
+            if (c < '0' || c > '9')
+            {
+                if (c != '-')
+                    evt.consume();
+            }
+        }
+        if (TFMDireccion.getText().length() > 45) evt.consume();
     }//GEN-LAST:event_TFMDireccionKeyTyped
 
     private void TFNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFNombresKeyTyped
@@ -1103,12 +1113,27 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
     private void TFDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDireccionKeyTyped
         char c = evt.getKeyChar();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') 
+        {
+            if (c < '0' || c > '9')
+            {
+                if (c != '-')
+                    evt.consume();
+            }
+        }
         if (TFApellidos.getText().length() > 45) evt.consume();
     }//GEN-LAST:event_TFDireccionKeyTyped
 
     private void TFUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFUsuarioKeyTyped
         char c = evt.getKeyChar();
-        
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') 
+        {
+            if (c < '0' || c > '9')
+            {
+                    evt.consume();
+            }
+        }
+        if (TFUsuario.getText().length() > 25) evt.consume();
     }//GEN-LAST:event_TFUsuarioKeyTyped
 
     private void TFFiltro1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltro1KeyTyped
@@ -1191,6 +1216,10 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     private void TFRespuestaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFRespuestaKeyTyped
         if (TFRespuesta.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFRespuestaKeyTyped
+
+    private void TFDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFDireccionActionPerformed
 
     
         private void ValidarNombreYApellido(JTextField textfield, boolean direccion)
