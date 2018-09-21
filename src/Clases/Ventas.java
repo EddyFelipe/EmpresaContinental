@@ -5,7 +5,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 public class Ventas {
    
@@ -80,4 +79,30 @@ public class Ventas {
           return false;
       }
   }
+    public static boolean StartTransaction(Connection BD){
+       try {
+           PreparedStatement start = BD.prepareStatement("START TRANSACTION;");
+           start.executeUpdate();
+           return true;
+       } catch (SQLException ex) {
+           Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+           return false;
+       }
+    }
+     public static void Commit(Connection BD){
+       try {
+           PreparedStatement cm = BD.prepareStatement("COMMIT;");
+           cm.executeUpdate();
+       } catch (SQLException ex) {
+           Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
+    public static void Rollback(Connection BD){
+       try {
+           PreparedStatement rollback = BD.prepareStatement("ROLLBACK;");
+           rollback.executeUpdate();
+       } catch (SQLException ex) {
+           Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
+       }
+     }
 }

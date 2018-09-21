@@ -666,31 +666,40 @@ public class Ventas extends javax.swing.JPanel {
             if (!txtNombreClient.getText().equals("")) {
                 String Direccion = txtDireccionClient.getText().equals("")?"Ciudad":txtDireccionClient.getText(); //Verifica si se escribió alguna direccion
                 String nit = txtNitClient.getText().equals("")?"C/F":txtNitClient.getText(); //Verifica si se escribió el NIT 
-                int idCliente = Clases.Ventas.InsertarCliente(txtNombreClient.getText(), Direccion, nit, ConexionBaseDatos); //Se inserta el cliente en la BD               
-                int idFactura = Clases.Ventas.InsertarFactura(Total,Descuento, idCliente, 1, ConexionBaseDatos); //Se inserta la factura en la BD
+                /*ININICIO DE LA TRANSACCCION*/
+                if(Clases.Ventas.StartTransaction(cn)){
+                     int idCliente, idFactura;
+                  if( (idCliente = Clases.Ventas.InsertarCliente(txtNombreClient.getText(), Direccion, nit, ConexionBaseDatos)) != 0){ //Se inserta el cliente en la BD               
+                        /*-> TRANSCURSO DE LA TRANSACCIÓN*/
+                       if( (idFactura = Clases.Ventas.InsertarFactura(Total,Descuento, idCliente, 1, ConexionBaseDatos)) != 0){ //Se inserta la factura en la BD
              
-                       if (Clases.Ventas.InsertarProducto(idFactura, ConexionBaseDatos, ListaProductos)) { //Se insertan los productos comprados
-                           //Funcion para limpiar todos los componenetes usdos
-                            ListaProductos.clear(); 
-                            for (int i = 0; i < ModeloVentas.getRowCount(); i++) {
-                                ModeloVentas.removeRow(i);
-                                i--;
-                            }
-                            CargarProductoCategorias(); //Se actualizan el listado de los productos 
-                            //Se resetea las variables y se limpian los cajas de textos
-                            Total = 0;
-                            Descuento = 0;
-                            lblTotal.setText("" + Total);
-                            lblDescuento.setText(""+Descuento);
-                            txtNombreClient.setText("");
-                            txtDireccionClient.setText("");
-                            txtNitClient.setText("");
-                            txtDescuento.setText("");
-                            JOptionPane.showMessageDialog(this,"Venta terminado satisfactoriamente");
+                                  if (Clases.Ventas.InsertarProducto(idFactura, ConexionBaseDatos, ListaProductos)) { //Se insertan los productos comprados
+                                       /*COMPROMETIENDO LOS DATOS A LA BD*/ Clases.Ventas.Commit(ConexionBaseDatos);
+                                       
+                                       //Funcion para limpiar todos los componenetes usados
+                                         ListaProductos.clear(); 
+                                        while (ModeloVentas.getRowCount() > 0) {  ModeloVentas.removeRow(0);}
+                                        CargarProductoCategorias(); //Se actualizan el listado de los productos 
+                                        //Se resetea las variables y se limpian los cajas de textos
+                                        Total = 0;
+                                        Descuento = 0;
+                                        lblTotal.setText("" + Total);
+                                        lblDescuento.setText(""+Descuento);
+                                        txtNombreClient.setText("");
+                                        txtDireccionClient.setText("");
+                                        txtNitClient.setText("");
+                                        txtDescuento.setText("");
+                                        JOptionPane.showMessageDialog(this,"Venta terminado satisfactoriamente");
                         }
                         else
                         JOptionPane.showMessageDialog(this, "La venta no se realizo con exito");
-                  
+                      /*EN DADO CASO QUE OCURRE ALGÚN ERROR CON LA BD
+                        SE REVIERTE LA INFROMACION INGRESADA*/
+                     }else { Clases.Ventas.Rollback(ConexionBaseDatos);}
+                  }else{ Clases.Ventas.Rollback(ConexionBaseDatos); }
+                }
+                else 
+                  JOptionPane.showInternalMessageDialog(this, "La venta no se realizó con exito");
             }
             else
                 JOptionPane.showMessageDialog(this, "Favor de Ingresar un Cliente");
