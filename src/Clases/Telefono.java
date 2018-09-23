@@ -45,16 +45,17 @@ public class Telefono {
         
     }
     
-    public void Modificar(String numero, String anterior) throws SQLException
+    public void Modificar(String numero, String anterior, int empleado) throws SQLException
     {
         Clases.Conexion con = new Clases.Conexion();
         Connection cn=con.ConectarBaseDatos();
         try
         {
-            Insertar = cn.prepareStatement("UPDATE telefono SET numero = ? WHERE numero = ?");
+            Insertar = cn.prepareStatement("UPDATE telefono SET numero = ? WHERE numero = ? AND empleados_id_empleados = ?");
         
             Insertar.setString(1, numero);
             Insertar.setString(2, anterior);
+            Insertar.setInt(3, empleado);
         
             Insertar.executeUpdate();
         }
@@ -137,6 +138,28 @@ public class Telefono {
           try {
               st=cn.createStatement();
               ResultSet rs=st.executeQuery("SELECT numero FROM telefono");
+              
+        while (rs.next()) {
+            datos[0]= rs.getString(1);
+            if (datos[0].equals(telefono))
+                return true;
+        }
+              
+          } catch (SQLException ex) {
+              Logger.getLogger(Productos.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return false;
+    }
+    
+    public boolean Existe(String telefono, int id)
+    {
+        Conexion con = new Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        String[] datos = new String[1];
+        Statement st;
+          try {
+              st=cn.createStatement();
+              ResultSet rs=st.executeQuery("SELECT numero FROM telefono WHERE empleados_id_empleados = " + id);
               
         while (rs.next()) {
             datos[0]= rs.getString(1);

@@ -52,7 +52,7 @@
                           <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="117" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -208,6 +208,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TTelefonosMouseClicked"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TTelefonosMouseReleased"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="TTelefonos = new javax.swing.JTable(){&#xa;public boolean isCellEditable(int rowIndex, int colIndex){&#xa;    return false;&#xa;    }&#xa;};"/>
@@ -302,6 +303,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFTelefonoKeyPressed"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFTelefonoKeyTyped"/>
                   </Events>
                 </Component>
@@ -348,6 +350,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFTelefono1KeyPressed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFTelefono1KeyTyped"/>
               </Events>
             </Component>
@@ -481,6 +484,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TEmpleadosMouseClicked"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TEmpleadosMouseReleased"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="TEmpleados = new javax.swing.JTable(){&#xa;public boolean isCellEditable(int rowIndex, int colIndex){&#xa;    return false;&#xa;    }&#xa;};"/>
@@ -680,6 +684,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFNombresKeyPressed"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFNombresKeyTyped"/>
                   </Events>
                 </Component>
@@ -690,6 +695,7 @@
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFApellidosKeyPressed"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFApellidosKeyTyped"/>
                   </Events>
                 </Component>
@@ -701,6 +707,7 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TFDireccionActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFDireccionKeyPressed"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFDireccionKeyTyped"/>
                   </Events>
                 </Component>
@@ -715,45 +722,35 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="LBLUsuario" pref="156" max="32767" attributes="0"/>
-                                  <Component id="TFUsuario" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="BTNAgregar" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <Component id="LBLContrasena" alignment="0" pref="154" max="32767" attributes="0"/>
-                                  <Component id="PFContrasena" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="TFRespuesta" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                                  <Component id="LBLUsuario2" alignment="0" min="-2" pref="201" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="LBLUsuario" max="32767" attributes="0"/>
+                                      <Component id="TFUsuario" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="LBLContrasena" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="PFContrasena" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="39" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="BTNAgregar" min="-2" pref="100" max="-2" attributes="0"/>
                                   <Component id="RBDeporte" min="-2" max="-2" attributes="0"/>
                                   <Component id="RBMascota" min="-2" max="-2" attributes="0"/>
                                   <Component id="RBMejorAmigo" min="-2" max="-2" attributes="0"/>
                                   <Component id="LBLUsuario1" min="-2" pref="201" max="-2" attributes="0"/>
-                                  <Component id="TFRespuesta" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
-                                  <Component id="LBLUsuario2" min="-2" pref="201" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="253" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="LBLUsuario" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="TFUsuario" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="LBLContrasena" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="PFContrasena" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="BTNAgregar" min="-2" pref="101" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="LBLUsuario1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="RBMascota" min="-2" max="-2" attributes="0"/>
@@ -762,10 +759,22 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="RBMejorAmigo" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="BTNAgregar" min="-2" pref="101" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="LBLUsuario" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="TFUsuario" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="LBLContrasena" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="PFContrasena" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="LBLUsuario2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="TFRespuesta" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -802,6 +811,7 @@
                         </Property>
                       </Properties>
                       <Events>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PFContrasenaKeyPressed"/>
                         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PFContrasenaKeyTyped"/>
                       </Events>
                     </Component>
@@ -836,6 +846,7 @@
                         </Property>
                       </Properties>
                       <Events>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFUsuarioKeyPressed"/>
                         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFUsuarioKeyTyped"/>
                       </Events>
                     </Component>
@@ -880,6 +891,7 @@
                         </Property>
                       </Properties>
                       <Events>
+                        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFRespuestaKeyPressed"/>
                         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFRespuestaKeyTyped"/>
                       </Events>
                     </Component>
@@ -955,6 +967,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFMNombreKeyPressed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFMNombreKeyTyped"/>
               </Events>
             </Component>
@@ -965,6 +978,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFMApellidosKeyPressed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFMApellidosKeyTyped"/>
               </Events>
             </Component>
@@ -975,6 +989,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFMDireccionKeyPressed"/>
                 <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFMDireccionKeyTyped"/>
               </Events>
             </Component>

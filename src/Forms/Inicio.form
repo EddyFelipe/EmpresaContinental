@@ -195,6 +195,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFNombresKeyPressed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFNombresKeyTyped"/>
           </Events>
           <Constraints>
@@ -210,6 +211,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFApellidosKeyPressed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFApellidosKeyTyped"/>
           </Events>
           <Constraints>
@@ -225,6 +227,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFDireccionKeyPressed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFDireccionKeyTyped"/>
           </Events>
           <Constraints>
@@ -240,6 +243,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFUsuarioKeyPressed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFUsuarioKeyTyped"/>
           </Events>
           <Constraints>
@@ -335,6 +339,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PFContrasenaKeyPressed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="PFContrasenaKeyTyped"/>
           </Events>
           <Constraints>
@@ -448,6 +453,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFRespuestaKeyPressed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TFRespuestaKeyTyped"/>
           </Events>
           <Constraints>

@@ -55,6 +55,58 @@ public class InsertarEmpleado {
         
     }
     
+    public void ModificarNombre(String nombres, int id)
+    {
+        Clases.Conexion con = new Clases.Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        try
+        {
+            Insertar = cn.prepareStatement("UPDATE empleados SET nombre = ? WHERE id_empleados = ?");
+        
+            Insertar.setString(1, nombres);
+            Insertar.setInt(2, id);
+            Insertar.executeUpdate();
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    
+    public void ModificarApellidos(String apellidos, int id)
+    {
+        Clases.Conexion con = new Clases.Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        try
+        {
+            Insertar = cn.prepareStatement("UPDATE empleados SET apellido = ? WHERE id_empleados = ?");
+        
+            Insertar.setString(1, apellidos);
+            Insertar.setInt(2, id);
+            Insertar.executeUpdate();
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public void ModificarDireccion(String direccion, int id)
+    {
+        Clases.Conexion con = new Clases.Conexion();
+        Connection cn=con.ConectarBaseDatos();
+        try
+        {
+            Insertar = cn.prepareStatement("UPDATE empleados SET direccion = ? WHERE id_empleados = ?");
+        
+            Insertar.setString(1, direccion);
+            Insertar.setInt(2, id);
+            Insertar.executeUpdate();
+        }
+        catch (Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
     public void Modificar(String nombres, String apellidos, String direccion, int id) throws SQLException
     {
         Clases.Conexion con = new Clases.Conexion();

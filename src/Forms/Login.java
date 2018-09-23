@@ -6,6 +6,7 @@
 package Forms;
 
 import Clases.InsertarEmpleado;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -33,6 +34,7 @@ public class Login extends javax.swing.JFrame {
             
         }
         initComponents();
+        jTextField1.requestFocus();
         this.setLocationRelativeTo(null);
     }
 
@@ -86,6 +88,9 @@ public class Login extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField1KeyTyped(evt);
             }
@@ -94,6 +99,9 @@ public class Login extends javax.swing.JFrame {
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jPasswordField1KeyTyped(evt);
             }
@@ -179,7 +187,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try {
+         Loguear();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void Loguear()
+    {
+        try {
             if (verificar.Buscar(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword())))
             {
                 if (jTextField1.getText().length() == 0 || jPasswordField1.getPassword().length == 0)
@@ -199,9 +212,8 @@ public class Login extends javax.swing.JFrame {
         } catch (Exception ex) {
            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-          
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+        
+    }
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         int maximo = 25;
         if (jTextField1.getText().length()>= maximo)
@@ -229,6 +241,16 @@ public class Login extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER)
+            jPasswordField1.requestFocus();
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER)
+            Loguear();
+    }//GEN-LAST:event_jPasswordField1KeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -254,6 +276,14 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

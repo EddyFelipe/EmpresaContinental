@@ -5,6 +5,7 @@
  */
 package Forms;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +21,7 @@ public class RecuperarContrasena extends javax.swing.JFrame {
         TFRespuesta.setEnabled(false);
         PRespuesta.setEnabled(false);
         this.setLocationRelativeTo(null);
+        TFCuenta.requestFocus();
     }
 
     /**
@@ -124,6 +126,9 @@ public class RecuperarContrasena extends javax.swing.JFrame {
 
         TFRespuesta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFRespuesta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFRespuestaKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFRespuestaKeyTyped(evt);
             }
@@ -175,6 +180,9 @@ public class RecuperarContrasena extends javax.swing.JFrame {
 
         TFCuenta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFCuentaKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFCuentaKeyTyped(evt);
             }
@@ -217,6 +225,12 @@ public class RecuperarContrasena extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BTNCuuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNCuuentaActionPerformed
+        ActivarSiguienteBoton();
+        TFRespuesta.requestFocus();
+    }//GEN-LAST:event_BTNCuuentaActionPerformed
+
+    private void ActivarSiguienteBoton()
+    {
         if (TFCuenta.getText().length() > 0)
         {
             if (vendedor.BuscarUsuario(TFCuenta.getText()))
@@ -235,9 +249,13 @@ public class RecuperarContrasena extends javax.swing.JFrame {
             }
                 
         }
-    }//GEN-LAST:event_BTNCuuentaActionPerformed
-
+    }
     private void BTNRespuestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNRespuestaActionPerformed
+        Recuperar();
+    }//GEN-LAST:event_BTNRespuestaActionPerformed
+
+    private void Recuperar()
+    {
         if (TFRespuesta.getText().length() > 0)
         {
             if (!vendedor.ObtenerRespuesta(TFCuenta.getText(), TFRespuesta.getText()).equals(""))
@@ -253,8 +271,7 @@ public class RecuperarContrasena extends javax.swing.JFrame {
             }
                 
         }
-    }//GEN-LAST:event_BTNRespuestaActionPerformed
-
+    }
     private void TFCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFCuentaKeyTyped
         if (TFCuenta.getText().length() > 25) evt.consume();
     }//GEN-LAST:event_TFCuentaKeyTyped
@@ -262,6 +279,19 @@ public class RecuperarContrasena extends javax.swing.JFrame {
     private void TFRespuestaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFRespuestaKeyTyped
         if (TFRespuesta.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFRespuestaKeyTyped
+
+    private void TFCuentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFCuentaKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
+        {
+            ActivarSiguienteBoton();
+            TFRespuesta.requestFocus();
+        }
+    }//GEN-LAST:event_TFCuentaKeyPressed
+
+    private void TFRespuestaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFRespuestaKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
+            Recuperar();
+    }//GEN-LAST:event_TFRespuestaKeyPressed
 
     /**
      * @param args the command line arguments
@@ -288,6 +318,8 @@ public class RecuperarContrasena extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RecuperarContrasena.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

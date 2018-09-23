@@ -30,9 +30,15 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     Clases.Telefono telefono = new Clases.Telefono();
     DefaultTableModel empleados = new DefaultTableModel();
     DefaultTableModel clientes = new DefaultTableModel();
-    int seleccionado = 0;
-    int seltel = 0;
-    int idseleccionado = 0;
+    int seleccionado = -1;
+    int seltel = -1;
+    int idseleccionado = -1;
+    int conttel = -1;
+    int contemp = -1;
+    int clickemp = 0;
+    int clicktel = 0;
+    boolean EmpleadosAccionada = false;
+    boolean TelefonosAccionada = false;
     public IngresoEmpleados() {
         initComponents();
         BTNEliEmpleado.setEnabled(false);
@@ -180,6 +186,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TTelefonosMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                TTelefonosMouseReleased(evt);
+            }
         });
         jScrollPane2.setViewportView(TTelefonos);
 
@@ -212,6 +221,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFTelefono.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFTelefonoKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFTelefonoKeyTyped(evt);
             }
@@ -264,6 +276,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFTelefono1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFTelefono1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFTelefono1KeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFTelefono1KeyTyped(evt);
             }
@@ -350,6 +365,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TEmpleadosMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                TEmpleadosMouseReleased(evt);
+            }
         });
         jScrollPane1.setViewportView(TEmpleados);
 
@@ -408,6 +426,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFNombres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFNombresKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFNombresKeyTyped(evt);
             }
@@ -415,6 +436,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFApellidosKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFApellidosKeyTyped(evt);
             }
@@ -427,6 +451,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             }
         });
         TFDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFDireccionKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFDireccionKeyTyped(evt);
             }
@@ -444,6 +471,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         PFContrasena.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         PFContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PFContrasenaKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 PFContrasenaKeyTyped(evt);
             }
@@ -466,6 +496,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFUsuarioKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFUsuarioKeyTyped(evt);
             }
@@ -493,6 +526,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFRespuesta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFRespuesta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFRespuestaKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFRespuestaKeyTyped(evt);
             }
@@ -521,39 +557,29 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         PAdministradorLayout.setHorizontalGroup(
             PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PAdministradorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(LBLUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                    .addComponent(TFUsuario)
-                    .addComponent(BTNAgregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLContrasena, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(PFContrasena, javax.swing.GroupLayout.Alignment.LEADING))
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TFRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LBLUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(LBLUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(TFUsuario)
+                        .addComponent(LBLContrasena, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PFContrasena, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RBDeporte)
                     .addComponent(RBMascota)
                     .addComponent(RBMejorAmigo)
-                    .addComponent(LBLUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LBLUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(253, Short.MAX_VALUE))
+                    .addComponent(LBLUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(98, 98, 98))
         );
         PAdministradorLayout.setVerticalGroup(
             PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PAdministradorLayout.createSequentialGroup()
+            .addGroup(PAdministradorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LBLUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PAdministradorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PAdministradorLayout.createSequentialGroup()
-                        .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LBLContrasena)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PFContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))
                     .addGroup(PAdministradorLayout.createSequentialGroup()
                         .addComponent(LBLUsuario1)
                         .addGap(18, 18, 18)
@@ -563,10 +589,21 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(RBMejorAmigo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BTNAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(PAdministradorLayout.createSequentialGroup()
+                        .addComponent(LBLUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TFUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(LBLContrasena)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PFContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(LBLUsuario2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TFRespuesta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout PIngresoEmpleadoLayout = new javax.swing.GroupLayout(PIngresoEmpleado);
@@ -634,6 +671,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFMNombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFMNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFMNombreKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFMNombreKeyTyped(evt);
             }
@@ -641,6 +681,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFMApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFMApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFMApellidosKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFMApellidosKeyTyped(evt);
             }
@@ -648,6 +691,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
 
         TFMDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFMDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFMDireccionKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFMDireccionKeyTyped(evt);
             }
@@ -750,7 +796,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                             .addComponent(PTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(437, 437, 437)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -779,6 +825,11 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BTNEliTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNEliTelActionPerformed
+        EliminarTelefono();
+    }//GEN-LAST:event_BTNEliTelActionPerformed
+    
+    private void EliminarTelefono()
+    {
         if (TTelefonos.getSelectedRow() != -1)
         {
             try {
@@ -797,9 +848,15 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         }
         else
         JOptionPane.showMessageDialog(null, "Por favor seleccione un número de teléfono");
-    }//GEN-LAST:event_BTNEliTelActionPerformed
-
+    }
     private void TTelefonosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TTelefonosMouseClicked
+        
+    }//GEN-LAST:event_TTelefonosMouseClicked
+
+    private void SeleccionarTelefono()
+    {
+        EmpleadosAccionada = false;
+        TelefonosAccionada = true;
         int indice = TTelefonos.getSelectedRow() + 1;
         seltel = indice;
         TableModel modelo = TTelefonos.getModel();
@@ -812,9 +869,12 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             BTNModCel.setEnabled(true);
             BTNEliTel.setEnabled(true);
         }
-    }//GEN-LAST:event_TTelefonosMouseClicked
-
+    }
     private void BTNModCelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNModCelActionPerformed
+        ModificarTelefono();
+    }//GEN-LAST:event_BTNModCelActionPerformed
+    private void ModificarTelefono()
+    {
         if (!TFTelefono1.getText().equals(""))
         {
             if (TTelefonos.getSelectedRow() != -1)
@@ -823,7 +883,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                     if(TTelefonos.getSelectedRow() != -1)
                     {
                         try {
-                            telefono.Modificar(TFTelefono1.getText(), String.valueOf(TTelefonos.getValueAt(TTelefonos.getSelectedRow(), 0)));
+                            telefono.Modificar(TFTelefono1.getText(), String.valueOf(TTelefonos.getValueAt(TTelefonos.getSelectedRow(), 0)), idseleccionado);
                             while(clientes.getRowCount()>0)
                             clientes.removeRow(0);
                             telefono.Buscar(clientes, idseleccionado);
@@ -843,15 +903,20 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         }
         else
         JOptionPane.showMessageDialog(null, "Por favor rellene el campo de teléfono celular");
-    }//GEN-LAST:event_BTNModCelActionPerformed
-
+    }
     private void BTNTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNTelefonoActionPerformed
+        AgregarTelefono();
+    }//GEN-LAST:event_BTNTelefonoActionPerformed
+    private void AgregarTelefono()
+    {
         while(clientes.getRowCount()>0)
         clientes.removeRow(0);
         if (TFTelefono.getText().length() > 0)
         {
             if (TEmpleados.getSelectedRow() != -1)
             {
+                if (!telefono.Existe(TFTelefono.getText(),idseleccionado))
+                {
                     try {
                         telefono.Insertar(TFTelefono.getText(), idseleccionado);
                         TFTelefono.setText("");
@@ -862,19 +927,34 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                     } catch (SQLException ex) {
                         Logger.getLogger(IngresoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "El telefono ingresado ya esta agregado para este empleado");
+                    TFTelefono.setText("");
+                    TFTelefono1.setText("");
+                    TFFiltro1.setText("");
+                    TFTelefono1.setEnabled(false);
+                    telefono.Buscar(clientes, idseleccionado);
+                }
+                    
             }
             else
             {
-                JOptionPane.showMessageDialog(null, "Por favor seleccione un empleado)");
+                JOptionPane.showMessageDialog(null, "Por favor seleccione un empleado");
             }
         }
         else
         {
             JOptionPane.showMessageDialog(null, "Por favor rellene el campo que le solicita ingresar un telefono)");
         }
-    }//GEN-LAST:event_BTNTelefonoActionPerformed
-
+    }
     private void BTNEliEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNEliEmpleadoActionPerformed
+        EliminarEmpleado();
+    }//GEN-LAST:event_BTNEliEmpleadoActionPerformed
+    
+    private void EliminarEmpleado()
+    {
         while(empleados.getRowCount()>0)
             empleados.removeRow(0);
         while(clientes.getRowCount()>0)
@@ -910,11 +990,17 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         else
             JOptionPane.showMessageDialog(null, "Por favor seleccione un empleado");
         Insercion.Buscar(empleados);
-    }//GEN-LAST:event_BTNEliEmpleadoActionPerformed
-
+    }
     private void TEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TEmpleadosMouseClicked
+
+    }//GEN-LAST:event_TEmpleadosMouseClicked
+
+    private void SeleccionarEmpleado()
+    {
+        EmpleadosAccionada = true;
+        TelefonosAccionada = false;
         while(clientes.getRowCount()>0)
-        clientes.removeRow(0);
+            clientes.removeRow(0);
         int indice = TEmpleados.getSelectedRow() + 1;
         seleccionado = indice;
         idseleccionado = Integer.parseInt(String.valueOf(TEmpleados.getValueAt(TEmpleados.getSelectedRow(), 0)));
@@ -934,14 +1020,53 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             TFUsuario.setEnabled(true);
             PFContrasena.setEnabled(true);
         }
-    }//GEN-LAST:event_TEmpleadosMouseClicked
-
+    }
     private void BTNModEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNModEmpleadoActionPerformed
+        ModificarEmpleado();
+    }//GEN-LAST:event_BTNModEmpleadoActionPerformed
+
+    private void ModificarEmpleado()
+    {
         while(empleados.getRowCount()>0)
         empleados.removeRow(0);
         while(clientes.getRowCount()>0)
         clientes.removeRow(0);
-        if (!TFMDireccion.getText().equals("") && !TFMNombre.getText().equals("") && !TFMApellidos.getText().equals(""))
+        if (TFMDireccion.getText().equals("") && TFMNombre.getText().equals("") && TFMApellidos.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Por favor rellene al menos una de las tres casillas para modificar.");
+            while(empleados.getRowCount()>0)
+                empleados.removeRow(0);
+            while(clientes.getRowCount()>0)
+                clientes.removeRow(0);
+        }
+        else
+        {
+            if (!TFMDireccion.getText().equals(""))
+                Insercion.ModificarDireccion(TFMDireccion.getText(), idseleccionado);            
+            if (!TFMNombre.getText().equals(""))
+                Insercion.ModificarNombre(TFMNombre.getText(), idseleccionado);
+            if (!TFMApellidos.getText().equals(""))
+                Insercion.ModificarApellidos(TFMApellidos.getText(), idseleccionado);
+            JOptionPane.showMessageDialog(null, "Modificación exitosa");
+            TFDireccion.setText("");
+            TFApellidos.setText("");
+            TFNombres.setText("");
+            TFMNombre.setText("");
+            TFMApellidos.setText("");
+            TFMDireccion.setText("");
+            TFUsuario.setText("");
+            PFContrasena.setText("");
+            TFTelefono.setText("");
+            TFTelefono1.setText("");
+            TFFiltro1.setText("");
+            TFFiltro.setText("");
+            BTNEliEmpleado.setEnabled(false);
+            BTNModEmpleado.setEnabled(false);
+            TFMNombre.setEnabled(false);
+            TFMApellidos.setEnabled(false);
+            TFMDireccion.setEnabled(false);
+        }
+        /*if (!TFMDireccion.getText().equals("") && !TFMNombre.getText().equals("") && !TFMApellidos.getText().equals(""))
         {
             try {
                 Insercion.Modificar(TFMNombre.getText(), TFMApellidos.getText(), TFMDireccion.getText(), idseleccionado);
@@ -966,7 +1091,6 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(IngresoEmpleados.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
         else
         {
@@ -975,14 +1099,18 @@ public class IngresoEmpleados extends javax.swing.JPanel {
                 empleados.removeRow(0);
             while(clientes.getRowCount()>0)
                 clientes.removeRow(0);
-        }
+        }*/
         seleccionado = -1;
         idseleccionado = -1;
         Insercion.Buscar(empleados);
         PIngresoTelefono.setVisible(false);
-    }//GEN-LAST:event_BTNModEmpleadoActionPerformed
-
+    }
     private void BTNAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNAgregarActionPerformed
+        AgregarEmpleado();
+    }//GEN-LAST:event_BTNAgregarActionPerformed
+
+    private void AgregarEmpleado()
+    {
         while(empleados.getRowCount()>0)
             empleados.removeRow(0);
         while(clientes.getRowCount()>0)
@@ -1050,8 +1178,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
         }
 
         Insercion.Buscar(empleados);
-    }//GEN-LAST:event_BTNAgregarActionPerformed
-
+    }
     private void RBVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RBVendedorActionPerformed
         if (RBVendedor.isSelected())
             RBAdministrador.setSelected(false);
@@ -1073,14 +1200,22 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     private void TFMNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMNombreKeyTyped
         char c = evt.getKeyChar();
         
-        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z')
+        {
+            if (c != ' ')
+                evt.consume();
+        }
         if (TFMNombre.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFMNombreKeyTyped
 
     private void TFMApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMApellidosKeyTyped
         char c = evt.getKeyChar();
         
-        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z')
+        {
+            if (c != ' ')
+                evt.consume();
+        }
         if (TFMApellidos.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFMApellidosKeyTyped
 
@@ -1091,7 +1226,10 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             if (c < '0' || c > '9')
             {
                 if (c != '-')
-                    evt.consume();
+                {
+                    if (c != ' ')
+                        evt.consume();
+                }
             }
         }
         if (TFMDireccion.getText().length() > 45) evt.consume();
@@ -1100,15 +1238,25 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     private void TFNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFNombresKeyTyped
         char c = evt.getKeyChar();
         
-        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z')
+        {
+            if (c != ' ')
+                evt.consume();
+        }
         if (TFNombres.getText().length() > 30) evt.consume();
+        
     }//GEN-LAST:event_TFNombresKeyTyped
 
     private void TFApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFApellidosKeyTyped
         char c = evt.getKeyChar();
         
-        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z')
+        {
+            if (c != ' ')
+                evt.consume();
+        }
         if (TFApellidos.getText().length() > 30) evt.consume();
+        
     }//GEN-LAST:event_TFApellidosKeyTyped
 
     private void TFDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDireccionKeyTyped
@@ -1118,10 +1266,14 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             if (c < '0' || c > '9')
             {
                 if (c != '-')
-                    evt.consume();
+                {
+                    if (c != ' ')
+                        evt.consume();
+                }
             }
         }
         if (TFApellidos.getText().length() > 45) evt.consume();
+        
     }//GEN-LAST:event_TFDireccionKeyTyped
 
     private void TFUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFUsuarioKeyTyped
@@ -1134,6 +1286,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
             }
         }
         if (TFUsuario.getText().length() > 25) evt.consume();
+        
     }//GEN-LAST:event_TFUsuarioKeyTyped
 
     private void TFFiltro1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltro1KeyTyped
@@ -1158,7 +1311,9 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     }//GEN-LAST:event_TFTelefonoKeyTyped
 
     private void PFContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PFContrasenaKeyTyped
+        char c = evt.getKeyChar();
         if (PFContrasena.getPassword().length > 40) evt.consume();
+        
     }//GEN-LAST:event_PFContrasenaKeyTyped
 
     private void TFFiltroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFFiltroKeyPressed
@@ -1214,12 +1369,86 @@ public class IngresoEmpleados extends javax.swing.JPanel {
     }//GEN-LAST:event_RBMejorAmigoActionPerformed
 
     private void TFRespuestaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFRespuestaKeyTyped
+        char c = evt.getKeyChar();
         if (TFRespuesta.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFRespuestaKeyTyped
 
     private void TFDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFDireccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TFDireccionActionPerformed
+
+    private void TFNombresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFNombresKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER)
+            TFApellidos.requestFocus();
+    }//GEN-LAST:event_TFNombresKeyPressed
+
+    private void TFApellidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFApellidosKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) TFDireccion.requestFocus();
+    }//GEN-LAST:event_TFApellidosKeyPressed
+
+    private void TFDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDireccionKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) TFUsuario.requestFocus();
+    }//GEN-LAST:event_TFDireccionKeyPressed
+
+    private void TFUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFUsuarioKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) PFContrasena.requestFocus();
+    }//GEN-LAST:event_TFUsuarioKeyPressed
+
+    private void PFContrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PFContrasenaKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) TFRespuesta.requestFocus();
+    }//GEN-LAST:event_PFContrasenaKeyPressed
+
+    private void TFRespuestaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFRespuestaKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) AgregarEmpleado();
+    }//GEN-LAST:event_TFRespuestaKeyPressed
+
+    private void TFMNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMNombreKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) TFMApellidos.requestFocus();
+    }//GEN-LAST:event_TFMNombreKeyPressed
+
+    private void TFMApellidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMApellidosKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) TFMDireccion.requestFocus();
+    }//GEN-LAST:event_TFMApellidosKeyPressed
+
+    private void TFMDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFMDireccionKeyPressed
+        
+    }//GEN-LAST:event_TFMDireccionKeyPressed
+
+    private void TFTelefono1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFTelefono1KeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) ModificarTelefono();
+    }//GEN-LAST:event_TFTelefono1KeyPressed
+
+    private void TFTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFTelefonoKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER) AgregarTelefono();
+    }//GEN-LAST:event_TFTelefonoKeyPressed
+
+    private void TEmpleadosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TEmpleadosMouseReleased
+        //contemp = idseleccionado;
+        SeleccionarEmpleado();
+        /*if (contemp == idseleccionado)
+            clickemp ++;
+        else
+            clickemp = 0;
+        if (clickemp == 3)
+        {
+            EliminarEmpleado();
+            clickemp = 0;
+        }*/  
+    }//GEN-LAST:event_TEmpleadosMouseReleased
+
+    private void TTelefonosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TTelefonosMouseReleased
+        //conttel = seltel;
+        SeleccionarTelefono();
+        /*if (conttel == seltel)
+            clicktel ++;
+        else
+            clicktel = 0;
+        if (clicktel == 3)
+        {
+            EliminarTelefono();
+            clicktel = 0;
+        }*/
+    }//GEN-LAST:event_TTelefonosMouseReleased
 
     
         private void ValidarNombreYApellido(JTextField textfield, boolean direccion)
@@ -1239,25 +1468,7 @@ public class IngresoEmpleados extends javax.swing.JPanel {
       }
    }
 });
-        /*textfield.addKeyListener(new KeyAdapter());
-        {
-            public void keyTyped(KeyEvent e)
-            {
-                char caracter = e.getKeyChar();
-                
-                // Verificar si la tecla pulsada no es un digito ni una letra minuscula o mayuscula
-                /*if((((caracter < '0') || (caracter > '9')) && ((caracter < 'a') || (caracter > 'z')) && ((caracter < 'A') || (caracter > 'Z'))) && (caracter == 'Ñ') && (caracter != '\b' ))
-                /*{
-                    if (direccion == true)
-                    {
-                        if (caracter != '-')
-                            e.consume();  // ignorar el evento de teclado
-                    }
-                    else
-                        e.consume();  // ignorar el evento de teclado
-                }/*
-            }
-        });*/
+        
     }
     
 

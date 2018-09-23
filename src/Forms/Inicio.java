@@ -5,6 +5,7 @@
  */
 package Forms;
 
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         this.setLocationRelativeTo(null);
+        TFNombres.requestFocus();
     }
 
     /**
@@ -131,6 +133,9 @@ public class Inicio extends javax.swing.JFrame {
 
         TFNombres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFNombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFNombresKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFNombresKeyTyped(evt);
             }
@@ -139,6 +144,9 @@ public class Inicio extends javax.swing.JFrame {
 
         TFApellidos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFApellidosKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFApellidosKeyTyped(evt);
             }
@@ -147,6 +155,9 @@ public class Inicio extends javax.swing.JFrame {
 
         TFDireccion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFDireccionKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFDireccionKeyTyped(evt);
             }
@@ -155,6 +166,9 @@ public class Inicio extends javax.swing.JFrame {
 
         TFUsuario.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFUsuarioKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFUsuarioKeyTyped(evt);
             }
@@ -188,6 +202,9 @@ public class Inicio extends javax.swing.JFrame {
 
         PFContrasena.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         PFContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PFContrasenaKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 PFContrasenaKeyTyped(evt);
             }
@@ -239,6 +256,9 @@ public class Inicio extends javax.swing.JFrame {
 
         TFRespuesta.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         TFRespuesta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFRespuestaKeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TFRespuestaKeyTyped(evt);
             }
@@ -279,6 +299,11 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void BTNInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNInsertarActionPerformed
+        Insertar();
+    }//GEN-LAST:event_BTNInsertarActionPerformed
+
+    private void Insertar()
+    {
         if (!TFNombres.getText().equals("")  && !TFApellidos.getText().equals("") && !TFDireccion.getText().equals("") && !TFUsuario.getText().equals("") 
                 && !String.valueOf(PFContrasena.getPassword()).equals("") && (RBMascota.isSelected() || RBDeporte.isSelected() || 
                 RBMejorAmigo.isSelected()) && !TFRespuesta.getText().equals(""))
@@ -299,8 +324,7 @@ public class Inicio extends javax.swing.JFrame {
         }
         else
             JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos");
-    }//GEN-LAST:event_BTNInsertarActionPerformed
-
+    }
     private void jPanel1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyTyped
 
     }//GEN-LAST:event_jPanel1KeyTyped
@@ -359,6 +383,35 @@ public class Inicio extends javax.swing.JFrame {
         if (TFRespuesta.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFRespuestaKeyTyped
 
+    private void TFNombresKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFNombresKeyPressed
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER)
+            TFApellidos.requestFocus();
+    }//GEN-LAST:event_TFNombresKeyPressed
+
+    private void TFApellidosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFApellidosKeyPressed
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER)
+            TFDireccion.requestFocus();
+    }//GEN-LAST:event_TFApellidosKeyPressed
+
+    private void TFDireccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDireccionKeyPressed
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER)
+            TFUsuario.requestFocus();
+    }//GEN-LAST:event_TFDireccionKeyPressed
+
+    private void TFUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFUsuarioKeyPressed
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER)
+            PFContrasena.requestFocus();
+    }//GEN-LAST:event_TFUsuarioKeyPressed
+
+    private void PFContrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PFContrasenaKeyPressed
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER)
+            TFRespuesta.requestFocus();
+    }//GEN-LAST:event_PFContrasenaKeyPressed
+
+    private void TFRespuestaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFRespuestaKeyPressed
+        Insertar();
+    }//GEN-LAST:event_TFRespuestaKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -384,6 +437,10 @@ public class Inicio extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
