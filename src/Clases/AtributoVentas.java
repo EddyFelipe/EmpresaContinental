@@ -7,7 +7,7 @@ package Clases;
 
 /**
  *
- * @author Usuario
+ * @author Felipe
  */
 public class AtributoVentas {
     

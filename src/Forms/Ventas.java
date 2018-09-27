@@ -43,6 +43,7 @@ public class Ventas extends javax.swing.JPanel {
     private double Total,Descuento = 0; 
     private DefaultListModel ModeloLista;
     private ArrayList<ElementosCategoria> ProductosCategoria;
+    private final Clases.HistorialVenta HistorialVenta;
     
     public Ventas() {
         initComponents();
@@ -61,13 +62,14 @@ public class Ventas extends javax.swing.JPanel {
        //Conexion a la base de datos
        Conexion con = new Conexion();
        ConexionBaseDatos = con.ConectarBaseDatos();
-    //   ConexionBaseDatos = Clases.Conexion.getConnection();
+       HistorialVenta = new Clases.HistorialVenta();
        
        //INICIALIZACION DE VARIABLES
        ProductoSeleccionado = false;
        HayDescuento = true;
        ListaProductos = new ArrayList<>();
        ProductosCategoria = new ArrayList<>();
+       pnlHistorial.setVisible(false);
        
        //Llamada a metodos
        TablaProductos();  
@@ -329,7 +331,14 @@ public class Ventas extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         pnlConsultas = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tablaproducto = new javax.swing.JTable();
+        TableConsultas = new javax.swing.JTable();
+        btnBuscarCliente = new javax.swing.JButton();
+        pnlHistorial = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jListHistorial = new javax.swing.JList();
+        jSeparator5 = new javax.swing.JSeparator();
+        txtBuscarClient = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         Eliminar.setText("Eliminar Producto");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -615,7 +624,12 @@ public class Ventas extends javax.swing.JPanel {
 
         jScrollPane4.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        tablaproducto.setModel(new javax.swing.table.DefaultTableModel(
+        TableConsultas = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex,int colIndex){
+                return false;
+            }
+        };
+        TableConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -626,9 +640,59 @@ public class Ventas extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane4.setViewportView(tablaproducto);
+        TableConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableConsultasMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TableConsultasMouseExited(evt);
+            }
+        });
+        jScrollPane4.setViewportView(TableConsultas);
 
-        pnlConsultas.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 990, 390));
+        pnlConsultas.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 870, 560));
+
+        btnBuscarCliente.setText("Buscar");
+        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteActionPerformed(evt);
+            }
+        });
+        pnlConsultas.add(btnBuscarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 130, 40));
+
+        jScrollPane5.setViewportView(jListHistorial);
+
+        javax.swing.GroupLayout pnlHistorialLayout = new javax.swing.GroupLayout(pnlHistorial);
+        pnlHistorial.setLayout(pnlHistorialLayout);
+        pnlHistorialLayout.setHorizontalGroup(
+            pnlHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+        );
+        pnlHistorialLayout.setVerticalGroup(
+            pnlHistorialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
+        );
+
+        pnlConsultas.add(pnlHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 170, 380, 560));
+        pnlConsultas.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 270, 10));
+
+        txtBuscarClient.setBackground(new java.awt.Color(36, 41, 46));
+        txtBuscarClient.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        txtBuscarClient.setForeground(new java.awt.Color(255, 255, 255));
+        txtBuscarClient.setAlignmentX(1.0F);
+        txtBuscarClient.setAlignmentY(1.0F);
+        txtBuscarClient.setBorder(null);
+        txtBuscarClient.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarClientKeyPressed(evt);
+            }
+        });
+        pnlConsultas.add(txtBuscarClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 270, 40));
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Buscar Cliente:");
+        pnlConsultas.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         indiceConsulta.addTab("Consultas", pnlConsultas);
 
@@ -669,7 +733,7 @@ public class Ventas extends javax.swing.JPanel {
                 String Direccion = txtDireccionClient.getText().equals("")?"Ciudad":txtDireccionClient.getText(); //Verifica si se escribió alguna direccion
                 String nit = txtNitClient.getText().equals("")?"C/F":txtNitClient.getText(); //Verifica si se escribió el NIT 
                 /*ININICIO DE LA TRANSACCCION*/
-                if(Clases.Ventas.StartTransaction(cn)){
+                if(Clases.Ventas.StartTransaction(ConexionBaseDatos)){
                     bitacora.crearArchivo();
                     transaccion = bitacora.numTransaccion()+1;                                      //obtenemos el valor de la transaccion
                     bitacora.EscribirArchivo("\r\n" + "TRANSACCION INICIADA" + "\r\n");            //AQUI INICIA LA BITACORA
@@ -851,10 +915,38 @@ public class Ventas extends javax.swing.JPanel {
           modeloTem.setValueAt((existencia+Vendido),ListaProductos.get(rowseleccionado).getidProducto(), modeloTem.getColumnCount()-2);
           return modeloTem;
     }
-    
+    /*METODO QUE SIRVE PARA BUSCAR ALGUN CLIENTE QUE SE DIJITE EN EL TEXBOX DE BUSQUEDA EN CONSULTA*/
+    private void BuscarCliente(){
+       if(!txtBuscarClient.getText().equals("")){  TableConsultas.setModel(HistorialVenta.BuscarCoincidencia(txtBuscarClient.getText(), ConexionBaseDatos)); }
+       else{    TableConsultas.setModel(HistorialVenta.HistorialVentas(ConexionBaseDatos));  }
+    }
     private void click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_click
-        tablaproducto.setModel(HistorialVenta.HistorialVentas(ConexionBaseDatos));
+        TableConsultas.setModel(HistorialVenta.HistorialVentas(ConexionBaseDatos));
     }//GEN-LAST:event_click
+
+    private void TableConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableConsultasMouseClicked
+  
+         /*FUNCION QUE DEVUELVE EL LISTADO DE PRODUCTOS VENDIDOS EN ESA VENTA*/
+        if(TableConsultas.getSelectedRow() != -1){
+            pnlHistorial.setVisible(true);
+           jListHistorial.setModel(HistorialVenta.Productos(TableConsultas.getSelectedRow(),ConexionBaseDatos));
+        }
+    }//GEN-LAST:event_TableConsultasMouseClicked
+
+    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+        // TODO add your handling code here:
+       BuscarCliente();
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void TableConsultasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableConsultasMouseExited
+        // TODO add your handling code here:
+        pnlHistorial.setVisible(false);
+    }//GEN-LAST:event_TableConsultasMouseExited
+
+    private void txtBuscarClientKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarClientKeyPressed
+        // TODO add your handling code here:
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){ BuscarCliente(); }
+    }//GEN-LAST:event_txtBuscarClientKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Eliminar;
@@ -864,8 +956,10 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JLabel SelectProducto;
     private javax.swing.JSeparator SepDes;
     private javax.swing.JTable TablaProductos;
+    private javax.swing.JTable TableConsultas;
     private javax.swing.JTable TableVentas;
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnDescuento;
     private javax.swing.JButton btnVender;
     private javax.swing.JTabbedPane indiceConsulta;
@@ -875,26 +969,31 @@ public class Ventas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList jListHistorial;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel lblDesMsg;
     private javax.swing.JLabel lblDescuento;
     private javax.swing.JLabel lblTipos;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JPanel pnlConsultas;
     private javax.swing.JPanel pnlContenedor;
+    private javax.swing.JPanel pnlHistorial;
     private javax.swing.JPanel pnlVentas;
-    private javax.swing.JTable tablaproducto;
+    private javax.swing.JTextField txtBuscarClient;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDescuento;
     private javax.swing.JTextField txtDireccionClient;
