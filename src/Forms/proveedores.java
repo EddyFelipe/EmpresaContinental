@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ismar
  */
-public class proveedores extends javax.swing.JPanel {
+public final class proveedores extends javax.swing.JPanel {
     public void mostrar_Proveedores(){
         Conexion con = new Conexion();
         Connection cn = con.ConectarBaseDatos();
@@ -66,14 +66,16 @@ public class proveedores extends javax.swing.JPanel {
      * Creates new form proveedores
      */
     public proveedores() {
-        //initComponents();
-        //mostrar_Proveedores();
-        //int gapWidth = 10;
-        //int gapHeight = 4;
-        //jTable1.setIntercellSpacing(new Dimension(gapWidth, gapHeight));
-        //jPanel2.setVisible(false);
-        //cont = jTable1.getRowCount()+1;
-        //cont = Integer.parseInt(jTable1.getValueAt(jTable1.getRowCount()-1, 0).toString());
+          initComponents();
+         mostrar_Proveedores();
+        int gapWidth = 10;
+        int gapHeight = 4;
+        jTable1.setIntercellSpacing(new Dimension(gapWidth, gapHeight));
+        jPanel2.setVisible(false);
+       // cont = Integer.parseInt(jTable1.getValueAt(jTable1.getRowCount()-1, 0).toString());
+        if (cont <=-1) {
+            cont = jTable1.getRowCount()+1;
+        }
     
     }
 

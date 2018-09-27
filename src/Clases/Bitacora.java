@@ -23,8 +23,8 @@ import javax.swing.JOptionPane;
  */
 public class Bitacora {
 
-    private final String ruta = "C:\\Users\\Felipe\\Desktop\\bitacora.txt";
-    private final String ruta2 = "C:\\Users\\Felipe\\Desktop\\contador.txt";
+    private final String ruta = "bitacora.txt";
+    private final String ruta2 = "contador.txt";
 
     public void crearArchivo() {
 
