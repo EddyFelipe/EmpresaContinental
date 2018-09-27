@@ -332,23 +332,51 @@ public class Inicio extends javax.swing.JFrame {
     private void TFNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFNombresKeyTyped
         char c = evt.getKeyChar();
         
-        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') 
+        {
+            if (c != ' ')
+                evt.consume();
+        }
         if (TFNombres.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFNombresKeyTyped
 
     private void TFApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFApellidosKeyTyped
         char c = evt.getKeyChar();
         
-        if ((c<'a' || c>'z') && (c<'A')|c>'Z') evt.consume();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') 
+        {
+            if (c != ' ')
+                evt.consume();
+        }
         if (TFApellidos.getText().length() > 30) evt.consume();
     }//GEN-LAST:event_TFApellidosKeyTyped
 
     private void TFDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFDireccionKeyTyped
+        char c = evt.getKeyChar();
         if (TFDireccion.getText().length() > 30) evt.consume();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') 
+        {
+            if (c < '0' || c > '9')
+            {
+                if (c != '-')
+                {
+                    if (c != ' ')
+                        evt.consume();
+                }
+            }
+        }
     }//GEN-LAST:event_TFDireccionKeyTyped
 
     private void TFUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFUsuarioKeyTyped
         if (TFUsuario.getText().length() > 25) evt.consume();
+        char c = evt.getKeyChar();
+        if ((c<'a' || c>'z') && (c<'A')|c>'Z') 
+        {
+            if (c < '0' || c > '9')
+            {
+                    evt.consume();
+            }
+        }
     }//GEN-LAST:event_TFUsuarioKeyTyped
 
     private void PFContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PFContrasenaKeyTyped
@@ -409,7 +437,8 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_PFContrasenaKeyPressed
 
     private void TFRespuestaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFRespuestaKeyPressed
-        Insertar();
+        if (evt.getKeyCode()== KeyEvent.VK_ENTER)
+            Insertar();
     }//GEN-LAST:event_TFRespuestaKeyPressed
 
     /**
