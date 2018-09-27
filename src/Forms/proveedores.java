@@ -66,14 +66,14 @@ public class proveedores extends javax.swing.JPanel {
      * Creates new form proveedores
      */
     public proveedores() {
-        initComponents();
-        mostrar_Proveedores();
-                 int gapWidth = 10;
-        int gapHeight = 4;
-        jTable1.setIntercellSpacing(new Dimension(gapWidth, gapHeight));
-        jPanel2.setVisible(false);
+        //initComponents();
+        //mostrar_Proveedores();
+        //int gapWidth = 10;
+        //int gapHeight = 4;
+        //jTable1.setIntercellSpacing(new Dimension(gapWidth, gapHeight));
+        //jPanel2.setVisible(false);
         //cont = jTable1.getRowCount()+1;
-        cont = Integer.parseInt(jTable1.getValueAt(jTable1.getRowCount()-1, 0).toString());
+        //cont = Integer.parseInt(jTable1.getValueAt(jTable1.getRowCount()-1, 0).toString());
     
     }
 

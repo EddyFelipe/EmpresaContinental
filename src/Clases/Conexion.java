@@ -13,7 +13,7 @@ public class Conexion {
            
         try {
 
-             conexion = DriverManager.getConnection("jdbc:mariadb://localhost:3306/continental1","root","bases");
+             conexion = DriverManager.getConnection("jdbc:mariadb://localhost:3306/pachecos","root","40055458");
              
              System.out.println("Abrio");
         } catch (SQLException ex) {

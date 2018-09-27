@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Usuario
  */
 public class Ventas extends javax.swing.JPanel {
+     Bitacora bitacora = new Bitacora();
     Conexion con = new Conexion();
       Connection cn= con.ConectarBaseDatos();
       DefaultTableModel modelo = new DefaultTableModel();
@@ -661,21 +662,35 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_TableVentasMouseReleased
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-     if (ListaProductos.size() != 0) {
+        int transaccion =0;
+        if (ListaProductos.size() != 0) {
            if(HayDescuento){
             if (!txtNombreClient.getText().equals("")) {
                 String Direccion = txtDireccionClient.getText().equals("")?"Ciudad":txtDireccionClient.getText(); //Verifica si se escribió alguna direccion
                 String nit = txtNitClient.getText().equals("")?"C/F":txtNitClient.getText(); //Verifica si se escribió el NIT 
                 /*ININICIO DE LA TRANSACCCION*/
                 if(Clases.Ventas.StartTransaction(cn)){
+                    bitacora.crearArchivo();
+                    transaccion = bitacora.numTransaccion()+1;                                      //obtenemos el valor de la transaccion
+                    bitacora.EscribirArchivo("\r\n" + "TRANSACCION INICIADA" + "\r\n");            //AQUI INICIA LA BITACORA
+                    bitacora.EscribirArchivo("Transaccion #"+transaccion + "\r\n");                //asigamos el numero de transaccion  
+                    bitacora.EscribirArchivo("Fecha: " + bitacora.fecha() + "\r\n");               //Obtenemos fecha  
+                    bitacora.EscribirArchivo("Hora: " + bitacora.hora()+ "\r\n");                  //Obtenemos hora
+                    bitacora.EscribirArchivo("Usuario: " +bitacora.User() + "\r\n");               //Obtenemos user computadora actual
+                    bitacora.EscribirArchivo("Operacion: Venta" +"\r\n");
+                  
+                    
                      int idCliente, idFactura;
-                  if( (idCliente = Clases.Ventas.InsertarCliente(txtNombreClient.getText(), Direccion, nit, ConexionBaseDatos)) != 0){ //Se inserta el cliente en la BD               
+                  if( (idCliente= Clases.Ventas.InsertarCliente(txtNombreClient.getText(), Direccion, nit, ConexionBaseDatos)) != 0){ //Se inserta el cliente en la BD 
+                      bitacora.EscribirArchivo("IDcliente: " + idCliente +"\r\n");                 //Guardamos el id del cliente para mejor busqueda
+                      bitacora.EscribirArchivo("Nombre Cliente: " + txtNombreClient.getText() +"\r\n" );     //Guardamos el nombre del cliente
                         /*-> TRANSCURSO DE LA TRANSACCIÓN*/
                        if( (idFactura = Clases.Ventas.InsertarFactura(Total,Descuento, idCliente, 1, ConexionBaseDatos)) != 0){ //Se inserta la factura en la BD
-             
+                                        
                                   if (Clases.Ventas.InsertarProducto(idFactura, ConexionBaseDatos, ListaProductos)) { //Se insertan los productos comprados
-                                       /*COMPROMETIENDO LOS DATOS A LA BD*/ Clases.Ventas.Commit(ConexionBaseDatos);
-                                       
+                                       bitacora.EscribirArchivo("IDfactura: " + idFactura +"\r\n");
+                                      /*COMPROMETIENDO LOS DATOS A LA BD*/ Clases.Ventas.Commit(ConexionBaseDatos);
+                                        bitacora.EscribirArchivo("Estado de la transaccion: COMMIT" +"\r\n");
                                        //Funcion para limpiar todos los componenetes usados
                                          ListaProductos.clear(); 
                                         while (ModeloVentas.getRowCount() > 0) {  ModeloVentas.removeRow(0);}
@@ -690,16 +705,27 @@ public class Ventas extends javax.swing.JPanel {
                                         txtNitClient.setText("");
                                         txtDescuento.setText("");
                                         JOptionPane.showMessageDialog(this,"Venta terminado satisfactoriamente");
+                                        bitacora.EscribirArchivo("TRANSACCION TERMINADA" +"\r\n");          //Ya desplego el mensaje de insertado. se comprometieron los cambios
+                                        bitacora.EscribirArchivoContador(String.valueOf(transaccion));                                                                    //Transaccion terminada    
                         }
                         else
                         JOptionPane.showMessageDialog(this, "La venta no se realizo con exito");
+                                  
                       /*EN DADO CASO QUE OCURRE ALGÚN ERROR CON LA BD
                         SE REVIERTE LA INFROMACION INGRESADA*/
-                     }else { Clases.Ventas.Rollback(ConexionBaseDatos);}
-                  }else{ Clases.Ventas.Rollback(ConexionBaseDatos); }
+                     }else { Clases.Ventas.Rollback(ConexionBaseDatos);
+                            bitacora.EscribirArchivo("Estado de la transaccion: ROLLBACK. NO SE INSERTO EL ID DEL CLIENTE" +"\r\n");}
+                  }else{ Clases.Ventas.Rollback(ConexionBaseDatos);
+                         bitacora.EscribirArchivo("Estado de la transaccion: ROLLBACK. NO SE INSERTO EL ID DEL CLIENTE" +"\r\n");
+                  }
                 }
-                else 
-                  JOptionPane.showInternalMessageDialog(this, "La venta no se realizó con exito");
+                else{
+                      JOptionPane.showInternalMessageDialog(this, "La venta no se realizó con exito");  
+                      bitacora.EscribirArchivo("TRANSACCION TERMINADA CON FALLOS ");
+                      bitacora.EscribirArchivoContador(String.valueOf(transaccion)); 
+                    } 
+                  
+                  
             }
             else
                 JOptionPane.showMessageDialog(this, "Favor de Ingresar un Cliente");
@@ -829,9 +855,7 @@ public class Ventas extends javax.swing.JPanel {
     private void click(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_click
         tablaproducto.setModel(HistorialVenta.HistorialVentas(ConexionBaseDatos));
     }//GEN-LAST:event_click
-  
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Eliminar;
     private javax.swing.ButtonGroup Grupo1;
