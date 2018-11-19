@@ -9,9 +9,19 @@ import Animacion.Animacion;
 import Clases.Conexion;
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author carlo
@@ -61,6 +71,7 @@ public class General extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         pnlContenedor = new javax.swing.JPanel();
         lblImagen = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -237,19 +248,32 @@ public class General extends javax.swing.JFrame {
 
         pnlContenedor.setBackground(new java.awt.Color(36, 41, 46));
 
+        jButton5.setText("Generar reporte");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlContenedorLayout = new javax.swing.GroupLayout(pnlContenedor);
         pnlContenedor.setLayout(pnlContenedorLayout);
         pnlContenedorLayout.setHorizontalGroup(
             pnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContenedorLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 1286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlContenedorLayout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 1286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlContenedorLayout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addComponent(jButton5)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
         pnlContenedorLayout.setVerticalGroup(
             pnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContenedorLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addComponent(jButton5)
+                .addGap(7, 7, 7)
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 678, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(92, Short.MAX_VALUE))
         );
@@ -384,6 +408,26 @@ public class General extends javax.swing.JFrame {
         jButton7.setToolTipText("PROVEEDORES");
     }//GEN-LAST:event_jproveedores
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        //Crear conexión a la bd
+        Clases.Conexion con = new Clases.Conexion ();
+        Connection conn = con.ConectarBaseDatos();
+        //Crear reporte y definir una ruta
+        JasperReport reporte = null;
+        String path = "src\\Reporte\\Reporte.jasper";
+        try {
+            reporte = (JasperReport)JRLoader.loadObjectFromFile(path);
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, conn); //Llenado del reporte, enviando como
+            //parámetros la ruta, null(parámetros que se pueden enviar al reporte) y la conexión
+            JasperViewer view = new JasperViewer(jprint, false); //Vista del reporte
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE); //Para permitir cerrar reporte al presionar la X
+            view.setVisible(true); //Hacer visible el reporte
+            
+        } catch (JRException ex) {
+              Logger.getLogger(General.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
     public int ancho(){
         int ancho = java.awt.Toolkit.getDefaultToolkit().getScreenSize().width;
       
@@ -438,6 +482,7 @@ public class General extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
