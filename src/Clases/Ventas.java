@@ -63,24 +63,31 @@ public class Ventas {
       }
   }
   
-  public static boolean InsertarProducto(int idVentas,Connection conexion,ArrayList<AtributoVentas> ListadoProducto){
+  public static int InsertarProducto(int idVentas,Connection conexion,ArrayList<AtributoVentas> ListadoProducto){
       try {
           PreparedStatement InsercionDetalle = conexion.prepareStatement(
                   "INSERT INTO detalle_ventas(descripcion,cantidad,sub_total,idventas,idproducto) VALUES(?,?,?,?,?)");
+          Statement st = conexion.createStatement();
+          ResultSet Query; 
          int  cont = 0;
           while(cont < ListadoProducto.size()){
-              InsercionDetalle.setString(1, ListadoProducto.get(cont).getDescripcion());
-              InsercionDetalle.setInt(2, ListadoProducto.get(cont).getCantidad());
-              InsercionDetalle.setDouble(3, ListadoProducto.get(cont).getTotal());
-              InsercionDetalle.setInt(4, idVentas);
-              InsercionDetalle.setInt(5, ListadoProducto.get(cont).getIdInsercion());
-              InsercionDetalle.executeUpdate();
-              cont++;
+              Query = st.executeQuery("SELECT cantidad FROM producto WHERE id_producto = '"+ListadoProducto.get(cont).getIdInsercion()+"'");
+              Query.next();
+              if(Query.getInt(1) >= ListadoProducto.get(cont).getCantidad()){
+                       InsercionDetalle.setString(1, ListadoProducto.get(cont).getDescripcion());
+                       InsercionDetalle.setInt(2, ListadoProducto.get(cont).getCantidad());
+                       InsercionDetalle.setDouble(3, ListadoProducto.get(cont).getTotal());
+                       InsercionDetalle.setInt(4, idVentas);
+                       InsercionDetalle.setInt(5, ListadoProducto.get(cont).getIdInsercion());
+                       InsercionDetalle.executeUpdate();
+                       cont++;
+              }
+              else return  cont; 
           }
-          return true;
+          return -1;
       } catch (SQLException ex) {
           Logger.getLogger(Ventas.class.getName()).log(Level.SEVERE, null, ex);
-          return false;
+          return -1;
       }
   }
     public static boolean StartTransaction(Connection BD){

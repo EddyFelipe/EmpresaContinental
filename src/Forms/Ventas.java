@@ -25,8 +25,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Usuario
  */
 public class Ventas extends javax.swing.JPanel {
-     Bitacora bitacora = new Bitacora();
-    Conexion con = new Conexion();
+      Bitacora bitacora = new Bitacora();
+      Conexion con = new Conexion();
       Connection cn= con.ConectarBaseDatos();
       DefaultTableModel modelo = new DefaultTableModel();
 
@@ -85,6 +85,7 @@ public class Ventas extends javax.swing.JPanel {
        ModeloLista = Insertar_producto.Categoria(ConexionBaseDatos);
        ListadoTipos.setModel(ModeloLista);
        CargarProductoCategorias();
+       ListadoTipos.setSelectedIndex(0);
     }
     
     //Funcion para dar doble click sobre el jtable producto
@@ -207,6 +208,46 @@ public class Ventas extends javax.swing.JPanel {
         c8.SetModelo(Insertar_producto.MostrarMetalesyPlastico(ConexionBaseDatos, 8));
         c8.SetIdProducto(Insertar_producto.getAraayId());
         ProductosCategoria.add(c8); 
+        CargarProducto();
+   }
+   /*CARGA LOS PRODUCTOS A CADA CATEGORIA*/
+   private void CargarProducto(){
+   
+       switch(RowCategoria){//Verifica la categoria donde se va eliminar el producto
+              /*SE SUMA LO VENDIDO A LA EXISTENCIA Y LUEGO SE ACTUALIZA LAS TABLAS DONDE SE MUESTRAN*/
+                case 0: 
+                     TablaProductos.setModel(ProductosCategoria.get(0).getModelo());
+                     ModeloProductos = ProductosCategoria.get(0).getModelo();
+                   break;
+                case 1:
+                    TablaProductos.setModel(ProductosCategoria.get(1).getModelo());
+                     ModeloProductos = ProductosCategoria.get(1).getModelo();
+                    break;
+                case 2:
+                    TablaProductos.setModel(ProductosCategoria.get(2).getModelo());
+                     ModeloProductos = ProductosCategoria.get(2).getModelo();
+                    break;
+                case 3:
+                    TablaProductos.setModel(ProductosCategoria.get(3).getModelo());
+                     ModeloProductos = ProductosCategoria.get(3).getModelo();
+                    break;
+                case 4:
+                    TablaProductos.setModel(ProductosCategoria.get(4).getModelo());
+                     ModeloProductos = ProductosCategoria.get(4).getModelo();
+                    break;
+                case 5:
+                  TablaProductos.setModel(ProductosCategoria.get(5).getModelo());
+                   ModeloProductos = ProductosCategoria.get(5).getModelo();
+                    break;
+                case 6:
+                    TablaProductos.setModel(ProductosCategoria.get(6).getModelo());
+                     ModeloProductos = ProductosCategoria.get(6).getModelo();
+                    break;
+                case 7:
+                    TablaProductos.setModel(ProductosCategoria.get(7).getModelo());
+                     ModeloProductos = ProductosCategoria.get(7).getModelo();
+                    break;
+            }
    }
     private void VerificarExistencia(){
         
@@ -606,9 +647,9 @@ public class Ventas extends javax.swing.JPanel {
         pnlVentas.setLayout(pnlVentasLayout);
         pnlVentasLayout.setHorizontalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1415, Short.MAX_VALUE)
+            .addGap(0, 1420, Short.MAX_VALUE)
             .addGroup(pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, 1418, Short.MAX_VALUE))
+                .addComponent(pnlContenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlVentasLayout.setVerticalGroup(
             pnlVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -744,14 +785,14 @@ public class Ventas extends javax.swing.JPanel {
                     bitacora.EscribirArchivo("Operacion: Venta" +"\r\n");
                   
                     
-                     int idCliente, idFactura;
+                     int idCliente, idFactura,estado;
                   if( (idCliente= Clases.Ventas.InsertarCliente(txtNombreClient.getText(), Direccion, nit, ConexionBaseDatos)) != 0){ //Se inserta el cliente en la BD 
                       bitacora.EscribirArchivo("IDcliente: " + idCliente +"\r\n");                 //Guardamos el id del cliente para mejor busqueda
                       bitacora.EscribirArchivo("Nombre Cliente: " + txtNombreClient.getText() +"\r\n" );     //Guardamos el nombre del cliente
                         /*-> TRANSCURSO DE LA TRANSACCIÓN*/
                        if( (idFactura = Clases.Ventas.InsertarFactura(Total,Descuento, idCliente, 1, ConexionBaseDatos)) != 0){ //Se inserta la factura en la BD
                                         
-                                  if (Clases.Ventas.InsertarProducto(idFactura, ConexionBaseDatos, ListaProductos)) { //Se insertan los productos comprados
+                                  if ( (estado = Clases.Ventas.InsertarProducto(idFactura, ConexionBaseDatos, ListaProductos)) == -1) { //Se insertan los productos comprados
                                        bitacora.EscribirArchivo("IDfactura: " + idFactura +"\r\n");
                                       /*COMPROMETIENDO LOS DATOS A LA BD*/ Clases.Ventas.Commit(ConexionBaseDatos);
                                         bitacora.EscribirArchivo("Estado de la transaccion: COMMIT" +"\r\n");
@@ -772,11 +813,23 @@ public class Ventas extends javax.swing.JPanel {
                                         bitacora.EscribirArchivo("TRANSACCION TERMINADA" +"\r\n");          //Ya desplego el mensaje de insertado. se comprometieron los cambios
                                         bitacora.EscribirArchivoContador(String.valueOf(transaccion));                                                                    //Transaccion terminada    
                         }
-                        else
-                        JOptionPane.showMessageDialog(this, "La venta no se realizo con exito");
-                                  
-                      /*EN DADO CASO QUE OCURRE ALGÚN ERROR CON LA BD
+                        /*EN DADO CASO QUE OCURRE ALGÚN ERROR CON LA BD
                         SE REVIERTE LA INFROMACION INGRESADA*/
+                        else{
+                         JOptionPane.showMessageDialog(this, "La venta no se realizo con exito\n"+
+                                 "Ya no hay existencia del producto "+ListaProductos.get(estado).getProducto()
+                                  +"\n\nSE ELIMINÓ EL PRODUCTO EN LA FACTURA");
+                         Clases.Ventas.Rollback(ConexionBaseDatos);
+                         /*Se elimina el producto en la tabla y en la lista de productos
+                           Solo ocurre cuando no hay existencia*/
+                         ListaProductos.remove(estado); 
+                         ModeloVentas.removeRow(estado); 
+                         bitacora.EscribirArchivo("No se realizo la venta. Producto sin existencia." + "\r\n");
+                         bitacora.EscribirArchivo("Estado de la transaccion: ROLLBACK" + "\r\n");
+                         bitacora.EscribirArchivo("TRANSACCIÓN FALLIDA");
+                         CargarProductoCategorias(); //Carga todos productos en la BD 
+                         }
+                             
                      }else { Clases.Ventas.Rollback(ConexionBaseDatos);
                             bitacora.EscribirArchivo("Estado de la transaccion: ROLLBACK. NO SE INSERTO EL ID DEL CLIENTE" +"\r\n");}
                   }else{ Clases.Ventas.Rollback(ConexionBaseDatos);
